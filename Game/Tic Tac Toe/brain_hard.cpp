@@ -208,7 +208,7 @@ Point BrainHard::GetNextMove() const
         }
     }
 
-    liron486::MySleep(1000);
+    MySleep(1000);
     return (nextMove);
 }
 

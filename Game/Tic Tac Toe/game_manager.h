@@ -16,7 +16,6 @@ class GameManager
 {
 public:
     explicit GameManager();
-    ~GameManager();
     void Play();
     bool WantToPlayAgain();
 

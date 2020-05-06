@@ -13,21 +13,26 @@
 #include <windows.h>
 #endif
 
-namespace liron486
+#include <thread>
+#include <string>
+
+
+namespace Liron486
 {
+inline bool compareChars(const char& a, const char& b)
+{
+    return (std::tolower(a) == std::tolower(b));
+}
+
+inline bool compareStrings(const std::string& first, const std::string& second)
+{
+    return std::equal(first.begin(), first.end(), second.begin(), compareChars);
+}
+
 inline void MySleep(int sleepMs)
 {
-#ifdef __linux
-    usleep(sleepMs * 1000);
-#elif __unix
-    usleep(sleepMs * 1000);
-#elif __posix
-    usleep(sleepMs * 1000);
-#elif _WIN32
-    Sleep(sleepMs);
-#elif _WIN64
-    Sleep(sleepMs);
-#endif
+    auto time = std::chrono::milliseconds(sleepMs);
+    std::this_thread::sleep_for(time);
 }
 
 inline void ClearScreen()

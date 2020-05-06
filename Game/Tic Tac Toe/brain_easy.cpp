@@ -37,7 +37,7 @@ Point BrainEasy::GetNextMove() const
 
     Point nextMove = availableMoves[rand() % countAvailableMoves];
 
-    liron486::MySleep(1000);
+    MySleep(1000);
     return (nextMove);
 }
 

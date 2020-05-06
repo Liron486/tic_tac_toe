@@ -3,6 +3,7 @@
 #include <sstream>
 
 #include "configuration.h"
+#include "cross_platform_funcs.h"
 
 namespace Liron486
 {
@@ -103,9 +104,7 @@ void Configuration::SetDifficulty()
     std::string difficultyStr;
     std::cin >> difficultyStr;
 
-    while ((difficultyStr != "EASY") && (difficultyStr != "HARD")
-           && (difficultyStr != "Hard") && (difficultyStr != "hard")
-           && (difficultyStr != "easy") && (difficultyStr != "Easy"))
+    while (!compareStrings(difficultyStr, "easy") && !compareStrings(difficultyStr, "hard"))
     {
         std::cout
             << "Wrong input, try again\nInput required difficulty (EASY or HARD)"

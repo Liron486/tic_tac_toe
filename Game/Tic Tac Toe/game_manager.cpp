@@ -17,9 +17,9 @@ void GameManager::CreateNewPlayersPtrs()
     if (0 == numOfRealPlayers)
     {
         m_players[0].reset(
-            new Computer(m_conf.GetPlayerName(1), 'X', m_board, m_difficulty));
+                new Computer(m_conf.GetPlayerName(1), 'X', m_board, m_difficulty));
         m_players[1].reset(
-            new Computer(m_conf.GetPlayerName(2), 'O', m_board, m_difficulty));
+                new Computer(m_conf.GetPlayerName(2), 'O', m_board, m_difficulty));
     }
 
     else if (1 == numOfRealPlayers)
@@ -27,17 +27,17 @@ void GameManager::CreateNewPlayersPtrs()
         if ('O' == m_conf.GetPlayerChoice())
         {
             m_players[0].reset(
-                new Computer(m_conf.GetPlayerName(1), 'X', m_board, m_difficulty));
+                    new Computer(m_conf.GetPlayerName(1), 'X', m_board, m_difficulty));
 
             m_players[1].reset(
-                new RealPlayer(m_conf.GetPlayerName(2), 'O', m_board));
+                    new RealPlayer(m_conf.GetPlayerName(2), 'O', m_board));
         }
         else
         {
             m_players[0].reset(
-                new RealPlayer(m_conf.GetPlayerName(1), 'X', m_board));
+                    new RealPlayer(m_conf.GetPlayerName(1), 'X', m_board));
             m_players[1].reset(
-                new Computer(m_conf.GetPlayerName(2), 'O', m_board, m_difficulty));
+                    new Computer(m_conf.GetPlayerName(2), 'O', m_board, m_difficulty));
         }
     }
 
@@ -49,15 +49,9 @@ void GameManager::CreateNewPlayersPtrs()
 }
 
 GameManager::GameManager()
-    : m_moveNumber(0)
-    , m_conf()
-    , m_difficulty(m_conf.GetDifficulty())
-    , m_board()
-    , m_score(m_conf.GetPlayerName(1), m_conf.GetPlayerName(2))
-    , m_judge(m_board)
-    , m_gui()
-    , m_gameNumber(1)
-    , m_switchSidesCounter(0)
+        : m_moveNumber(0), m_conf(), m_difficulty(m_conf.GetDifficulty()), m_board(),
+          m_score(m_conf.GetPlayerName(1), m_conf.GetPlayerName(2)), m_judge(m_board), m_gui(), m_gameNumber(1),
+          m_switchSidesCounter(0)
 {
     CreateNewPlayersPtrs();
     m_gui.Tutorial(m_board.GetBoard(),
@@ -68,13 +62,10 @@ GameManager::GameManager()
     m_board.ResetBoard();
 }
 
-GameManager::~GameManager()
-{
-}
 
 void GameManager::DisplayOnScreen() const
 {
-    liron486::ClearScreen();
+    ClearScreen();
     if (2 == m_conf.GetNumRealPlayers())
     {
         m_gui.PrintHeaderWithoutDiff(m_score, m_gameNumber);
@@ -133,7 +124,7 @@ void GameManager::Play()
         else
         {
             FillLastSquare();
-            liron486::MySleep(700);
+            MySleep(700);
         }
 
         if (m_moveNumber > 3)
@@ -195,42 +186,32 @@ bool GameManager::WantToPlayAgain()
     {
         std::cin >> answer;
 
-        if ((answer == "n") || (answer == "N"))
+        if (compareStrings(answer, "n"))
         {
-            return (false);
+            return false;
         }
 
-        if ((answer == "y") || (answer == "Y"))
+        if (compareStrings(answer, "y"))
         {
-            liron486::ClearScreen();
-            return (true);
+            ClearScreen();
+            return true;
         }
 
-        if ((answer == "s") || (answer == "S"))
+        if (compareStrings(answer, "s"))
         {
             SwitchSides();
+            return true;
+        }
+
+        if (compareStrings(answer, "easy"))
+        {
+            ChangeDifficulty(Configuration::Difficulty::EASY);
             return (true);
         }
 
-        if ((answer == "Easy") || (answer == "easy") || (answer == "EASY"))
+        if (compareStrings(answer, "HARD"))
         {
-            if (m_difficulty != Configuration::Difficulty::EASY)
-            {
-                m_difficulty = Configuration::Difficulty::EASY;
-                ChangeDifficulty(m_difficulty);
-            }
-
-            return (true);
-        }
-
-        if ((answer == "Hard") || (answer == "hard") || (answer == "HARD"))
-        {
-            if (m_difficulty != Configuration::Difficulty::HARD)
-            {
-                m_difficulty = Configuration::Difficulty::HARD;
-                ChangeDifficulty(m_difficulty);
-            }
-
+            ChangeDifficulty(Configuration::Difficulty::HARD);
             return (true);
         }
     }
@@ -246,6 +227,11 @@ static int CalcCumputerIndex(int switchCounter, char PlayerFirstChoise)
 
 void GameManager::ChangeDifficulty(Configuration::Difficulty difficulty_)
 {
+    if (difficulty_ != m_difficulty)
+        return;
+
+    m_difficulty = difficulty_;
+
     if (2 == m_conf.GetNumRealPlayers())
     {
         return;
@@ -263,7 +249,7 @@ void GameManager::ChangeDifficulty(Configuration::Difficulty difficulty_)
     if (1 == m_conf.GetNumRealPlayers())
     {
         int computer_index =
-            CalcCumputerIndex(m_switchSidesCounter, m_conf.GetPlayerChoice());
+                CalcCumputerIndex(m_switchSidesCounter, m_conf.GetPlayerChoice());
 
         char type = computer_index == 0 ? 'X' : 'O';
 

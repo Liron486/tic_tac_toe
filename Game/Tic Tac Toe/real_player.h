@@ -9,22 +9,23 @@
 
 namespace Liron486
 {
+class RealPlayer : public Player
+{
+public:
+    explicit RealPlayer(const std::string name_,
+                        const char type_,
+                        const Board& board_);
+    Point MakeMove() const;
+    const std::string GetName() const;
+    char GetPlayerType() const;
+    void SetPlayerType(char newType_);
 
-    class RealPlayer : public Player
-    {
-    public:
-        explicit RealPlayer(const std::string name_, const char type_, const Board& board_);
-        Point MakeMove() const;
-        const std::string GetName() const;
-        char GetPlayerType() const;
-        void SetPlayerType(char newType_);
-
-    private:
-        const std::string m_name;
-        char m_type;
-        Controller m_controller;
-        const Board& m_board;
-    };
+private:
+    const std::string m_name;
+    char m_type;
+    Controller m_controller;
+    const Board& m_board;
+};
 
 } // namespace Liron486
 

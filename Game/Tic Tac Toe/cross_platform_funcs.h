@@ -15,40 +15,36 @@
 
 namespace liron486
 {
-
-
 inline void MySleep(int sleepMs)
 {
 #ifdef __linux
-	usleep(sleepMs * 1000);
+    usleep(sleepMs * 1000);
 #elif __unix
-	usleep(sleepMs * 1000);
+    usleep(sleepMs * 1000);
 #elif __posix
-	usleep(sleepMs * 1000);
+    usleep(sleepMs * 1000);
 #elif _WIN32
-	Sleep(sleepMs);
+    Sleep(sleepMs);
 #elif _WIN64
-	Sleep(sleepMs);
-#endif	
+    Sleep(sleepMs);
+#endif
 }
 
 inline void ClearScreen()
 {
 #ifdef __linux
-	system("clear");
+    system("clear");
 #elif __unix
-	system("clear");
+    system("clear");
 #elif __posix
-	system("clear");
+    system("clear");
 #elif _WIN32
-	system("cls");
+    system("cls");
 #elif _WIN64
-	system("cls");
-#endif	
+    system("cls");
+#endif
 }
 
-
-} // namespace Liron486
+} // namespace liron486
 
 #endif // _Liron486_SlEEP_FUNC_HPP_
-

@@ -1,5 +1,5 @@
-#include <cstdlib>     /* srand, rand */
-#include <ctime>       /* time */
+#include <cstdlib> /* srand, rand */
+#include <ctime> /* time */
 
 #include "computer.h"
 #include "brain_easy.h"
@@ -7,30 +7,38 @@
 
 namespace Liron486
 {
-
-static Brain* CreateBrain(const Board& board_, char type_, Configuration::Difficulty difficulty_)
+static std::unique_ptr<Brain> CreateBrain(const Board& board_,
+                          char type_,
+                          Configuration::Difficulty difficulty_)
 {
-    Brain* brain = NULL;
+    std::unique_ptr<Brain> brain;
 
     if (Configuration::Difficulty::EASY == difficulty_)
     {
-        brain = new BrainEasy(board_, type_);
+        brain.reset(new BrainEasy(board_, type_));
     }
     else
     {
-        brain = new BrainHard(board_, type_);
+        brain.reset(new BrainHard(board_, type_));
     }
 
     return (brain);
 }
 
-Computer::Computer(const std::string name_, char type_,
-    const Board& board_, Configuration::Difficulty difficulty_)
-    : m_name(name_), m_type(type_), m_board(board_), m_difficulty(difficulty_), m_brain(CreateBrain(m_board, m_type, m_difficulty)) {}
+Computer::Computer(const std::string& name_,
+                   char type_,
+                   const Board& board_,
+                   Configuration::Difficulty difficulty_)
+    : m_name(name_)
+    , m_type(type_)
+    , m_board(board_)
+    , m_difficulty(difficulty_)
+    , m_brain(CreateBrain(m_board, m_type, m_difficulty))
+{
+}
 
 Computer::~Computer()
 {
-    delete m_brain;
 }
 
 Point Computer::MakeMove() const
@@ -57,6 +65,5 @@ void Computer::SetPlayerType(char newType_)
 {
     m_type = newType_;
 }
-
 
 } // namespace Liron486

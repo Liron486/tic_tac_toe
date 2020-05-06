@@ -1,14 +1,16 @@
-#include <cstdlib>     /* srand, rand */
-#include <ctime>       /* time */
+#include <cstdlib> /* srand, rand */
+#include <ctime> /* time */
 
 #include "brain_easy.h"
 #include "cross_platform_funcs.h"
 
 namespace Liron486
 {
-
 BrainEasy::BrainEasy(const Board& board_, const char type_)
-    : m_board(board_), m_myType(type_) {}
+    : m_board(board_)
+    , m_myType(type_)
+{
+}
 
 BrainEasy::~BrainEasy()
 {
@@ -48,6 +50,5 @@ char BrainEasy::GetType() const
 {
     return (m_myType);
 }
-
 
 } // namespace Liron486

@@ -7,20 +7,19 @@
 
 namespace Liron486
 {
+class BrainHard : public Brain
+{
+public:
+    explicit BrainHard(const Board& board_, const char type_);
+    virtual ~BrainHard();
+    virtual Point GetNextMove() const;
+    virtual char GetType() const;
+    virtual void SetType(char type_);
 
-    class BrainHard : public Brain
-    {
-    public:
-        explicit BrainHard(const Board& board_, const char type_);
-        virtual ~BrainHard();
-        virtual Point GetNextMove() const;
-        virtual char GetType() const;
-        virtual void SetType(char type_);
-
-    private:
-        const Board& m_board;
-        char m_myType;
-    };
+private:
+    const Board& m_board;
+    char m_myType;
+};
 
 } // namespace Liron486
 

@@ -1,6 +1,7 @@
 #ifndef _Liron486_COMPUTER_HPP_
 #define _Liron486_COMPUTER_HPP_
 
+#include <memory>
 #include <string>
 
 #include "player.h"
@@ -11,12 +12,13 @@
 
 namespace Liron486
 {
-
 class Computer : public Player
 {
 public:
-    explicit Computer(const std::string name_, char type_,
-        const Board& board_, Configuration::Difficulty difficulty_);
+    explicit Computer(const std::string& name_,
+                      char type_,
+                      const Board& board_,
+                      Configuration::Difficulty difficulty_);
     ~Computer();
     Point MakeMove() const;
     const std::string GetName() const;
@@ -28,7 +30,7 @@ private:
     char m_type;
     const Board& m_board;
     Configuration::Difficulty m_difficulty;
-    Brain* const m_brain;
+    std::unique_ptr<Brain> m_brain;
 };
 
 } // namespace Liron486

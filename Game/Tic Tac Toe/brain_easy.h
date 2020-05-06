@@ -6,7 +6,6 @@
 
 namespace Liron486
 {
-
 class BrainEasy : public Brain
 {
 public:

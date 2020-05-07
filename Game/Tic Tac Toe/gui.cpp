@@ -70,7 +70,7 @@ void Gui::Tutorial(const std::vector<std::vector<char>>& board_,
                    const std::string& name1,
                    const std::string& name2) const
 {
-    //		liron486::ClearScreen();
+    //		ClearScreen();
     //		std::vector<std::string> sentences;
     //		std::string str1;
     //		int numOfRealPlayers = 0;
@@ -133,7 +133,7 @@ void Gui::Tutorial(const std::vector<std::vector<char>>& board_,
     //
     //		for (int i = 0; i < num_of_sentences; ++i)
     //		{
-    //			liron486::ClearScreen();
+    //			ClearScreen();
     //			if (2 == numOfRealPlayers)
     //			{
     //				PrintHeaderWithoutDiff(score_, 1);
@@ -148,20 +148,20 @@ void Gui::Tutorial(const std::vector<std::vector<char>>& board_,
     //			for (int j = 0; j < length_of_sentence; ++j)
     //			{
     //				std::cout << sentences[i][j] << std::flush;
-    //				liron486::MySleep(70);
+    //				MySleep(70);
     //
     //				if (_kbhit())
     //				{
     //					std::cin.get();
-    //					liron486::ClearScreen();
+    //					ClearScreen();
     //					return;
     //				}
     //			}
     //
-    //			liron486::MySleep(1000);
+    //			MySleep(1000);
     //		}
     //
-    //		liron486::MySleep(700);
+    //		MySleep(700);
 }
 
 } // namespace Liron486

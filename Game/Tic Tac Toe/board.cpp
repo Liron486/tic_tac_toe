@@ -4,18 +4,15 @@
 
 namespace Liron486
 {
+const int num_of_rows = 3;
+const int num_of_cols = 3;
+
 Board::Board()
-    : m_board()
 {
     InitBoard();
 }
 
-Board::~Board()
-{
-}
-
 Board::Board(const Board& other_)
-    : m_board()
 {
     m_board = other_.GetBoard();
 }
@@ -23,12 +20,12 @@ Board::Board(const Board& other_)
 Board& Board::operator=(const Board& other_)
 {
     m_board = other_.GetBoard();
-    return (*this);
+    return *this;
 }
 
 char Board::GetSquareContent(const Point& square_) const
 {
-    return (m_board[square_.GetX()][square_.GetY()]);
+    return m_board[square_.GetX()][square_.GetY()];
 }
 
 void Board::SetSquare(char playerType_, const Point& square_)
@@ -38,33 +35,33 @@ void Board::SetSquare(char playerType_, const Point& square_)
 
 void Board::InitBoard()
 {
-    char counter = '1';
+    char cell_number = '1';
 
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < num_of_rows; ++i)
     {
         std::vector<char> newVector;
         m_board.push_back(newVector);
 
-        for (int j = 0; j < 3; ++j)
+        for (int j = 0; j < num_of_cols; ++j)
         {
-            m_board[i].push_back(counter);
-            ++counter;
+            m_board[i].push_back(cell_number);
+            ++cell_number;
         }
     }
 }
 
 const std::vector<std::vector<char>>& Board::GetBoard() const
 {
-    return (m_board);
+    return m_board;
 }
 
 void Board::ResetBoard()
 {
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < num_of_rows; ++i)
     {
         std::vector<char>& raw = m_board[i];
 
-        for (int j = 0; j < 3; ++j)
+        for (int j = 0; j < num_of_cols; ++j)
         {
             raw[j] = ' ';
         }
@@ -73,12 +70,12 @@ void Board::ResetBoard()
 
 bool Board::IsSquareEmpty(const Point& square_) const
 {
-    if (' ' == m_board[square_.GetX()][square_.GetY()])
+    if (m_board[square_.GetX()][square_.GetY()] == ' ')
     {
-        return (true);
+        return true;
     }
 
-    return (false);
+    return false;
 }
 
 } // namespace Liron486

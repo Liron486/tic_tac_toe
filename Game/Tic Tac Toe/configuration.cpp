@@ -8,14 +8,11 @@
 namespace Liron486
 {
 Configuration::Configuration()
-    : m_nRealPlayers(1)
-    , m_difficulty(Difficulty::HARD)
-    , m_playerChoice('X')
 {
     SetNumRealPlayers();
     int nPlayers = GetNumRealPlayers();
 
-    if (2 != nPlayers)
+    if (nPlayers != 2)
     {
         SetDifficulty();
     }
@@ -23,18 +20,18 @@ Configuration::Configuration()
     m_namesOfPlayers[0] = "Player1";
     m_namesOfPlayers[1] = "Player2";
 
-    int counter = 0;
-    while (counter < nPlayers)
+    int player_number = 1;
+    while (player_number <= nPlayers)
     {
-        SetNamesOfPlayers(counter);
-        ++counter;
+        SetNamesOfPlayers(player_number - 1);
+        ++player_number;
     }
 
-    if (1 == GetNumRealPlayers())
+    if (GetNumRealPlayers() == 1)
     {
         SetPlayerChoice();
 
-        if ('O' == GetPlayerChoice())
+        if (GetPlayerChoice() == 'O')
         {
             m_namesOfPlayers[1] = m_namesOfPlayers[0];
             m_namesOfPlayers[0] = "Player1";
@@ -44,27 +41,22 @@ Configuration::Configuration()
 
 int Configuration::GetNumRealPlayers() const
 {
-    return (m_nRealPlayers);
+    return m_nRealPlayers;
 }
 
 Configuration::Difficulty Configuration::GetDifficulty() const
 {
-    return (m_difficulty);
+    return m_difficulty;
 }
 
 std::string Configuration::GetPlayerName(int nPlayer_) const
 {
-    if ((nPlayer_ != 1) && (nPlayer_ != 2))
-    {
-        return ("");
-    }
-
-    return (m_namesOfPlayers[nPlayer_ - 1]);
+    return m_namesOfPlayers[static_cast<int>(nPlayer_ - 1)];
 }
 
 char Configuration::GetPlayerChoice() const
 {
-    return (m_playerChoice);
+    return m_playerChoice;
 }
 
 inline bool IsValidInput(const std::string& str)
@@ -104,7 +96,8 @@ void Configuration::SetDifficulty()
     std::string difficultyStr;
     std::cin >> difficultyStr;
 
-    while (!compareStrings(difficultyStr, "easy") && !compareStrings(difficultyStr, "hard"))
+    while (!compareStrings(difficultyStr, "easy")
+           && !compareStrings(difficultyStr, "hard"))
     {
         std::cout
             << "Wrong input, try again\nInput required difficulty (EASY or HARD)"
@@ -113,8 +106,7 @@ void Configuration::SetDifficulty()
         std::cin >> difficultyStr;
     }
 
-    if ((difficultyStr == "HARD") || (difficultyStr == "Hard")
-        || (difficultyStr == "hard"))
+    if (compareStrings(difficultyStr, "hard"))
     {
         m_difficulty = Difficulty::HARD;
     }
@@ -138,15 +130,15 @@ void Configuration::SetPlayerChoice()
     char type = 'X';
     std::cin >> type;
 
-    while ((type != 'X') && (type != 'O') && (type != 'o') && (type != 'x')
-           && (type != '0'))
+    while (!compareChars(type, 'x') && !compareChars(type, 'o')
+           && !compareChars(type, '0'))
     {
         std::cout << "Wrong input, try again\nChoose type (X or O)" << std::endl;
 
         std::cin >> type;
     }
 
-    if ((type == 'x') || (type == 'X'))
+    if (compareChars(type, 'x'))
     {
         m_playerChoice = 'X';
     }

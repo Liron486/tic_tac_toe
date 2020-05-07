@@ -9,14 +9,14 @@ Controller::Controller(const std::string& playerName_)
 {
 }
 
-const std::string Controller::GetNextMove() const
+std::string Controller::GetNextMove() const
 {
     std::string nextMove_str;
 
     std::cout << m_playerName << " Enter your next move (1-9)" << std::endl;
     std::cin >> nextMove_str;
 
-    return (nextMove_str);
+    return nextMove_str;
 }
 
 } // namespace Liron486

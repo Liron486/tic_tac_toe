@@ -9,6 +9,7 @@ Judge::Judge(const Board& board_)
 
 bool Judge::CheckForWinner(const Point& lastMove_) const
 {
+    const int tableDim = 3;
     int row = 0;
     int col = 0;
     int diag = 0;
@@ -24,7 +25,7 @@ bool Judge::CheckForWinner(const Point& lastMove_) const
     Point checkDiag;
     Point checkAntiDiag;
 
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < tableDim; ++i)
     {
         checkRow.SetY(i);
         checkCol.SetX(i);
@@ -33,38 +34,38 @@ bool Judge::CheckForWinner(const Point& lastMove_) const
         checkAntiDiag.SetX(i);
         checkAntiDiag.SetY(3 - i - 1);
 
-        if (playerType == m_board.GetSquareContent(checkRow))
+        if (m_board.GetSquareContent(checkRow) == playerType)
         {
             ++row;
         }
 
-        if (playerType == m_board.GetSquareContent(checkCol))
+        if (m_board.GetSquareContent(checkCol) == playerType)
         {
             ++col;
         }
 
-        if (playerType == m_board.GetSquareContent(checkDiag))
+        if (m_board.GetSquareContent(checkDiag) == playerType)
         {
             ++diag;
         }
 
-        if (playerType == m_board.GetSquareContent(checkAntiDiag))
+        if (m_board.GetSquareContent(checkAntiDiag) == playerType)
         {
             ++antiDiagonal;
         }
     }
 
-    if ((3 == row) || (3 == col) || (3 == diag) || (3 == antiDiagonal))
+    if ((row == 3) || (col == 3) || (diag == 3) || (antiDiagonal == 3))
     {
         winner = true;
     }
 
-    return (winner);
+    return winner;
 }
 
 const Board& Judge::GetBoard() const
 {
-    return (m_board);
+    return m_board;
 }
 
 } // namespace Liron486

@@ -6,23 +6,21 @@
 
 namespace Liron486
 {
-BrainEasy::BrainEasy(const Board& board_, const char type_)
+BrainEasy::BrainEasy(const Board& board_, char type_)
     : m_board(board_)
     , m_myType(type_)
 {
 }
 
-BrainEasy::~BrainEasy()
-{
-}
-
 Point BrainEasy::GetNextMove() const
-{
+{   
+    const int num_of_cells = 9;
+
     Point checkMove;
     Point availableMoves[9];
     int countAvailableMoves = 0;
 
-    for (int i = 0; i < 9; ++i)
+    for (int i = 0; i < num_of_cells; ++i)
     {
         checkMove = Point::ConvertNumToPoint(i);
 
@@ -33,12 +31,12 @@ Point BrainEasy::GetNextMove() const
         }
     }
 
-    srand(static_cast<unsigned int>(time(NULL)));
+    srand(static_cast<unsigned int>(time(nullptr)));
 
     Point nextMove = availableMoves[rand() % countAvailableMoves];
 
     MySleep(1000);
-    return (nextMove);
+    return nextMove;
 }
 
 void BrainEasy::SetType(char type_)
@@ -48,7 +46,7 @@ void BrainEasy::SetType(char type_)
 
 char BrainEasy::GetType() const
 {
-    return (m_myType);
+    return m_myType;
 }
 
 } // namespace Liron486

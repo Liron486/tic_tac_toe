@@ -11,17 +11,16 @@
 
 namespace Liron486
 {
-BrainHard::BrainHard(const Board& board_, const char type_)
+
+const int num_of_cells = 9;
+
+BrainHard::BrainHard(const Board& board_, char type_)
     : m_board(board_)
     , m_myType(type_)
 {
 }
 
-BrainHard::~BrainHard()
-{
-}
-
-static char GetCurrentType(char my_type, int depth)
+inline char GetCurrentType(char my_type, int depth)
 {
     char current_type = ' ';
 
@@ -41,7 +40,7 @@ static char GetCurrentType(char my_type, int depth)
         }
     }
 
-    return (current_type);
+    return current_type;
 }
 
 static int RecCheckBestMove(Board& board_copy,
@@ -69,7 +68,7 @@ static int RecCheckBestMove(Board& board_copy,
     std::vector<int> vector_of_values;
     bool isfull = true;
 
-    for (int i = 0; i < 9; ++i)
+    for (int i = 0; i < num_of_cells; ++i)
     {
         nextMove = Point::ConvertNumToPoint(i);
 
@@ -108,12 +107,12 @@ static int RecCheckBestMove(Board& board_copy,
         }
     }
 
-    return (value);
+    return value;
 }
 
 static bool AmIBegin(const Board& board)
 {
-    for (int i = 0; i < 9; ++i)
+    for (int i = 0; i < num_of_cells; ++i)
     {
         if (!board.IsSquareEmpty(Point::ConvertNumToPoint(i)))
         {
@@ -139,13 +138,13 @@ static bool CheckIfWinNextMove(Board& board,
         {
             index_result = i;
             board.SetSquare(' ', best_moves[i]);
-            return (true);
+            return true;
         }
 
         board.SetSquare(' ', best_moves[i]);
     }
 
-    return (false);
+    return false;
 }
 
 Point BrainHard::GetNextMove() const
@@ -163,11 +162,11 @@ Point BrainHard::GetNextMove() const
 
     if (AmIBegin(board_copy))
     {
-        nextMove = Point::ConvertNumToPoint(rand() % 9);
+        nextMove = Point::ConvertNumToPoint(rand() % num_of_cells);
     }
     else
     {
-        for (int i = 0; i < 9; ++i)
+        for (int i = 0; i < num_of_cells; ++i)
         {
             checkMove = Point::ConvertNumToPoint(i);
 
@@ -209,7 +208,7 @@ Point BrainHard::GetNextMove() const
     }
 
     MySleep(1000);
-    return (nextMove);
+    return nextMove;
 }
 
 void BrainHard::SetType(char type_)
@@ -219,7 +218,7 @@ void BrainHard::SetType(char type_)
 
 char BrainHard::GetType() const
 {
-    return (m_myType);
+    return m_myType;
 }
 
 } // namespace Liron486

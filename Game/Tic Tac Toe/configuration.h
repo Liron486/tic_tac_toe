@@ -2,6 +2,7 @@
 #define _Liron486_CONFIGURATION_HPP_
 
 #include <string>
+#include <array>
 
 namespace Liron486
 {
@@ -26,10 +27,10 @@ private:
     void SetPlayerChoice();
     void SetNamesOfPlayers(int playerNumber_);
 
-    int m_nRealPlayers;
-    Difficulty m_difficulty;
-    std::string m_namesOfPlayers[2];
-    char m_playerChoice;
+    int m_nRealPlayers = 1;
+    Difficulty m_difficulty = Difficulty::HARD;
+    std::array<std::string, 2> m_namesOfPlayers;
+    char m_playerChoice = 'X';
 };
 
 } // namespace Liron486

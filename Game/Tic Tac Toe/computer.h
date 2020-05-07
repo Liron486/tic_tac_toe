@@ -19,14 +19,13 @@ public:
                       char type_,
                       const Board& board_,
                       Configuration::Difficulty difficulty_);
-    ~Computer();
     Point MakeMove() const;
     const std::string GetName() const;
     char GetPlayerType() const;
     void SetPlayerType(char newType_);
 
 private:
-    const std::string m_name;
+    std::string m_name;
     char m_type;
     const Board& m_board;
     Configuration::Difficulty m_difficulty;

@@ -22,7 +22,7 @@ static std::unique_ptr<Brain> CreateBrain(const Board& board_,
         brain.reset(new BrainHard(board_, type_));
     }
 
-    return (brain);
+    return brain;
 }
 
 Computer::Computer(const std::string& name_,
@@ -37,10 +37,6 @@ Computer::Computer(const std::string& name_,
 {
 }
 
-Computer::~Computer()
-{
-}
-
 Point Computer::MakeMove() const
 {
     if (m_type != m_brain->GetType())
@@ -48,17 +44,17 @@ Point Computer::MakeMove() const
         m_brain->SetType(m_type);
     }
 
-    return (m_brain->GetNextMove());
+    return m_brain->GetNextMove();
 }
 
 const std::string Computer::GetName() const
 {
-    return (m_name);
+    return m_name;
 }
 
 char Computer::GetPlayerType() const
 {
-    return (m_type);
+    return m_type;
 }
 
 void Computer::SetPlayerType(char newType_)

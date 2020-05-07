@@ -10,7 +10,6 @@
 #include "configuration.h"
 
 
-
 namespace Liron486
 {
 class Gui

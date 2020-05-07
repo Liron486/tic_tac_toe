@@ -11,7 +11,6 @@ class Board
 {
 public:
     explicit Board();
-    ~Board();
     Board(const Board& other_);
     Board& operator=(const Board& other_);
     char GetSquareContent(const Point& square_) const;

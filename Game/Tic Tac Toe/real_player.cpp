@@ -2,6 +2,7 @@
 #include <sstream>
 
 #include "real_player.h"
+#include "cross_platform_funcs.h"
 
 namespace Liron486
 {
@@ -28,13 +29,12 @@ inline bool IsValidDigit(const std::string& str)
 
 Point RealPlayer::MakeMove() const
 {
-    Point unique(3, 3);
     std::string nextMove_str = m_controller.GetNextMove();
 
-    if ((nextMove_str == "r") || (nextMove_str == "R"))
-    {
-        return (unique);
-    }
+    Point unique(3, 3);
+
+    if (compareStrings(nextMove_str, "r"))
+        return unique;
 
     std::stringstream sstream(nextMove_str);
     bool IsValid = IsValidDigit(nextMove_str);
@@ -47,14 +47,13 @@ Point RealPlayer::MakeMove() const
         newMove = Point::ConvertNumToPoint(nextMove - 1);
     }
 
-    while ((IsValid == false) || (' ' != m_board.GetSquareContent(newMove)))
+    while ((IsValid == false) || (m_board.GetSquareContent(newMove) != ' '))
     {
         std::cout << "Wrong Move, try again\n";
         nextMove_str = m_controller.GetNextMove();
-        if ((nextMove_str == "r") || (nextMove_str == "R"))
-        {
-            return (unique);
-        }
+        if (compareStrings(nextMove_str, "r"))
+            return unique;
+
         IsValid = IsValidDigit(nextMove_str);
 
         if (IsValid)
@@ -65,17 +64,17 @@ Point RealPlayer::MakeMove() const
         }
     }
 
-    return (newMove);
+    return newMove;
 }
 
 const std::string RealPlayer::GetName() const
 {
-    return (m_name);
+    return m_name;
 }
 
 char RealPlayer::GetPlayerType() const
 {
-    return (m_type);
+    return m_type;
 }
 
 void RealPlayer::SetPlayerType(char newType_)

@@ -10,8 +10,7 @@ namespace Liron486
 class BrainHard : public Brain
 {
 public:
-    explicit BrainHard(const Board& board_, const char type_);
-    virtual ~BrainHard();
+    explicit BrainHard(const Board& board_, char type_);
     virtual Point GetNextMove() const;
     virtual char GetType() const;
     virtual void SetType(char type_);

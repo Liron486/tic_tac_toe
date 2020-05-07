@@ -9,8 +9,7 @@ namespace Liron486
 class BrainEasy : public Brain
 {
 public:
-    explicit BrainEasy(const Board& board_, const char type_);
-    virtual ~BrainEasy();
+    explicit BrainEasy(const Board& board_, char type_);
     virtual Point GetNextMove() const;
     virtual char GetType() const;
     virtual void SetType(char type_);

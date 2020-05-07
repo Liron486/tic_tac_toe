@@ -7,7 +7,6 @@ class Point
 {
 public:
     explicit Point(int x_ = 0, int y_ = 0);
-    ~Point();
     Point(const Point& other_);
     Point& operator=(const Point& other_);
     int GetX() const;

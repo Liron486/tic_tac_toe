@@ -1,6 +1,7 @@
 #ifndef _Liron486_SCORE_HPP_
 #define _Liron486_SCORE_HPP_
 
+#include <array>
 #include <string>
 
 namespace Liron486
@@ -12,12 +13,12 @@ public:
     void UpdateScore(int theWinner_);
     const std::string* GetPlayersNames() const;
     void SetPlayerName(const std::string& namePlayer_, int index_);
-    const int* GetWinsCounter() const;
+    const std::array<int, 2>& GetWinsCounter() const;
     void SetWinsCounter(int numOfWins_, int index_);
 
 private:
     std::string m_playersNames[2];
-    int m_winsCounter[2];
+    std::array<int, 2> m_winsCounter = {0, 0};
 };
 
 } // namespace Liron486

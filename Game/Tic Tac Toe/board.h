@@ -11,17 +11,15 @@ class Board
 {
 public:
     explicit Board();
-    Board(const Board& other_);
-    Board& operator=(const Board& other_);
-    char GetSquareContent(const Point& square_) const;
-    void SetSquare(char playerType_, const Point& square_);
+    char GetSquareContent(const Point& squareToUse) const;
+    void setSquare(char playerTypeToUse, const Point& squareToUse);
     void InitBoard();
     void ResetBoard();
-    const std::vector<std::vector<char>>& GetBoard() const;
+    const std::vector<std::vector<char>>& getBoard() const;
     bool IsSquareEmpty(const Point& square_) const;
 
 private:
-    std::vector<std::vector<char>> m_board;
+    std::vector<std::vector<char>> board;
 };
 
 } // namespace Liron486

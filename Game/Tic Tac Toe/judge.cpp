@@ -2,30 +2,30 @@
 
 namespace Liron486
 {
-Judge::Judge(const Board& board_)
-    : m_board(board_)
+Judge::Judge(const Board& boardToUse)
+    : board(boardToUse)
 {
 }
 
-bool Judge::CheckForWinner(const Point& lastMove_) const
+bool Judge::CheckForWinner(const Point& lastMoveToUse) const
 {
-    const int tableDim = 3;
-    int row = 0;
-    int col = 0;
-    int diag = 0;
-    int antiDiagonal = 0;
-    bool winner = false;
-    char playerType = m_board.GetSquareContent(lastMove_);
+    constexpr auto tableDim = 3;
+    auto row = 0;
+    auto col = 0;
+    auto diag = 0;
+    auto antiDiagonal = 0;
+    auto winner = false;
+    auto playerType = board.GetSquareContent(lastMoveToUse);
 
-    int x_lastMove = lastMove_.GetX();
-    int y_lastMove = lastMove_.GetY();
+    auto x_lastMove = lastMoveToUse.GetX();
+    auto y_lastMove = lastMoveToUse.GetY();
 
     Point checkRow(x_lastMove, 0);
     Point checkCol(0, y_lastMove);
     Point checkDiag;
     Point checkAntiDiag;
 
-    for (int i = 0; i < tableDim; ++i)
+    for (auto i = 0; i < tableDim; ++i)
     {
         checkRow.SetY(i);
         checkCol.SetX(i);
@@ -34,22 +34,22 @@ bool Judge::CheckForWinner(const Point& lastMove_) const
         checkAntiDiag.SetX(i);
         checkAntiDiag.SetY(3 - i - 1);
 
-        if (m_board.GetSquareContent(checkRow) == playerType)
+        if (board.GetSquareContent(checkRow) == playerType)
         {
             ++row;
         }
 
-        if (m_board.GetSquareContent(checkCol) == playerType)
+        if (board.GetSquareContent(checkCol) == playerType)
         {
             ++col;
         }
 
-        if (m_board.GetSquareContent(checkDiag) == playerType)
+        if (board.GetSquareContent(checkDiag) == playerType)
         {
             ++diag;
         }
 
-        if (m_board.GetSquareContent(checkAntiDiag) == playerType)
+        if (board.GetSquareContent(checkAntiDiag) == playerType)
         {
             ++antiDiagonal;
         }
@@ -65,7 +65,7 @@ bool Judge::CheckForWinner(const Point& lastMove_) const
 
 const Board& Judge::GetBoard() const
 {
-    return m_board;
+    return board;
 }
 
 } // namespace Liron486

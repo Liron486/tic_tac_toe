@@ -2,21 +2,21 @@
 #define _Liron486_BRAIN_EASY_HPP_
 
 #include "brain.h"
-#include "board.h"
+#include "Board.h"
 
 namespace Liron486
 {
 class BrainEasy : public Brain
 {
 public:
-    explicit BrainEasy(const Board& board_, char type_);
-    virtual Point GetNextMove() const;
-    virtual char GetType() const;
-    virtual void SetType(char type_);
+    explicit BrainEasy(const Board& boardToUse, char typeToUse);
+    Point getNextMove() const override;
+    char getType() const override;
+    void setType(char typeToUse) override;
 
 private:
-    const Board& m_board;
-    char m_myType;
+    const Board& board;
+    char myType;
 };
 
 } // namespace Liron486

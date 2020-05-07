@@ -2,29 +2,29 @@
 #include <ctime> /* time */
 
 #include "brain_easy.h"
-#include "cross_platform_funcs.h"
+#include "utils.h"
 
 namespace Liron486
 {
-BrainEasy::BrainEasy(const Board& board_, char type_)
-    : m_board(board_)
-    , m_myType(type_)
+BrainEasy::BrainEasy(const Board& boardToUse, char typeToUse)
+    : board(boardToUse)
+    , myType(typeToUse)
 {
 }
 
-Point BrainEasy::GetNextMove() const
+Point BrainEasy::getNextMove() const
 {   
-    const int num_of_cells = 9;
+    constexpr auto num_of_cells = 9;
 
     Point checkMove;
     Point availableMoves[9];
-    int countAvailableMoves = 0;
+    auto countAvailableMoves = 0;
 
-    for (int i = 0; i < num_of_cells; ++i)
+    for (auto i = 0; i < num_of_cells; ++i)
     {
         checkMove = Point::ConvertNumToPoint(i);
 
-        if (m_board.IsSquareEmpty(checkMove))
+        if (board.IsSquareEmpty(checkMove))
         {
             availableMoves[countAvailableMoves] = checkMove;
             ++countAvailableMoves;
@@ -33,20 +33,20 @@ Point BrainEasy::GetNextMove() const
 
     srand(static_cast<unsigned int>(time(nullptr)));
 
-    Point nextMove = availableMoves[rand() % countAvailableMoves];
+    auto nextMove = availableMoves[rand() % countAvailableMoves];
 
     MySleep(1000);
     return nextMove;
 }
 
-void BrainEasy::SetType(char type_)
+void BrainEasy::setType(char typeToUse)
 {
-    m_myType = type_;
+    myType = typeToUse;
 }
 
-char BrainEasy::GetType() const
+char BrainEasy::getType() const
 {
-    return m_myType;
+    return myType;
 }
 
 } // namespace Liron486

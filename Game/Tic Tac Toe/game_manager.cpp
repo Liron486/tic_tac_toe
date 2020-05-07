@@ -6,7 +6,7 @@
 #include "game_manager.h"
 #include "real_player.h"
 #include "computer.h"
-#include "cross_platform_funcs.h"
+#include "utils.h"
 
 namespace Liron486
 {
@@ -15,90 +15,90 @@ const int threshhold = 3;
 
 void GameManager::CreateNewPlayersPtrs()
 {
-    int numOfRealPlayers = m_conf.GetNumRealPlayers();
+    auto numOfRealPlayers = conf.GetNumRealPlayers();
 
     if (numOfRealPlayers == 0)
     {
-        m_players[0].reset(
-            new Computer(m_conf.GetPlayerName(1), 'X', m_board, m_difficulty));
-        m_players[1].reset(
-            new Computer(m_conf.GetPlayerName(2), 'O', m_board, m_difficulty));
+        players[0].reset(
+            new Computer(conf.GetPlayerName(1), 'X', board, difficulty));
+        players[1].reset(
+            new Computer(conf.GetPlayerName(2), 'O', board, difficulty));
     }
 
     else if (numOfRealPlayers == 1)
     {
-        if (m_conf.GetPlayerChoice() == 'O')
+        if (conf.GetPlayerChoice() == 'O')
         {
-            m_players[0].reset(
-                new Computer(m_conf.GetPlayerName(1), 'X', m_board, m_difficulty));
+            players[0].reset(
+                new Computer(conf.GetPlayerName(1), 'X', board, difficulty));
 
-            m_players[1].reset(
-                new RealPlayer(m_conf.GetPlayerName(2), 'O', m_board));
+            players[1].reset(
+                new RealPlayer(conf.GetPlayerName(2), 'O', board));
         }
         else
         {
-            m_players[0].reset(
-                new RealPlayer(m_conf.GetPlayerName(1), 'X', m_board));
-            m_players[1].reset(
-                new Computer(m_conf.GetPlayerName(2), 'O', m_board, m_difficulty));
+            players[0].reset(
+                new RealPlayer(conf.GetPlayerName(1), 'X', board));
+            players[1].reset(
+                new Computer(conf.GetPlayerName(2), 'O', board, difficulty));
         }
     }
 
     else if (numOfRealPlayers == 2)
     {
-        m_players[0].reset(new RealPlayer(m_conf.GetPlayerName(1), 'X', m_board));
-        m_players[1].reset(new RealPlayer(m_conf.GetPlayerName(2), 'O', m_board));
+        players[0].reset(new RealPlayer(conf.GetPlayerName(1), 'X', board));
+        players[1].reset(new RealPlayer(conf.GetPlayerName(2), 'O', board));
     }
 }
 
 GameManager::GameManager()
-    : m_difficulty(m_conf.GetDifficulty())
-    , m_score(m_conf.GetPlayerName(1), m_conf.GetPlayerName(2))
-    , m_judge(m_board)
+    : difficulty(conf.GetDifficulty())
+    , score(conf.GetPlayerName(1), conf.GetPlayerName(2))
+    , judge(board)
 {
     CreateNewPlayersPtrs();
-    m_gui.Tutorial(m_board.GetBoard(),
-                   m_score,
-                   m_difficulty,
-                   m_conf.GetPlayerName(1),
-                   m_conf.GetPlayerName(2));
-    m_board.ResetBoard();
+    gui.Tutorial(board.getBoard(),
+                   score,
+                   difficulty,
+                   conf.GetPlayerName(1),
+                   conf.GetPlayerName(2));
+    board.ResetBoard();
 }
 
 void GameManager::DisplayOnScreen() const
 {
     ClearScreen();
-    if (m_conf.GetNumRealPlayers() == 2)
+    if (conf.GetNumRealPlayers() == 2)
     {
-        m_gui.PrintHeaderWithoutDiff(m_score, m_gameNumber);
+        gui.PrintHeaderWithoutDiff(score, gameNumber);
     }
     else
     {
-        m_gui.PrintHeader(m_score, m_gameNumber, m_difficulty);
+        gui.PrintHeader(score, gameNumber, difficulty);
     }
-    m_gui.PrintBoard(m_board.GetBoard());
+    gui.PrintBoard(board.getBoard());
 }
 
 void GameManager::ResetGame()
 {
-    m_board.ResetBoard();
+    board.ResetBoard();
 
-    if (m_moveNumber > threshhold)
+    if (moveNumber > threshhold)
     {
-        ++m_gameNumber;
+        ++gameNumber;
     }
-    m_moveNumber = 0;
+    moveNumber = 0;
 
     Play();
 }
 
 void GameManager::FillLastSquare()
 {
-    for (int i = 0; i < num_of_cells; ++i)
+    for (auto i = 0; i < num_of_cells; ++i)
     {
-        if (' ' == m_board.GetSquareContent(Point::ConvertNumToPoint(i)))
+        if (board.GetSquareContent(Point::ConvertNumToPoint(i)) == ' ')
         {
-            m_board.SetSquare('X', Point::ConvertNumToPoint(i));
+            board.setSquare('X', Point::ConvertNumToPoint(i));
             break;
         }
     }
@@ -106,24 +106,24 @@ void GameManager::FillLastSquare()
 
 void GameManager::Play()
 {
-    const int lastMove = 8;
-    bool weHaveAWinner = false;
-    int playerNum = 0;
+    constexpr auto lastMove = 8;
+    auto weHaveAWinner = false;
+    auto playerNum = 0;
     Point newMove;
 
-    while ((m_moveNumber < num_of_cells))
+    while ((moveNumber < num_of_cells))
     {
-        playerNum = m_moveNumber % 2;
+        playerNum = moveNumber % 2;
         DisplayOnScreen();
 
-        if (m_moveNumber != lastMove)
+        if (moveNumber != lastMove)
         {
-            newMove = m_players[playerNum]->MakeMove();
+            newMove = players[playerNum]->makeMove();
             if (newMove.IsPointUnique())
             {
                 ResetGame();
             }
-            m_board.SetSquare(m_players[playerNum]->GetPlayerType(), newMove);
+            board.setSquare(players[playerNum]->getPlayerType(), newMove);
         }
         else
         {
@@ -131,9 +131,9 @@ void GameManager::Play()
             MySleep(700);
         }
 
-        if (m_moveNumber > threshhold)
+        if (moveNumber > threshhold)
         {
-            if (m_judge.CheckForWinner(newMove))
+            if (judge.CheckForWinner(newMove))
             {
                 weHaveAWinner = true;
 
@@ -141,19 +141,19 @@ void GameManager::Play()
             }
         }
 
-        ++m_moveNumber;
+        ++moveNumber;
     }
 
     if (weHaveAWinner)
     {
         DisplayOnScreen();
-        m_gui.WeHaveAWinner(m_players[playerNum]);
-        m_score.UpdateScore(playerNum);
+        gui.WeHaveAWinner(players[playerNum]);
+        score.UpdateScore(playerNum);
     }
     else
     {
         DisplayOnScreen();
-        m_gui.Tie();
+        gui.Tie();
     }
 
     if (WantToPlayAgain())
@@ -164,20 +164,20 @@ void GameManager::Play()
 
 void GameManager::SwitchSides()
 {
-    m_players[0]->SetPlayerType('O');
-    m_players[1]->SetPlayerType('X');
+    players[0]->setPlayerType('O');
+    players[1]->setPlayerType('X');
 
-    std::swap(m_players[0], m_players[1]);
+    std::swap(players[0], players[1]);
 
-    std::string temp = m_score.GetPlayersNames()[1];
-    m_score.SetPlayerName(m_score.GetPlayersNames()[0], 1);
-    m_score.SetPlayerName(temp, 0);
+    auto temp = score.GetPlayersNames()[1];
+    score.SetPlayerName(score.GetPlayersNames()[0], 1);
+    score.SetPlayerName(temp, 0);
 
-    int tmp = m_score.GetWinsCounter()[1];
-    m_score.SetWinsCounter(m_score.GetWinsCounter()[0], 1);
-    m_score.SetWinsCounter(tmp, 0);
+    auto tmp = score.GetWinsCounter()[1];
+    score.SetWinsCounter(score.GetWinsCounter()[0], 1);
+    score.SetWinsCounter(tmp, 0);
 
-    ++m_switchSidesCounter;
+    ++switchSidesCounter;
 }
 
 bool GameManager::WantToPlayAgain()
@@ -221,44 +221,44 @@ bool GameManager::WantToPlayAgain()
     }
 }
 
-static int CalcCumputerIndex(int switchCounter, char PlayerFirstChoise)
+static int CalcCumputerIndex(int switchCounterToUse, char playerFirstChoiseToUse)
 {
-    int num = switchCounter;
-    num = PlayerFirstChoise == 'X' ? num + 1 : num;
+    auto num = switchCounterToUse;
+    num = playerFirstChoiseToUse == 'X' ? num + 1 : num;
 
     return (num % 2);
 }
 
-void GameManager::ChangeDifficulty(Configuration::Difficulty difficulty_)
+void GameManager::ChangeDifficulty(Configuration::Difficulty difficultyToUse)
 {
-    if (difficulty_ != m_difficulty)
+    if (difficultyToUse != difficulty)
         return;
 
-    if (m_conf.GetNumRealPlayers() == 2)
+    if (conf.GetNumRealPlayers() == 2)
         return;
 
-    m_difficulty = difficulty_;
+    difficulty = difficultyToUse;
 
-    if (m_conf.GetNumRealPlayers() == 0)
+    if (conf.GetNumRealPlayers() == 0)
     {
-        const std::string name1 = m_players[0]->GetName();
-        const std::string name2 = m_players[1]->GetName();
+        auto name1 = players[0]->getName();
+        auto name2 = players[1]->getName();
 
-        m_players[0].reset(new Computer(name1, 'X', m_board, difficulty_));
-        m_players[1].reset(new Computer(name2, 'O', m_board, difficulty_));
+        players[0].reset(new Computer(name1, 'X', board, difficultyToUse));
+        players[1].reset(new Computer(name2, 'O', board, difficultyToUse));
     }
 
-    if (m_conf.GetNumRealPlayers() == 1)
+    if (conf.GetNumRealPlayers() == 1)
     {
-        int computer_index =
-            CalcCumputerIndex(m_switchSidesCounter, m_conf.GetPlayerChoice());
+        auto computer_index =
+            CalcCumputerIndex(switchSidesCounter, conf.GetPlayerChoice());
 
-        char type = computer_index == 0 ? 'X' : 'O';
+        auto type = computer_index == 0 ? 'X' : 'O';
 
-        const std::string name = m_players[computer_index]->GetName();
+        auto name = players[computer_index]->getName();
 
-        m_players[computer_index].reset(
-            new Computer(name, type, m_board, difficulty_));
+        players[computer_index].reset(
+            new Computer(name, type, board, difficultyToUse));
     }
 }
 

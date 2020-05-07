@@ -1,19 +1,19 @@
 #ifndef _Liron486_JUDGE_HPP_
 #define _Liron486_JUDGE_HPP_
 
-#include "board.h"
+#include "Board.h"
 
 namespace Liron486
 {
 class Judge
 {
 public:
-    explicit Judge(const Board& board_);
-    bool CheckForWinner(const Point& lastMove_) const;
+    explicit Judge(const Board& boardToUse);
+    bool CheckForWinner(const Point& lastMoveToUse) const;
     const Board& GetBoard() const;
 
 private:
-    const Board& m_board;
+    const Board& board;
 };
 
 } // namespace Liron486

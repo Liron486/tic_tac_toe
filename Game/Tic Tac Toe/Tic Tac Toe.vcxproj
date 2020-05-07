@@ -152,7 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="board.cpp" />
+    <ClCompile Include="Board.cpp" />
     <ClCompile Include="brain_easy.cpp" />
     <ClCompile Include="brain_hard.cpp" />
     <ClCompile Include="computer.cpp" />
@@ -167,7 +167,7 @@
     <ClCompile Include="Tic_Tac_Toe.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="board.h" />
+    <ClInclude Include="Board.h" />
     <ClInclude Include="brain.h" />
     <ClInclude Include="brain_easy.h" />
     <ClInclude Include="brain_hard.h" />
@@ -182,7 +182,7 @@
     <ClInclude Include="real_player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="score.h" />
-    <ClInclude Include="cross_platform_funcs.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />

@@ -2,23 +2,23 @@
 #include <sstream>
 
 #include "real_player.h"
-#include "cross_platform_funcs.h"
+#include "utils.h"
 
 namespace Liron486
 {
-RealPlayer::RealPlayer(const std::string name_,
-                       const char type_,
-                       const Board& board_)
-    : m_name(name_)
-    , m_type(type_)
-    , m_controller(name_)
-    , m_board(board_)
+RealPlayer::RealPlayer(const std::string& nameToUse,
+                       char typeToUse,
+                       const Board& boardToUse)
+    : name(nameToUse)
+    , type(typeToUse)
+    , controller(nameToUse)
+    , board(boardToUse)
 {
 }
 
 inline bool IsValidDigit(const std::string& str)
 {
-    std::string::const_iterator it = str.begin();
+	auto it = str.begin();
     if (std::isdigit(*it))
     {
         ++it;
@@ -27,9 +27,9 @@ inline bool IsValidDigit(const std::string& str)
     return (!str.empty() && it == str.end() && (str != "0"));
 }
 
-Point RealPlayer::MakeMove() const
+Point RealPlayer::makeMove() const
 {
-    std::string nextMove_str = m_controller.GetNextMove();
+	auto nextMove_str = controller.GetNextMove();
 
     Point unique(3, 3);
 
@@ -37,9 +37,9 @@ Point RealPlayer::MakeMove() const
         return unique;
 
     std::stringstream sstream(nextMove_str);
-    bool IsValid = IsValidDigit(nextMove_str);
+    auto IsValid = IsValidDigit(nextMove_str);
     Point newMove;
-    int nextMove = 0;
+    auto nextMove = 0;
 
     if (IsValid)
     {
@@ -47,10 +47,10 @@ Point RealPlayer::MakeMove() const
         newMove = Point::ConvertNumToPoint(nextMove - 1);
     }
 
-    while ((IsValid == false) || (m_board.GetSquareContent(newMove) != ' '))
+    while ((IsValid == false) || (board.GetSquareContent(newMove) != ' '))
     {
         std::cout << "Wrong Move, try again\n";
-        nextMove_str = m_controller.GetNextMove();
+        nextMove_str = controller.GetNextMove();
         if (compareStrings(nextMove_str, "r"))
             return unique;
 
@@ -67,19 +67,19 @@ Point RealPlayer::MakeMove() const
     return newMove;
 }
 
-const std::string RealPlayer::GetName() const
+std::string RealPlayer::getName() const
 {
-    return m_name;
+    return name;
 }
 
-char RealPlayer::GetPlayerType() const
+char RealPlayer::getPlayerType() const
 {
-    return m_type;
+    return type;
 }
 
-void RealPlayer::SetPlayerType(char newType_)
+void RealPlayer::setPlayerType(char newTypeToUse)
 {
-    m_type = newType_;
+    type = newTypeToUse;
 }
 
 } // namespace Liron486

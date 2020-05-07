@@ -15,18 +15,18 @@ namespace Liron486
 class Gui
 {
 public:
-    void PrintBoard(const std::vector<std::vector<char>>& board_) const;
-    void PrintHeader(const Score& score_,
-                     int gameNUmber_,
-                     Configuration::Difficulty difficulty_) const;
-    void PrintHeaderWithoutDiff(const Score& score_, int gameNUmber_) const;
-    void WeHaveAWinner(std::unique_ptr<Player>& player_) const;
+    void PrintBoard(const std::vector<std::vector<char>>& boardToUse) const;
+    void PrintHeader(const Score& scoreToUse,
+                     int gameNumberToUse,
+                     Configuration::Difficulty difficultyToUse) const;
+    void PrintHeaderWithoutDiff(const Score& scoreToUse, int gameNumberToUse) const;
+    void WeHaveAWinner(std::unique_ptr<Player>& playerToUse) const;
     void Tie() const;
-    void Tutorial(const std::vector<std::vector<char>>& board_,
-                  const Score& score_,
-                  Configuration::Difficulty difficulty_,
-                  const std::string& name1,
-                  const std::string& name2) const;
+    void Tutorial(const std::vector<std::vector<char>>& boardToUse,
+                  const Score& scoreToUse,
+                  Configuration::Difficulty difficultyToUse,
+                  const std::string& name1ToUse,
+                  const std::string& name2ToUse) const;
 };
 
 } // namespace Liron486

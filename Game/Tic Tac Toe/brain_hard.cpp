@@ -4,7 +4,7 @@
 
 #include "brain_hard.h"
 #include "gui.h"
-#include "cross_platform_funcs.h"
+#include "utils.h"
 
 #define MAX2(X, Y) (X) > (Y) ? (X) : (Y)
 #define MIN2(X, Y) (X) < (Y) ? (X) : (Y)
@@ -14,23 +14,23 @@ namespace Liron486
 
 const int num_of_cells = 9;
 
-BrainHard::BrainHard(const Board& board_, char type_)
-    : m_board(board_)
-    , m_myType(type_)
+BrainHard::BrainHard(const Board& boardToUse, char typeToUse)
+    : board(boardToUse)
+    , myType(typeToUse)
 {
 }
 
-inline char GetCurrentType(char my_type, int depth)
+inline char GetCurrentType(char myTypeToUse, int depthToUse)
 {
-    char current_type = ' ';
+    auto current_type = ' ';
 
-    if (1 == depth % 2)
+    if (1 == depthToUse % 2)
     {
-        current_type = my_type;
+        current_type = myTypeToUse;
     }
     else
     {
-        if ('X' == my_type)
+        if ('X' == myTypeToUse)
         {
             current_type = 'O';
         }
@@ -43,19 +43,19 @@ inline char GetCurrentType(char my_type, int depth)
     return current_type;
 }
 
-static int RecCheckBestMove(Board& board_copy,
-                            char type,
-                            const Judge& judge,
-                            const Point& last_move,
-                            int depth)
+static int RecCheckBestMove(Board& boardCopyToUse,
+                            char typeToUse,
+                            const Judge& judgeToUse,
+                            const Point& lastMLastMoveToUse,
+                            int depthToUse)
 {
-    char current_type = GetCurrentType(type, depth);
+    auto current_type = GetCurrentType(typeToUse, depthToUse);
 
-    board_copy.SetSquare(current_type, last_move);
+    boardCopyToUse.setSquare(current_type, lastMLastMoveToUse);
 
-    if (judge.CheckForWinner(last_move))
+    if (judgeToUse.CheckForWinner(lastMLastMoveToUse))
     {
-        if (type != board_copy.GetSquareContent(last_move))
+        if (typeToUse != boardCopyToUse.GetSquareContent(lastMLastMoveToUse))
         {
             return (-1);
         }
@@ -64,35 +64,35 @@ static int RecCheckBestMove(Board& board_copy,
     }
 
     Point nextMove;
-    int current_value = 0;
+    auto current_value = 0;
     std::vector<int> vector_of_values;
-    bool isfull = true;
+    auto isfull = true;
 
-    for (int i = 0; i < num_of_cells; ++i)
+    for (auto i = 0; i < num_of_cells; ++i)
     {
         nextMove = Point::ConvertNumToPoint(i);
 
-        if (board_copy.IsSquareEmpty(nextMove))
+        if (boardCopyToUse.IsSquareEmpty(nextMove))
         {
             current_value =
-                RecCheckBestMove(board_copy, type, judge, nextMove, depth + 1);
-            board_copy.SetSquare(' ', nextMove);
+                RecCheckBestMove(boardCopyToUse, typeToUse, judgeToUse, nextMove, depthToUse + 1);
+            boardCopyToUse.setSquare(' ', nextMove);
 
             vector_of_values.push_back(current_value);
             isfull = false;
         }
     }
 
-    int value = 0;
+    auto value = 0;
 
     if (!isfull)
     {
-        int vector_size = static_cast<int>(vector_of_values.size());
+        auto vector_size = static_cast<int>(vector_of_values.size());
 
-        if (0 == depth % 2)
+        if (depthToUse % 2 == 0)
         {
             value = -10;
-            for (int i = 0; i < vector_size; ++i)
+            for (auto i = 0; i < vector_size; ++i)
             {
                 value = MAX2(value, vector_of_values[i]);
             }
@@ -100,7 +100,7 @@ static int RecCheckBestMove(Board& board_copy,
         else
         {
             value = 10;
-            for (int i = 0; i < vector_size; ++i)
+            for (auto i = 0; i < vector_size; ++i)
             {
                 value = MIN2(value, vector_of_values[i]);
             }
@@ -110,70 +110,70 @@ static int RecCheckBestMove(Board& board_copy,
     return value;
 }
 
-static bool AmIBegin(const Board& board)
+static bool AmIBegin(const Board& boardToUse)
 {
-    for (int i = 0; i < num_of_cells; ++i)
+    for (auto i = 0; i < num_of_cells; ++i)
     {
-        if (!board.IsSquareEmpty(Point::ConvertNumToPoint(i)))
+        if (!boardToUse.IsSquareEmpty(Point::ConvertNumToPoint(i)))
         {
-            return (false);
+            return false;
         }
     }
 
     return true;
 }
 
-static bool CheckIfWinNextMove(Board& board,
-                               std::vector<Point>& best_moves,
-                               Judge& judge,
-                               char type,
-                               int range,
-                               int& index_result)
+static bool CheckIfWinNextMove(Board& boardToUse,
+                               std::vector<Point>& bestMovesToUse,
+                               Judge& judgeToUse,
+                               char typeToUse,
+                               int rangeToUse,
+                               int& indexResultToUse)
 {
-    for (int i = 0; i < range; ++i)
+    for (auto i = 0; i < rangeToUse; ++i)
     {
-        board.SetSquare(type, best_moves[i]);
+        boardToUse.setSquare(typeToUse, bestMovesToUse[i]);
 
-        if (judge.CheckForWinner(best_moves[i]))
+        if (judgeToUse.CheckForWinner(bestMovesToUse[i]))
         {
-            index_result = i;
-            board.SetSquare(' ', best_moves[i]);
+            indexResultToUse = i;
+            boardToUse.setSquare(' ', bestMovesToUse[i]);
             return true;
         }
 
-        board.SetSquare(' ', best_moves[i]);
+        boardToUse.setSquare(' ', bestMovesToUse[i]);
     }
 
     return false;
 }
 
-Point BrainHard::GetNextMove() const
+Point BrainHard::getNextMove() const
 {
-    int max = -10;
-    int current_res = -10;
-    Board board_copy(m_board);
+    auto max = -10;
+    auto current_res = -10;
+    auto boardCopy(board);
     Point nextMove;
     Point checkMove;
-    Judge judge(board_copy);
+    Judge judge(boardCopy);
     std::vector<Point> best_moves;
-    int counter_best_moves = 0;
+    auto counter_best_moves = 0;
 
-    srand(static_cast<unsigned int>(time(NULL)));
+    srand(static_cast<unsigned int>(time(nullptr)));
 
-    if (AmIBegin(board_copy))
+    if (AmIBegin(boardCopy))
     {
         nextMove = Point::ConvertNumToPoint(rand() % num_of_cells);
     }
     else
     {
-        for (int i = 0; i < num_of_cells; ++i)
+        for (auto i = 0; i < num_of_cells; ++i)
         {
             checkMove = Point::ConvertNumToPoint(i);
 
-            if (board_copy.IsSquareEmpty(checkMove))
+            if (boardCopy.IsSquareEmpty(checkMove))
             {
                 current_res =
-                    RecCheckBestMove(board_copy, m_myType, judge, checkMove, 1);
+                    RecCheckBestMove(boardCopy, myType, judge, checkMove, 1);
                 if (current_res > max)
                 {
                     best_moves.clear();
@@ -187,15 +187,15 @@ Point BrainHard::GetNextMove() const
                     ++counter_best_moves;
                 }
 
-                board_copy = m_board;
+                boardCopy = board;
             }
         }
 
-        int index_of_winning_move = 0;
-        if (CheckIfWinNextMove(board_copy,
+        auto index_of_winning_move = 0;
+        if (CheckIfWinNextMove(boardCopy,
                                best_moves,
                                judge,
-                               m_myType,
+                               myType,
                                counter_best_moves,
                                index_of_winning_move))
         {
@@ -211,14 +211,14 @@ Point BrainHard::GetNextMove() const
     return nextMove;
 }
 
-void BrainHard::SetType(char type_)
+void BrainHard::setType(char typeToUse)
 {
-    m_myType = type_;
+    myType = typeToUse;
 }
 
-char BrainHard::GetType() const
+char BrainHard::getType() const
 {
-    return m_myType;
+    return myType;
 }
 
 } // namespace Liron486

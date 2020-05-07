@@ -5,31 +5,30 @@
 #include <string>
 
 #include "player.h"
-#include "board.h"
+#include "Board.h"
 #include "brain.h"
 #include "configuration.h"
-#include "judge.h"
 
 namespace Liron486
 {
 class Computer : public Player
 {
 public:
-    explicit Computer(const std::string& name_,
-                      char type_,
-                      const Board& board_,
-                      Configuration::Difficulty difficulty_);
-    Point MakeMove() const;
-    const std::string GetName() const;
-    char GetPlayerType() const;
-    void SetPlayerType(char newType_);
+    explicit Computer(const std::string& nameToUse,
+                      char typeToUse,
+                      const Board& boardToUse,
+                      Configuration::Difficulty difficultyToUse);
+    Point makeMove() const override;
+    std::string getName() const override;
+    char getPlayerType() const override;
+    void setPlayerType(char newTypeToUse) override;
 
 private:
-    std::string m_name;
-    char m_type;
-    const Board& m_board;
-    Configuration::Difficulty m_difficulty;
-    std::unique_ptr<Brain> m_brain;
+    std::string name;
+    char type;
+    const Board& board;
+    Configuration::Difficulty difficulty;
+    std::unique_ptr<Brain> brain;
 };
 
 } // namespace Liron486

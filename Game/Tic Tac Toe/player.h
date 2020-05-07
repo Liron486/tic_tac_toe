@@ -8,11 +8,10 @@ namespace Liron486
 class Player
 {
 public:
-    virtual ~Player() {}
-    virtual Point MakeMove() const = 0;
-    virtual const std::string GetName() const = 0;
-    virtual char GetPlayerType() const = 0;
-    virtual void SetPlayerType(char newType_) = 0;
+    virtual Point makeMove() const = 0;
+    virtual std::string getName() const = 0;
+    virtual char getPlayerType() const = 0;
+    virtual void setPlayerType(char newTypeToUse) = 0;
 };
 
 } // namespace Liron486

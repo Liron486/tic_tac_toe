@@ -1,76 +1,65 @@
 #include <iostream>
 
-#include "board.h"
+#include "Board.h"
 
 namespace Liron486
 {
-const int num_of_rows = 3;
-const int num_of_cols = 3;
+constexpr int numOfRows= 3;
+constexpr int numOfCols = 3;
 
 Board::Board()
 {
     InitBoard();
 }
 
-Board::Board(const Board& other_)
+char Board::GetSquareContent(const Point& squareToUse) const
 {
-    m_board = other_.GetBoard();
+    return board[squareToUse.GetX()][squareToUse.GetY()];
 }
 
-Board& Board::operator=(const Board& other_)
+void Board::setSquare(char playerTypeToUse, const Point& squareToUse)
 {
-    m_board = other_.GetBoard();
-    return *this;
-}
-
-char Board::GetSquareContent(const Point& square_) const
-{
-    return m_board[square_.GetX()][square_.GetY()];
-}
-
-void Board::SetSquare(char playerType_, const Point& square_)
-{
-    m_board[square_.GetX()][square_.GetY()] = playerType_;
+    board[squareToUse.GetX()][squareToUse.GetY()] = playerTypeToUse;
 }
 
 void Board::InitBoard()
 {
-    char cell_number = '1';
+    auto cell_number = '1';
 
-    for (int i = 0; i < num_of_rows; ++i)
+    for (auto i = 0; i < numOfRows; ++i)
     {
         std::vector<char> newVector;
-        m_board.push_back(newVector);
+        board.push_back(newVector);
 
-        for (int j = 0; j < num_of_cols; ++j)
+        for (auto j = 0; j < numOfCols; ++j)
         {
-            m_board[i].push_back(cell_number);
+            board[i].push_back(cell_number);
             ++cell_number;
         }
     }
 }
 
-const std::vector<std::vector<char>>& Board::GetBoard() const
+const std::vector<std::vector<char>>& Board::getBoard() const
 {
-    return m_board;
+    return board;
 }
 
 void Board::ResetBoard()
 {
-    for (int i = 0; i < num_of_rows; ++i)
+    for (auto i = 0; i < numOfRows; ++i)
     {
-        std::vector<char>& raw = m_board[i];
+        auto& row = board[i];
 
-        for (int j = 0; j < num_of_cols; ++j)
+        for (auto j = 0; j < numOfCols; ++j)
         {
-            raw[j] = ' ';
+            row[j] = ' ';
         }
     }
 }
 
 bool Board::IsSquareEmpty(const Point& square_) const
 {
-    if (m_board[square_.GetX()][square_.GetY()] == ' ')
+    if (board[square_.GetX()][square_.GetY()] == ' ')
     {
         return true;
     }

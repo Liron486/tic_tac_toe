@@ -18,19 +18,19 @@ public:
     explicit Configuration();
     int GetNumRealPlayers() const;
     Difficulty GetDifficulty() const;
-    std::string GetPlayerName(int nPlayer_) const;
+    std::string GetPlayerName(int nPlayerToUse) const;
     char GetPlayerChoice() const;
 
 private:
     void SetNumRealPlayers();
     void SetDifficulty();
     void SetPlayerChoice();
-    void SetNamesOfPlayers(int playerNumber_);
+    void SetNamesOfPlayers(int playerNumberToUse);
 
-    int m_nRealPlayers = 1;
-    Difficulty m_difficulty = Difficulty::HARD;
-    std::array<std::string, 2> m_namesOfPlayers;
-    char m_playerChoice = 'X';
+    int nRealPlayers = 1;
+    Difficulty difficulty = Difficulty::HARD;
+    std::array<std::string, 2> namesOfPlayers;
+    char playerChoice = 'X';
 };
 
 } // namespace Liron486

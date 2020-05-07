@@ -3,7 +3,7 @@
 #include <sstream>
 
 #include "configuration.h"
-#include "cross_platform_funcs.h"
+#include "utils.h"
 
 namespace Liron486
 {
@@ -11,16 +11,16 @@ Configuration::Configuration()
 {
     SetNumRealPlayers();
 
-    if (m_nRealPlayers != 2)
+    if (nRealPlayers != 2)
     {
         SetDifficulty();
     }
 
-    m_namesOfPlayers[0] = "Player1";
-    m_namesOfPlayers[1] = "Player2";
+    namesOfPlayers[0] = "Player1";
+    namesOfPlayers[1] = "Player2";
 
-    int player_number = 1;
-    while (player_number <= m_nRealPlayers)
+    auto player_number = 1;
+    while (player_number <= nRealPlayers)
     {
         SetNamesOfPlayers(player_number - 1);
         ++player_number;
@@ -32,42 +32,42 @@ Configuration::Configuration()
 
         if (GetPlayerChoice() == 'O')
         {
-            m_namesOfPlayers[1] = m_namesOfPlayers[0];
-            m_namesOfPlayers[0] = "Player1";
+            namesOfPlayers[1] = namesOfPlayers[0];
+            namesOfPlayers[0] = "Player1";
         }
     }
 }
 
 int Configuration::GetNumRealPlayers() const
 {
-    return m_nRealPlayers;
+    return nRealPlayers;
 }
 
 Configuration::Difficulty Configuration::GetDifficulty() const
 {
-    return m_difficulty;
+    return difficulty;
 }
 
-std::string Configuration::GetPlayerName(int nPlayer_) const
+std::string Configuration::GetPlayerName(int nPlayerToUse) const
 {
-    return m_namesOfPlayers[static_cast<int>(nPlayer_ - 1)];
+    return namesOfPlayers[static_cast<int>(nPlayerToUse - 1)];
 }
 
 char Configuration::GetPlayerChoice() const
 {
-    return m_playerChoice;
+    return playerChoice;
 }
 
-inline bool IsValidInput(const std::string& str)
+inline bool IsValidInput(const std::string& strToUse)
 {
-    std::string::const_iterator it = str.begin();
+    auto it = strToUse.begin();
     if (std::isdigit(*it))
     {
         ++it;
     }
 
-    return (!str.empty() && it == str.end()
-            && ((str == "0") || (str == "1") || (str == "2")));
+    return (!strToUse.empty() && it == strToUse.end()
+            && ((strToUse == "0") || (strToUse == "1") || (strToUse == "2")));
 }
 
 void Configuration::SetNumRealPlayers()
@@ -85,7 +85,7 @@ void Configuration::SetNumRealPlayers()
     }
 
     std::stringstream sstream(playerInput);
-    sstream >> m_nRealPlayers;
+    sstream >> nRealPlayers;
 }
 
 void Configuration::SetDifficulty()
@@ -107,26 +107,26 @@ void Configuration::SetDifficulty()
 
     if (compareStrings(difficultyStr, "hard"))
     {
-        m_difficulty = Difficulty::HARD;
+        difficulty = Difficulty::HARD;
     }
     else
     {
-        m_difficulty = Difficulty::EASY;
+        difficulty = Difficulty::EASY;
     }
 }
 
-void Configuration::SetNamesOfPlayers(int playerNumber_)
+void Configuration::SetNamesOfPlayers(int playerNumberToUse)
 {
-    std::cout << "Please enter player " << playerNumber_ + 1
+    std::cout << "Please enter player " << playerNumberToUse + 1
               << " name: " << std::endl;
-    std::cin >> m_namesOfPlayers[playerNumber_];
+    std::cin >> namesOfPlayers[playerNumberToUse];
 }
 
 void Configuration::SetPlayerChoice()
 {
     std::cout << "Please Choose type (X or O)" << std::endl;
 
-    char type = 'X';
+    auto type = 'X';
     std::cin >> type;
 
     while (!compareChars(type, 'x') && !compareChars(type, 'o')
@@ -139,11 +139,11 @@ void Configuration::SetPlayerChoice()
 
     if (compareChars(type, 'x'))
     {
-        m_playerChoice = 'X';
+        playerChoice = 'X';
     }
     else
     {
-        m_playerChoice = 'O';
+        playerChoice = 'O';
     }
 }
 

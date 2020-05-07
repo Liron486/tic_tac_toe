@@ -7,59 +7,59 @@
 
 namespace Liron486
 {
-static std::unique_ptr<Brain> CreateBrain(const Board& board_,
-                          char type_,
-                          Configuration::Difficulty difficulty_)
+static std::unique_ptr<Brain> CreateBrain(const Board& boardToUse,
+                          char typeToUse,
+                          Configuration::Difficulty difficultyToUse)
 {
     std::unique_ptr<Brain> brain;
 
-    if (Configuration::Difficulty::EASY == difficulty_)
+    if (Configuration::Difficulty::EASY == difficultyToUse)
     {
-        brain.reset(new BrainEasy(board_, type_));
+        brain.reset(new BrainEasy(boardToUse, typeToUse));
     }
     else
     {
-        brain.reset(new BrainHard(board_, type_));
+        brain.reset(new BrainHard(boardToUse, typeToUse));
     }
 
     return brain;
 }
 
-Computer::Computer(const std::string& name_,
-                   char type_,
-                   const Board& board_,
-                   Configuration::Difficulty difficulty_)
-    : m_name(name_)
-    , m_type(type_)
-    , m_board(board_)
-    , m_difficulty(difficulty_)
-    , m_brain(CreateBrain(m_board, m_type, m_difficulty))
+Computer::Computer(const std::string& nameToUse,
+                   char typeToUse,
+                   const Board& boardToUse,
+                   Configuration::Difficulty difficultyToUse)
+    : name(nameToUse)
+    , type(typeToUse)
+    , board(boardToUse)
+    , difficulty(difficultyToUse)
+    , brain(CreateBrain(board, type, difficulty))
 {
 }
 
-Point Computer::MakeMove() const
+Point Computer::makeMove() const
 {
-    if (m_type != m_brain->GetType())
+    if (type != brain->getType())
     {
-        m_brain->SetType(m_type);
+        brain->setType(type);
     }
 
-    return m_brain->GetNextMove();
+    return brain->getNextMove();
 }
 
-const std::string Computer::GetName() const
+std::string Computer::getName() const
 {
-    return m_name;
+    return name;
 }
 
-char Computer::GetPlayerType() const
+char Computer::getPlayerType() const
 {
-    return m_type;
+    return type;
 }
 
-void Computer::SetPlayerType(char newType_)
+void Computer::setPlayerType(char newTypeToUse)
 {
-    m_type = newType_;
+    type = newTypeToUse;
 }
 
 } // namespace Liron486

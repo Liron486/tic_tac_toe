@@ -1,39 +1,38 @@
-#include <iostream>
 
 #include "score.h"
 
 namespace Liron486
 {
-Score::Score(const std::string& namePlayer1_, const std::string& namePlayer2_)
+Score::Score(const std::string& namePlayer1ToUse, const std::string& namePlayer2ToUse)
 {
-    m_playersNames[0] = namePlayer1_;
-    m_playersNames[1] = namePlayer2_;
+    playersNames[0] = namePlayer1ToUse;
+    playersNames[1] = namePlayer2ToUse;
 }
 
-void Score::UpdateScore(int theWinner_)
+void Score::UpdateScore(int theWinnerToUse)
 {
-    if ((theWinner_ == 0) || (theWinner_ == 1))
-        ++m_winsCounter[theWinner_];
+    if ((theWinnerToUse == 0) || (theWinnerToUse == 1))
+        ++winsCounter[theWinnerToUse];
 }
 
-const std::string* Score::GetPlayersNames() const
+const std::array<std::string, 2>& Score::GetPlayersNames() const
 {
-    return m_playersNames;
+    return playersNames;
 }
 
-void Score::SetPlayerName(const std::string& namePlayer_, int index_)
+void Score::SetPlayerName(const std::string& namePlayerToUse, int indexToUse)
 {
-    m_playersNames[index_] = namePlayer_;
+    playersNames[indexToUse] = namePlayerToUse;
 }
 
 const std::array<int, 2>& Score::GetWinsCounter() const
 {
-    return m_winsCounter;
+    return winsCounter;
 }
 
-void Score::SetWinsCounter(int numOfWins_, int index_)
+void Score::SetWinsCounter(int numOfWinsToUse, int indexToUse)
 {
-    m_winsCounter[index_] = numOfWins_;
+    winsCounter[indexToUse] = numOfWinsToUse;
 }
 
 } // namespace Liron486

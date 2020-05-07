@@ -7,17 +7,17 @@ class Point
 {
 public:
     Point() = default;
-    explicit Point(int x_, int y_);
+    explicit Point(int xToUse, int yToUse);
     int GetX() const;
     int GetY() const;
-    void SetX(int x_);
-    void SetY(int y_);
-    static Point ConvertNumToPoint(int num);
+    void SetX(int xToUse);
+    void SetY(int yToUse);
     bool IsPointUnique() const;
+    static Point ConvertNumToPoint(int numToUse);
 
 private:
-    int m_x = 0;
-    int m_y = 0;
+    int x = 0;
+    int y = 0;
 };
 
 } // namespace Liron486

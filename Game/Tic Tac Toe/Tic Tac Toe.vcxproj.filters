@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="board.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="brain_easy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,11 +51,11 @@
     <ClCompile Include="Tic_Tac_Toe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="board.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="brain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -98,10 +95,13 @@
     <ClInclude Include="score.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cross_platform_funcs.h">
+    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="Board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

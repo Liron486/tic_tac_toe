@@ -5,26 +5,26 @@
 
 #include "player.h"
 #include "controller.h"
-#include "board.h"
+#include "Board.h"
 
 namespace Liron486
 {
 class RealPlayer : public Player
 {
 public:
-    explicit RealPlayer(const std::string name_,
-                        const char type_,
-                        const Board& board_);
-    Point MakeMove() const;
-    const std::string GetName() const;
-    char GetPlayerType() const;
-    void SetPlayerType(char newType_);
+    explicit RealPlayer(const std::string& nameToUse,
+                        char typeToUse,
+                        const Board& boardToUse);
+    Point makeMove() const override;
+    std::string getName() const override;
+    char getPlayerType() const override;
+    void setPlayerType(char newTypeToUse) override;
 
 private:
-    const std::string m_name;
-    char m_type;
-    Controller m_controller;
-    const Board& m_board;
+    const std::string name;
+    char type;
+    Controller controller;
+    const Board& board;
 };
 
 } // namespace Liron486

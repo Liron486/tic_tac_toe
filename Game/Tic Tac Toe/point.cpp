@@ -4,45 +4,45 @@
 
 namespace Liron486
 {
-Point::Point(int x_, int y_)
-    : m_x(x_)
-    , m_y(y_)
+Point::Point(int xToUse, int yToUse)
+    : x(xToUse)
+    , y(yToUse)
 {
 }
 
 int Point::GetX() const
 {
-    return m_x;
+    return x;
 }
 
 int Point::GetY() const
 {
-    return m_y;
+    return y;
 }
 
-void Point::SetX(int x_)
+void Point::SetX(int xToUse)
 {
-    m_x = x_;
+    x = xToUse;
 }
 
-void Point::SetY(int y_)
+void Point::SetY(int yToUse)
 {
-    m_y = y_;
+    y = yToUse;
 }
 
-Point Point::ConvertNumToPoint(int num)
+Point Point::ConvertNumToPoint(int numToUse)
 {
     Point new_point;
 
-    new_point.SetX(num / 3);
-    new_point.SetY(num % 3);
+    new_point.SetX(numToUse / 3);
+    new_point.SetY(numToUse % 3);
 
     return new_point;
 }
 
 bool Point::IsPointUnique() const
 {
-    return (m_x == 3) && (m_y == 3);
+    return (x == 3) && (y == 3);
 }
 
 } // namespace Liron486

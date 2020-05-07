@@ -9,16 +9,16 @@ namespace Liron486
 class Score
 {
 public:
-    explicit Score(const std::string& namePlayer1_, const std::string& namePlayer2_);
-    void UpdateScore(int theWinner_);
-    const std::string* GetPlayersNames() const;
-    void SetPlayerName(const std::string& namePlayer_, int index_);
+    explicit Score(const std::string& namePlayer1ToUse, const std::string& namePlayer2ToUse);
+    void UpdateScore(int theWinnerToUse);
+    const std::array<std::string, 2>& GetPlayersNames() const;
+    void SetPlayerName(const std::string& namePlayerToUse, int indexToUse);
     const std::array<int, 2>& GetWinsCounter() const;
-    void SetWinsCounter(int numOfWins_, int index_);
+    void SetWinsCounter(int numOfWinsToUse, int indexToUse);
 
 private:
-    std::string m_playersNames[2];
-    std::array<int, 2> m_winsCounter = {0, 0};
+    std::array<std::string, 2> playersNames;
+    std::array<int, 2> winsCounter = {0, 0};
 };
 
 } // namespace Liron486

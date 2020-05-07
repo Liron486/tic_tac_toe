@@ -9,10 +9,9 @@ namespace Liron486
 class Brain
 {
 public:
-    virtual ~Brain(){}
-    virtual Point GetNextMove() const = 0;
-    virtual char GetType() const = 0;
-    virtual void SetType(char type_) = 0;
+    virtual Point getNextMove() const = 0;
+    virtual char getType() const = 0;
+    virtual void setType(char type_) = 0;
 };
 
 } // namespace Liron486

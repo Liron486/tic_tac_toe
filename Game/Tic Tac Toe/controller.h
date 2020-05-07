@@ -10,11 +10,11 @@ namespace Liron486
 class Controller
 {
 public:
-    explicit Controller(const std::string& playerName_);
+    explicit Controller(const std::string& playerNameToUse);
     std::string GetNextMove() const;
 
 private:
-    std::string m_playerName;
+    std::string playerName;
 };
 
 } // namespace Liron486

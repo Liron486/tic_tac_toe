@@ -10,20 +10,6 @@ Point::Point(int x_, int y_)
 {
 }
 
-Point::Point(const Point& other_)
-{
-    m_x = other_.m_x;
-    m_y = other_.m_y;
-}
-
-Point& Point::operator=(const Point& other_)
-{
-    m_x = other_.m_x;
-    m_y = other_.m_y;
-
-    return *this;
-}
-
 int Point::GetX() const
 {
     return m_x;

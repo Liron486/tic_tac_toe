@@ -6,9 +6,8 @@ namespace Liron486
 class Point
 {
 public:
-    explicit Point(int x_ = 0, int y_ = 0);
-    Point(const Point& other_);
-    Point& operator=(const Point& other_);
+    Point() = default;
+    explicit Point(int x_, int y_);
     int GetX() const;
     int GetY() const;
     void SetX(int x_);
@@ -17,10 +16,11 @@ public:
     bool IsPointUnique() const;
 
 private:
-    int m_x;
-    int m_y;
+    int m_x = 0;
+    int m_y = 0;
 };
 
 } // namespace Liron486
+
 
 #endif // _Liron486_POINT_HPP_#pragma once

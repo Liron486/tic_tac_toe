@@ -10,9 +10,8 @@ namespace Liron486
 Configuration::Configuration()
 {
     SetNumRealPlayers();
-    int nPlayers = GetNumRealPlayers();
 
-    if (nPlayers != 2)
+    if (m_nRealPlayers != 2)
     {
         SetDifficulty();
     }
@@ -21,7 +20,7 @@ Configuration::Configuration()
     m_namesOfPlayers[1] = "Player2";
 
     int player_number = 1;
-    while (player_number <= nPlayers)
+    while (player_number <= m_nRealPlayers)
     {
         SetNamesOfPlayers(player_number - 1);
         ++player_number;

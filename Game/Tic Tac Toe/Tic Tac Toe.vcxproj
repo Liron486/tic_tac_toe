@@ -152,9 +152,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="board.cpp" />
     <ClCompile Include="brain_easy.cpp" />
     <ClCompile Include="brain_hard.cpp" />
+    <ClCompile Include="cell.cpp" />
     <ClCompile Include="computer.cpp" />
     <ClCompile Include="configuration.cpp" />
     <ClCompile Include="controller.cpp" />
@@ -167,10 +168,12 @@
     <ClCompile Include="Tic_Tac_Toe.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Board.h" />
+    <ClInclude Include="board.h" />
     <ClInclude Include="brain.h" />
     <ClInclude Include="brain_easy.h" />
     <ClInclude Include="brain_hard.h" />
+    <ClInclude Include="cell.h" />
+    <ClInclude Include="cells_manager.h" />
     <ClInclude Include="computer.h" />
     <ClInclude Include="configuration.h" />
     <ClInclude Include="controller.h" />

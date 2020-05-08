@@ -1,7 +1,7 @@
 #ifndef _Liron486_JUDGE_HPP_
 #define _Liron486_JUDGE_HPP_
 
-#include "Board.h"
+#include "board.h"
 
 namespace Liron486
 {

@@ -5,7 +5,7 @@
 
 #include "player.h"
 #include "controller.h"
-#include "Board.h"
+#include "board.h"
 
 namespace Liron486
 {

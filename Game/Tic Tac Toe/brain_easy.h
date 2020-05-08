@@ -2,7 +2,7 @@
 #define _Liron486_BRAIN_EASY_HPP_
 
 #include "brain.h"
-#include "Board.h"
+#include "board.h"
 
 namespace Liron486
 {

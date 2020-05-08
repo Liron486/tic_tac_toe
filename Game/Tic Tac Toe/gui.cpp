@@ -8,7 +8,7 @@
 
 namespace Liron486
 {
-void Gui::PrintBoard(const std::vector<std::vector<char>>& boardToUse) const
+void Gui::PrintBoard(const std::vector<std::vector<char>>& boardToUse)
 {
     std::cout << "               +---+---+---+   \n"
               << "               | " << boardToUse[0][0] << " | " << boardToUse[0][1]
@@ -25,7 +25,7 @@ void Gui::PrintBoard(const std::vector<std::vector<char>>& boardToUse) const
 
 void Gui::PrintHeader(const Score& scoreToUse,
                       int gameNumberToUse,
-                      Configuration::Difficulty difficultyToUse) const
+                      Configuration::Difficulty difficultyToUse)
 {
     std::string difficulty =
         difficultyToUse == Configuration::Difficulty::EASY ? "EASY" : "HARD";
@@ -41,7 +41,7 @@ void Gui::PrintHeader(const Score& scoreToUse,
         << std::endl;
 }
 
-void Gui::PrintHeaderWithoutDiff(const Score& scoreToUse, int gameNumberToUse) const
+void Gui::PrintHeaderWithoutDiff(const Score& scoreToUse, int gameNumberToUse)
 {
     std::cout << "      " << scoreToUse.GetPlayersNames()[0] << " - "
               << scoreToUse.GetWinsCounter()[0] << "  |  " << scoreToUse.GetPlayersNames()[1]
@@ -52,14 +52,14 @@ void Gui::PrintHeaderWithoutDiff(const Score& scoreToUse, int gameNumberToUse) c
               << std::endl;
 }
 
-void Gui::WeHaveAWinner(std::unique_ptr<Player>& playerToUse) const
+void Gui::WeHaveAWinner(std::unique_ptr<Player>& playerToUse)
 {
     std::cout << "We have a Winner!!!!!\n"
               << playerToUse->getName() << " Wins!\n"
               << std::endl;
 }
 
-void Gui::Tie() const
+void Gui::Tie()
 {
     std::cout << "It's a tie!\n" << std::endl;
 }
@@ -68,7 +68,7 @@ void Gui::Tutorial(const std::vector<std::vector<char>>& boardToUse,
                    const Score& scoreToUse,
                    Configuration::Difficulty difficultyToUse,
                    const std::string& name1ToUse,
-                   const std::string& name2ToUse) const
+                   const std::string& name2ToUse)
 {
     //		ClearScreen();
     //		std::vector<std::string> sentences;

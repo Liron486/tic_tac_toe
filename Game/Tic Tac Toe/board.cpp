@@ -1,6 +1,5 @@
-#include <iostream>
 
-#include "Board.h"
+#include "board.h"
 
 namespace Liron486
 {

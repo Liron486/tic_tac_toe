@@ -50,7 +50,8 @@ Configuration::Difficulty Configuration::GetDifficulty() const
 
 std::string Configuration::GetPlayerName(int nPlayerToUse) const
 {
-    return namesOfPlayers[static_cast<int>(nPlayerToUse - 1)];
+    auto playerNum = static_cast<size_t>(nPlayerToUse) - 1;
+    return namesOfPlayers[playerNum];
 }
 
 char Configuration::GetPlayerChoice() const

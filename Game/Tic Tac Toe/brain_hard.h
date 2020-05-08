@@ -3,7 +3,6 @@
 
 #include "brain.h"
 #include "board.h"
-#include "judge.h"
 
 namespace Liron486
 {

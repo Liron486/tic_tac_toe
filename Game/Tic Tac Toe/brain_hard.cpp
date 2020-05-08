@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "brain_hard.h"
+#include "judge.h"
 #include "gui.h"
 #include "utils.h"
 

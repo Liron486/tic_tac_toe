@@ -5,7 +5,7 @@
 #include <string>
 
 #include "player.h"
-#include "Board.h"
+#include "board.h"
 #include "brain.h"
 #include "configuration.h"
 

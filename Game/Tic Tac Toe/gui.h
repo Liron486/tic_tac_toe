@@ -1,5 +1,4 @@
-#ifndef _Liron486_BOARD_DRAWER_HPP_
-#define _Liron486_BOARD_DRAWER_HPP_
+#pragma once
 
 #include <memory>
 #include <vector>
@@ -15,20 +14,19 @@ namespace Liron486
 class Gui
 {
 public:
-    void PrintBoard(const std::vector<std::vector<char>>& boardToUse) const;
-    void PrintHeader(const Score& scoreToUse,
-                     int gameNumberToUse,
-                     Configuration::Difficulty difficultyToUse) const;
-    void PrintHeaderWithoutDiff(const Score& scoreToUse, int gameNumberToUse) const;
-    void WeHaveAWinner(std::unique_ptr<Player>& playerToUse) const;
-    void Tie() const;
-    void Tutorial(const std::vector<std::vector<char>>& boardToUse,
-                  const Score& scoreToUse,
-                  Configuration::Difficulty difficultyToUse,
-                  const std::string& name1ToUse,
-                  const std::string& name2ToUse) const;
+	static void PrintBoard(const std::vector<std::vector<char>>& boardToUse);
+	static void PrintHeader(const Score& scoreToUse,
+	                        int gameNumberToUse,
+	                        Configuration::Difficulty difficultyToUse);
+	static void PrintHeaderWithoutDiff(const Score& scoreToUse, int gameNumberToUse);
+	static void WeHaveAWinner(std::unique_ptr<Player>& playerToUse);
+	static void Tie();
+	static void Tutorial(const std::vector<std::vector<char>>& boardToUse,
+	                     const Score& scoreToUse,
+	                     Configuration::Difficulty difficultyToUse,
+	                     const std::string& name1ToUse,
+	                     const std::string& name2ToUse);
 };
 
 } // namespace Liron486
 
-#endif // _Liron486_BOARD_DRAWER_HPP_#pragma once

@@ -5,7 +5,7 @@
 
 #include "configuration.h"
 #include "player.h"
-#include "Board.h"
+#include "board.h"
 #include "score.h"
 #include "judge.h"
 #include "gui.h"
@@ -25,7 +25,7 @@ private:
     void DisplayOnScreen() const;
     void ChangeDifficulty(Configuration::Difficulty difficultyToUse);
     void ResetGame();
-    void FillLastSquare();
+    Point FillLastSquare();
 
     int moveNumber = 0;
     Configuration conf;
@@ -34,7 +34,6 @@ private:
     Score score;
     std::unique_ptr<Player> players[2];
     Judge judge;
-    Gui gui;
     int gameNumber = 1;
     int switchSidesCounter = 0;
 };

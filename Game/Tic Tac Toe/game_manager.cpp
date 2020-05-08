@@ -32,13 +32,11 @@ void GameManager::CreateNewPlayersPtrs()
             players[0].reset(
                 new Computer(conf.GetPlayerName(1), 'X', board, difficulty));
 
-            players[1].reset(
-                new RealPlayer(conf.GetPlayerName(2), 'O', board));
+            players[1].reset(new RealPlayer(conf.GetPlayerName(2), 'O', board));
         }
         else
         {
-            players[0].reset(
-                new RealPlayer(conf.GetPlayerName(1), 'X', board));
+            players[0].reset(new RealPlayer(conf.GetPlayerName(1), 'X', board));
             players[1].reset(
                 new Computer(conf.GetPlayerName(2), 'O', board, difficulty));
         }
@@ -57,11 +55,11 @@ GameManager::GameManager()
     , judge(board)
 {
     CreateNewPlayersPtrs();
-    gui.Tutorial(board.getBoard(),
-                   score,
-                   difficulty,
-                   conf.GetPlayerName(1),
-                   conf.GetPlayerName(2));
+    Gui::Tutorial(board.getBoard(),
+                  score,
+                  difficulty,
+                  conf.GetPlayerName(1),
+                  conf.GetPlayerName(2));
     board.ResetBoard();
 }
 
@@ -70,13 +68,13 @@ void GameManager::DisplayOnScreen() const
     ClearScreen();
     if (conf.GetNumRealPlayers() == 2)
     {
-        gui.PrintHeaderWithoutDiff(score, gameNumber);
+        Gui::PrintHeaderWithoutDiff(score, gameNumber);
     }
     else
     {
-        gui.PrintHeader(score, gameNumber, difficulty);
+        Gui::PrintHeader(score, gameNumber, difficulty);
     }
-    gui.PrintBoard(board.getBoard());
+    Gui::PrintBoard(board.getBoard());
 }
 
 void GameManager::ResetGame()
@@ -92,16 +90,21 @@ void GameManager::ResetGame()
     Play();
 }
 
-void GameManager::FillLastSquare()
+Point GameManager::FillLastSquare()
 {
+    Point newMove;
+
     for (auto i = 0; i < num_of_cells; ++i)
     {
         if (board.GetSquareContent(Point::ConvertNumToPoint(i)) == ' ')
         {
-            board.setSquare('X', Point::ConvertNumToPoint(i));
+            newMove = Point::ConvertNumToPoint(i);
+            board.setSquare('X', newMove);
             break;
         }
     }
+
+    return newMove;
 }
 
 void GameManager::Play()
@@ -127,7 +130,7 @@ void GameManager::Play()
         }
         else
         {
-            FillLastSquare();
+            newMove = FillLastSquare();
             MySleep(700);
         }
 
@@ -147,13 +150,13 @@ void GameManager::Play()
     if (weHaveAWinner)
     {
         DisplayOnScreen();
-        gui.WeHaveAWinner(players[playerNum]);
+        Gui::WeHaveAWinner(players[playerNum]);
         score.UpdateScore(playerNum);
     }
     else
     {
         DisplayOnScreen();
-        gui.Tie();
+        Gui::Tie();
     }
 
     if (WantToPlayAgain())

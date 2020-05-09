@@ -52,11 +52,11 @@ static int RecCheckBestMove(Board& boardCopyToUse,
 {
     auto current_type = GetCurrentType(typeToUse, depthToUse);
 
-    boardCopyToUse.setSquare(current_type, lastMLastMoveToUse);
+    boardCopyToUse.setCell(current_type, lastMLastMoveToUse);
 
     if (judgeToUse.CheckForWinner(lastMLastMoveToUse))
     {
-        if (typeToUse != boardCopyToUse.GetSquareContent(lastMLastMoveToUse))
+        if (typeToUse != boardCopyToUse.getCellContent(lastMLastMoveToUse))
         {
             return (-1);
         }
@@ -73,11 +73,11 @@ static int RecCheckBestMove(Board& boardCopyToUse,
     {
         nextMove = Point::ConvertNumToPoint(i);
 
-        if (boardCopyToUse.IsSquareEmpty(nextMove))
+        if (boardCopyToUse.isSquareEmpty(nextMove))
         {
             current_value =
                 RecCheckBestMove(boardCopyToUse, typeToUse, judgeToUse, nextMove, depthToUse + 1);
-            boardCopyToUse.setSquare(' ', nextMove);
+            boardCopyToUse.setCell(' ', nextMove);
 
             vector_of_values.push_back(current_value);
             isfull = false;
@@ -115,7 +115,7 @@ static bool AmIBegin(const Board& boardToUse)
 {
     for (auto i = 0; i < num_of_cells; ++i)
     {
-        if (!boardToUse.IsSquareEmpty(Point::ConvertNumToPoint(i)))
+        if (!boardToUse.isSquareEmpty(Point::ConvertNumToPoint(i)))
         {
             return false;
         }
@@ -133,16 +133,16 @@ static bool CheckIfWinNextMove(Board& boardToUse,
 {
     for (auto i = 0; i < rangeToUse; ++i)
     {
-        boardToUse.setSquare(typeToUse, bestMovesToUse[i]);
+        boardToUse.setCell(typeToUse, bestMovesToUse[i]);
 
         if (judgeToUse.CheckForWinner(bestMovesToUse[i]))
         {
             indexResultToUse = i;
-            boardToUse.setSquare(' ', bestMovesToUse[i]);
+            boardToUse.setCell(' ', bestMovesToUse[i]);
             return true;
         }
 
-        boardToUse.setSquare(' ', bestMovesToUse[i]);
+        boardToUse.setCell(' ', bestMovesToUse[i]);
     }
 
     return false;
@@ -171,7 +171,7 @@ Point BrainHard::getNextMove() const
         {
             checkMove = Point::ConvertNumToPoint(i);
 
-            if (boardCopy.IsSquareEmpty(checkMove))
+            if (boardCopy.isSquareEmpty(checkMove))
             {
                 current_res =
                     RecCheckBestMove(boardCopy, myType, judge, checkMove, 1);

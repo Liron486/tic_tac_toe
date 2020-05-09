@@ -24,7 +24,7 @@ Point BrainEasy::getNextMove() const
     {
         checkMove = Point::ConvertNumToPoint(i);
 
-        if (board.IsSquareEmpty(checkMove))
+        if (board.isSquareEmpty(checkMove))
         {
             availableMoves[countAvailableMoves] = checkMove;
             ++countAvailableMoves;

@@ -15,7 +15,7 @@ bool Judge::CheckForWinner(const Point& lastMoveToUse) const
     auto diag = 0;
     auto antiDiagonal = 0;
     auto winner = false;
-    auto playerType = board.GetSquareContent(lastMoveToUse);
+    auto playerType = board.getCellContent(lastMoveToUse);
 
     auto x_lastMove = lastMoveToUse.GetX();
     auto y_lastMove = lastMoveToUse.GetY();
@@ -34,22 +34,22 @@ bool Judge::CheckForWinner(const Point& lastMoveToUse) const
         checkAntiDiag.SetX(i);
         checkAntiDiag.SetY(3 - i - 1);
 
-        if (board.GetSquareContent(checkRow) == playerType)
+        if (board.getCellContent(checkRow) == playerType)
         {
             ++row;
         }
 
-        if (board.GetSquareContent(checkCol) == playerType)
+        if (board.getCellContent(checkCol) == playerType)
         {
             ++col;
         }
 
-        if (board.GetSquareContent(checkDiag) == playerType)
+        if (board.getCellContent(checkDiag) == playerType)
         {
             ++diag;
         }
 
-        if (board.GetSquareContent(checkAntiDiag) == playerType)
+        if (board.getCellContent(checkAntiDiag) == playerType)
         {
             ++antiDiagonal;
         }

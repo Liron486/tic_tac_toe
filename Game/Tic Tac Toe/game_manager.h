@@ -8,7 +8,6 @@
 #include "board.h"
 #include "score.h"
 #include "judge.h"
-#include "gui.h"
 
 namespace Liron486
 {
@@ -25,7 +24,7 @@ private:
     void DisplayOnScreen() const;
     void ChangeDifficulty(Configuration::Difficulty difficultyToUse);
     void ResetGame();
-    Point FillLastSquare();
+    Point FillLastSquare() const;
 
     int moveNumber = 0;
     Configuration conf;

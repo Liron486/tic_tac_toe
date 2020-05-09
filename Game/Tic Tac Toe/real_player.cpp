@@ -47,7 +47,7 @@ Point RealPlayer::makeMove() const
         newMove = Point::ConvertNumToPoint(nextMove - 1);
     }
 
-    while ((IsValid == false) || (board.GetSquareContent(newMove) != ' '))
+    while ((IsValid == false) || (board.getCellContent(newMove) != ' '))
     {
         std::cout << "Wrong Move, try again\n";
         nextMove_str = controller.GetNextMove();

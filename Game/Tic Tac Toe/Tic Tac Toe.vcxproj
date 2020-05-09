@@ -173,7 +173,6 @@
     <ClInclude Include="brain_easy.h" />
     <ClInclude Include="brain_hard.h" />
     <ClInclude Include="cell.h" />
-    <ClInclude Include="cells_manager.h" />
     <ClInclude Include="computer.h" />
     <ClInclude Include="configuration.h" />
     <ClInclude Include="controller.h" />

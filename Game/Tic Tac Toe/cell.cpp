@@ -3,8 +3,8 @@
 
 namespace Liron486
 {
-Cell::Cell(int relativeLocToUse)
-    : relativeLoc(relativeLocToUse)
+Cell::Cell(int rowLocationToUse, int colLocationToUse)
+    : relativeLoc((rowLocationToUse + 1) * (colLocationToUse + 1))
 {
 }
 

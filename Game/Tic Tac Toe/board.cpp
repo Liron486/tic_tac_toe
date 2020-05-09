@@ -3,67 +3,85 @@
 
 namespace Liron486
 {
-constexpr int numOfRows= 3;
+constexpr int numOfRows = 3;
 constexpr int numOfCols = 3;
 
+inline void initializeBoard(BoardData& boardDataToUse)
+{
+    for (auto r = 0; r < numOfRows; ++r)
+    {
+        std::vector<Cell> newRow;
+        boardDataToUse.cells.push_back(newRow);
+
+        for (auto c = 0; c < numOfCols; ++c)
+        {
+            boardDataToUse.cells[r].emplace_back(r, c);
+        }
+    }
+}
+
 Board::Board()
+    : boardData(new BoardData)
 {
-    InitBoard();
+    initializeBoard(*boardData);
 }
 
-char Board::GetSquareContent(const Point& squareToUse) const
+inline void copyCells(std::unique_ptr<BoardData>& boardDataToUse,
+                      const Board& boardToUse)
 {
-    return board[squareToUse.GetX()][squareToUse.GetY()];
-}
-
-void Board::setSquare(char playerTypeToUse, const Point& squareToUse)
-{
-    board[squareToUse.GetX()][squareToUse.GetY()] = playerTypeToUse;
-}
-
-void Board::InitBoard()
-{
-    auto cell_number = '1';
-
-    for (auto i = 0; i < numOfRows; ++i)
+    for (auto r = 0; r < numOfRows; ++r)
     {
-        std::vector<char> newVector;
-        board.push_back(newVector);
+        std::vector<Cell> newRow;
+        boardDataToUse->cells.push_back(newRow);
 
-        for (auto j = 0; j < numOfCols; ++j)
+        for (auto c = 0; c < numOfCols; ++c)
         {
-            board[i].push_back(cell_number);
-            ++cell_number;
+            boardDataToUse->cells[r].emplace_back(r, c);
+            boardDataToUse->cells[r][c].setCellContent(
+                boardToUse.getBoardData()->cells[r][c].getCellContent());
         }
     }
 }
 
-const std::vector<std::vector<char>>& Board::getBoard() const
+Board::Board(const Board& boardToUse)
+    : boardData(new BoardData)
 {
-    return board;
+    copyCells(boardData, boardToUse);
 }
 
-void Board::ResetBoard()
+Board& Board::operator=(const Board& boardToUse)
 {
-    for (auto i = 0; i < numOfRows; ++i)
-    {
-        auto& row = board[i];
+    copyCells(boardData, boardToUse);
 
-        for (auto j = 0; j < numOfCols; ++j)
-        {
-            row[j] = ' ';
-        }
-    }
+    return *this;
 }
 
-bool Board::IsSquareEmpty(const Point& square_) const
+char Board::getCellContent(const Point& squareToUse) const
 {
-    if (board[square_.GetX()][square_.GetY()] == ' ')
-    {
-        return true;
-    }
+    return boardData->cells[squareToUse.GetX()][squareToUse.GetY()].getCellContent();
+}
 
-    return false;
+void Board::setCell(char playerTypeToUse, const Point& cellToUse) const
+{
+    boardData->cells[cellToUse.GetX()][cellToUse.GetY()].setCellContent(
+        playerTypeToUse);
+}
+
+void Board::resetBoardData()
+{
+    boardData.reset(new BoardData);
+    initializeBoard(*boardData);
+}
+
+bool Board::isSquareEmpty(const Point& cellToUse) const
+{
+    return (boardData->cells[cellToUse.GetX()][cellToUse.GetY()].getCellContent()
+            == ' ');
+}
+
+const std::unique_ptr<BoardData>& Board::getBoardData() const
+{
+    return boardData;
 }
 
 } // namespace Liron486

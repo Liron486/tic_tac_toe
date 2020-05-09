@@ -107,9 +107,6 @@
     <ClInclude Include="cell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cells_manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="board.h">
       <Filter>Header Files</Filter>
     </ClInclude>

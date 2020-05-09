@@ -26,6 +26,9 @@ inline bool compareChars(const char& a, const char& b)
 
 inline bool compareStrings(const std::string& first, const std::string& second)
 {
+    if (first.length() != second.length())
+        return false;
+	
     return std::equal(first.begin(), first.end(), second.begin(), compareChars);
 }
 

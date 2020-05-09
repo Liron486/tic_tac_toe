@@ -1,11 +1,11 @@
 #include <iostream>
-#include <cstdlib>
 #include <string>
 #include <vector>
 
 #include "game_manager.h"
 #include "real_player.h"
 #include "computer.h"
+#include "gui.h"
 #include "utils.h"
 
 namespace Liron486
@@ -55,12 +55,11 @@ GameManager::GameManager()
     , judge(board)
 {
     CreateNewPlayersPtrs();
-    Gui::Tutorial(board.getBoard(),
+    Gui::Tutorial(board,
                   score,
                   difficulty,
                   conf.GetPlayerName(1),
                   conf.GetPlayerName(2));
-    board.ResetBoard();
 }
 
 void GameManager::DisplayOnScreen() const
@@ -74,12 +73,12 @@ void GameManager::DisplayOnScreen() const
     {
         Gui::PrintHeader(score, gameNumber, difficulty);
     }
-    Gui::PrintBoard(board.getBoard());
+    Gui::PrintBoard(board);
 }
 
 void GameManager::ResetGame()
 {
-    board.ResetBoard();
+    board.resetBoardData();
 
     if (moveNumber > threshhold)
     {
@@ -90,16 +89,16 @@ void GameManager::ResetGame()
     Play();
 }
 
-Point GameManager::FillLastSquare()
+Point GameManager::FillLastSquare() const
 {
     Point newMove;
 
     for (auto i = 0; i < num_of_cells; ++i)
     {
-        if (board.GetSquareContent(Point::ConvertNumToPoint(i)) == ' ')
+        if (board.getCellContent(Point::ConvertNumToPoint(i)) == ' ')
         {
             newMove = Point::ConvertNumToPoint(i);
-            board.setSquare('X', newMove);
+            board.setCell('X', newMove);
             break;
         }
     }
@@ -126,7 +125,7 @@ void GameManager::Play()
             {
                 ResetGame();
             }
-            board.setSquare(players[playerNum]->getPlayerType(), newMove);
+            board.setCell(players[playerNum]->getPlayerType(), newMove);
         }
         else
         {

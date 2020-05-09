@@ -6,7 +6,7 @@ namespace Liron486
 class Cell
 {
 public:
-    explicit Cell(int relativeLocToUse);
+    Cell(int rowLocationToUse, int colLocationToUse);
     char getCellContent() const;
     void setCellContent(char newContentToUse);
     int getRelativeLocation() const;

@@ -1,24 +1,30 @@
 #include <iostream>
-#include <cstdlib>
 #include <thread>
 //#include <conio.h>
 
 #include "gui.h"
 #include "utils.h"
+#include "point.h"
 
 namespace Liron486
 {
-void Gui::PrintBoard(const std::vector<std::vector<char>>& boardToUse)
+void Gui::PrintBoard(const Board& boardToUse)
 {
     std::cout << "               +---+---+---+   \n"
-              << "               | " << boardToUse[0][0] << " | " << boardToUse[0][1]
-              << " | " << boardToUse[0][2] << " |\n"
+              << "               | "
+              << boardToUse.getCellContent(Point::ConvertNumToPoint(0)) << " | "
+              << boardToUse.getCellContent(Point::ConvertNumToPoint(1)) << " | "
+              << boardToUse.getCellContent(Point::ConvertNumToPoint(2)) << " |\n"
               << "               +---+---+---+   \n"
-              << "               | " << boardToUse[1][0] << " | " << boardToUse[1][1]
-              << " | " << boardToUse[1][2] << " |\n"
+              << "               | "
+              << boardToUse.getCellContent(Point::ConvertNumToPoint(3)) << " | "
+              << boardToUse.getCellContent(Point::ConvertNumToPoint(4)) << " | "
+              << boardToUse.getCellContent(Point::ConvertNumToPoint(5)) << " |\n"
               << "               +---+---+---+   \n"
-              << "               | " << boardToUse[2][0] << " | " << boardToUse[2][1]
-              << " | " << boardToUse[2][2] << " |\n"
+              << "               | "
+              << boardToUse.getCellContent(Point::ConvertNumToPoint(6)) << " | "
+              << boardToUse.getCellContent(Point::ConvertNumToPoint(7)) << " | "
+              << boardToUse.getCellContent(Point::ConvertNumToPoint(8)) << " |\n"
               << "               +---+---+---+   \n"
               << std::endl;
 }
@@ -64,7 +70,7 @@ void Gui::Tie()
     std::cout << "It's a tie!\n" << std::endl;
 }
 
-void Gui::Tutorial(const std::vector<std::vector<char>>& boardToUse,
+void Gui::Tutorial(const Board& boardToUse,
                    const Score& scoreToUse,
                    Configuration::Difficulty difficultyToUse,
                    const std::string& name1ToUse,

@@ -2,24 +2,32 @@
 #define _Liron486_BOARD_HPP_
 
 #include <vector>
+#include <memory>
 
+#include "cell.h"
 #include "point.h"
 
 namespace Liron486
 {
+struct BoardData
+{
+    std::vector<std::vector<Cell>> cells;
+};
+
 class Board
 {
 public:
     explicit Board();
-    char GetSquareContent(const Point& squareToUse) const;
-    void setSquare(char playerTypeToUse, const Point& squareToUse);
-    void InitBoard();
-    void ResetBoard();
-    const std::vector<std::vector<char>>& getBoard() const;
-    bool IsSquareEmpty(const Point& square_) const;
+    Board(const Board& boardToUse);
+    Board& operator=(const Board& boardToUse);
+    char getCellContent(const Point& squareToUse) const;
+    void setCell(char playerTypeToUse, const Point& cellToUse) const;
+    void resetBoardData();
+    bool isSquareEmpty(const Point& cellToUse) const;
+    const std::unique_ptr<BoardData>& getBoardData() const;
 
 private:
-    std::vector<std::vector<char>> board;
+    std::unique_ptr<BoardData> boardData;
 };
 
 } // namespace Liron486

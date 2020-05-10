@@ -93,9 +93,9 @@ Point GameManager::FillLastSquare() const
 {
     Point newMove;
 
-    for (auto i = 0; i < num_of_cells; ++i)
+    for (auto i = 1; i <= num_of_cells; ++i)
     {
-        if (board.getCellContent(Point::ConvertNumToPoint(i)) == ' ')
+        if (compareChars(board.getCellContent(Point::ConvertNumToPoint(i)), ' '))
         {
             newMove = Point::ConvertNumToPoint(i);
             board.setCell('X', newMove);

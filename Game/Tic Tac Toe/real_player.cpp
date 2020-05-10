@@ -46,7 +46,7 @@ Point RealPlayer::makeMove() const
         {
             std::stringstream sstream(nextMove_str);
             sstream >> nextMove;
-            newMove = Point::ConvertNumToPoint(nextMove - 1);
+            newMove = Point::ConvertNumToPoint(nextMove);
 
             if (compareChars(playerData.board.getCellContent(newMove), ' '))
                 break;

@@ -34,8 +34,8 @@ Point Point::ConvertNumToPoint(int numToUse)
 {
     Point new_point;
 
-    new_point.SetX(numToUse / 3);
-    new_point.SetY(numToUse % 3);
+    new_point.SetX((numToUse - 1) / 3);
+    new_point.SetY((numToUse - 1) % 3);
 
     return new_point;
 }

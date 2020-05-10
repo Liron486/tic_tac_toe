@@ -1,18 +1,15 @@
 #include <cstdlib> /* srand, rand */
 #include <ctime> /* time */
 #include <vector>
+#include <algorithm>
 
 #include "brain_hard.h"
 #include "judge.h"
 #include "gui.h"
 #include "utils.h"
 
-#define MAX2(X, Y) (X) > (Y) ? (X) : (Y)
-#define MIN2(X, Y) (X) < (Y) ? (X) : (Y)
-
 namespace Liron486
 {
-
 const int num_of_cells = 9;
 
 BrainHard::BrainHard(const Board& boardToUse, char typeToUse)
@@ -69,14 +66,14 @@ static int RecCheckBestMove(Board& boardCopyToUse,
     std::vector<int> vector_of_values;
     auto isfull = true;
 
-    for (auto i = 0; i < num_of_cells; ++i)
+    for (auto i = 1; i <= num_of_cells; ++i)
     {
         nextMove = Point::ConvertNumToPoint(i);
 
         if (boardCopyToUse.isSquareEmpty(nextMove))
         {
-            current_value =
-                RecCheckBestMove(boardCopyToUse, typeToUse, judgeToUse, nextMove, depthToUse + 1);
+            current_value = RecCheckBestMove(
+                boardCopyToUse, typeToUse, judgeToUse, nextMove, depthToUse + 1);
             boardCopyToUse.setCell(' ', nextMove);
 
             vector_of_values.push_back(current_value);
@@ -95,7 +92,7 @@ static int RecCheckBestMove(Board& boardCopyToUse,
             value = -10;
             for (auto i = 0; i < vector_size; ++i)
             {
-                value = MAX2(value, vector_of_values[i]);
+                value = (std::max)(value, vector_of_values[i]);
             }
         }
         else
@@ -103,7 +100,7 @@ static int RecCheckBestMove(Board& boardCopyToUse,
             value = 10;
             for (auto i = 0; i < vector_size; ++i)
             {
-                value = MIN2(value, vector_of_values[i]);
+                value = (std::min)(value, vector_of_values[i]);
             }
         }
     }
@@ -113,7 +110,7 @@ static int RecCheckBestMove(Board& boardCopyToUse,
 
 static bool AmIBegin(const Board& boardToUse)
 {
-    for (auto i = 0; i < num_of_cells; ++i)
+    for (auto i = 1; i <= num_of_cells; ++i)
     {
         if (!boardToUse.isSquareEmpty(Point::ConvertNumToPoint(i)))
         {
@@ -152,6 +149,7 @@ Point BrainHard::getNextMove() const
 {
     auto max = -10;
     auto current_res = -10;
+    auto currentDepth = 1;
     auto boardCopy(board);
     Point nextMove;
     Point checkMove;
@@ -163,18 +161,18 @@ Point BrainHard::getNextMove() const
 
     if (AmIBegin(boardCopy))
     {
-        nextMove = Point::ConvertNumToPoint(rand() % num_of_cells);
+        nextMove = Point::ConvertNumToPoint((rand() % num_of_cells) + 1);
     }
     else
     {
-        for (auto i = 0; i < num_of_cells; ++i)
+        for (auto i = 1; i <= num_of_cells; ++i)
         {
             checkMove = Point::ConvertNumToPoint(i);
 
             if (boardCopy.isSquareEmpty(checkMove))
             {
-                current_res =
-                    RecCheckBestMove(boardCopy, myType, judge, checkMove, 1);
+                current_res = RecCheckBestMove(
+                    boardCopy, myType, judge, checkMove, currentDepth);
                 if (current_res > max)
                 {
                     best_moves.clear();

@@ -46,7 +46,7 @@ Point RealPlayer::makeMove() const
             sstream >> nextMove;
             newMove = Point::ConvertNumToPoint(nextMove);
 
-            if (compareChars(data.board.getCellContent(newMove), ' '))
+            if (data.board.getCellContent(newMove) == CellTypes::Empty)
                 break;
         }
 

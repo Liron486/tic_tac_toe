@@ -1,5 +1,4 @@
-#ifndef _Liron486_SlEEP_FUNC_HPP_
-#define _Liron486_SlEEP_FUNC_HPP_
+#pragma once
 
 #ifdef __linux
 #include <unistd.h>
@@ -54,5 +53,3 @@ inline void ClearScreen()
 }
 
 } // namespace liron486
-
-#endif // _Liron486_SlEEP_FUNC_HPP_

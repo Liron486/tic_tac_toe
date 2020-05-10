@@ -1,5 +1,4 @@
-#ifndef _Liron486_SCORE_HPP_
-#define _Liron486_SCORE_HPP_
+#pragma once
 
 #include <array>
 #include <string>
@@ -23,4 +22,3 @@ private:
 
 } // namespace Liron486
 
-#endif // _Liron486_SCORE_HPP_#pragma once

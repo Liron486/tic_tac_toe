@@ -1,5 +1,4 @@
-#ifndef _Liron486_CONTROLLER_HPP_
-#define _Liron486_CONTROLLER_HPP_
+#pragma once
 
 #include <string>
 
@@ -19,4 +18,3 @@ private:
 
 } // namespace Liron486
 
-#endif // _Liron486_CONTROLLER_HPP_#pragma once

@@ -1,22 +1,28 @@
-#ifndef _Liron486_CELL_HPP_
-#define _Liron486_CELL_HPP_
+#pragma once
 
 namespace Liron486
 {
+enum class CellTypes
+{
+    Ex,
+    Circle,
+    Empty
+};
+
 class Cell
 {
 public:
     Cell(int rowLocationToUse, int colLocationToUse);
-    char getCellContent() const;
-    void setCellContent(char newContentToUse);
+    CellTypes getCellContent() const;
+    void setCellContent(CellTypes newContentToUse);
     int getRelativeLocation() const;
+    static char cellTypeToChar(CellTypes cellTypeToUse);
+    static CellTypes charToCellType(char charToUse);
+
 
 private:
-    char content = ' ';
+    CellTypes content = CellTypes::Empty;
     int relativeLoc;
 };
 
 } // namespace Liron486
-
-#endif // _Liron486_CELL_HPP_#pragma once
-#pragma once

@@ -1,5 +1,4 @@
-#ifndef _Liron486_BRAIN_EASY_HPP_
-#define _Liron486_BRAIN_EASY_HPP_
+#pragma once
 
 #include "brain.h"
 #include "board.h"
@@ -9,16 +8,15 @@ namespace Liron486
 class BrainEasy : public Brain
 {
 public:
-    explicit BrainEasy(const Board& boardToUse, char typeToUse);
+    explicit BrainEasy(const Board& boardToUse, CellTypes typeToUse);
     Point getNextMove() const override;
-    char getType() const override;
-    void setType(char typeToUse) override;
+    CellTypes getType() const override;
+    void setType(CellTypes typeToUse) override;
 
 private:
     const Board& board;
-    char myType;
+    CellTypes myType;
 };
 
 } // namespace Liron486
 
-#endif // _Liron486_BRAIN_EASY_HPP_

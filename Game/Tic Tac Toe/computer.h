@@ -1,5 +1,4 @@
-#ifndef _Liron486_COMPUTER_HPP_
-#define _Liron486_COMPUTER_HPP_
+#pragma once
 
 #include <memory>
 
@@ -24,4 +23,4 @@ private:
 
 } // namespace Liron486
 
-#endif // _Liron486_COMPUTER_HPP_#pragma once
+

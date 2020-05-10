@@ -1,5 +1,4 @@
-#ifndef _Liron486_BOARD_HPP_
-#define _Liron486_BOARD_HPP_
+#pragma once
 
 #include <vector>
 #include <memory>
@@ -22,16 +21,15 @@ public:
     explicit Board();
     Board(const Board& boardToUse);
     Board& operator=(const Board& boardToUse);
-    char getCellContent(const Point& squareToUse) const;
-    void setCell(char playerTypeToUse, const Point& cellToUse) const;
+    CellTypes getCellContent(const Point& squareToUse) const;
+    void setCell(CellTypes playerTypeToUse, const Point& cellToUse) const;
     void resetBoardData();
     bool isSquareEmpty(const Point& cellToUse) const;
 
 private:
-    void copyCells(const Board& other);
+    void copyCells(const Board& other) const;
     std::unique_ptr<BoardData> boardData;
 };
 
 } // namespace Liron486
 
-#endif // _Liron486_BOARD_HPP_#pragma once

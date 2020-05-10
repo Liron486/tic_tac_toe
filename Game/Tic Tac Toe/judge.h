@@ -1,5 +1,4 @@
-#ifndef _Liron486_JUDGE_HPP_
-#define _Liron486_JUDGE_HPP_
+#pragma once
 
 #include "board.h"
 
@@ -17,5 +16,3 @@ private:
 };
 
 } // namespace Liron486
-
-#endif // _Liron486_JUDGE_HPP_#pragma once

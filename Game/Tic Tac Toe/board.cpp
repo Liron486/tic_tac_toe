@@ -28,12 +28,12 @@ Board& Board::operator=(const Board& boardToUse)
     return *this;
 }
 
-char Board::getCellContent(const Point& squareToUse) const
+CellTypes Board::getCellContent(const Point& squareToUse) const
 {
     return boardData->cells[squareToUse.GetX()][squareToUse.GetY()].getCellContent();
 }
 
-void Board::setCell(char playerTypeToUse, const Point& cellToUse) const
+void Board::setCell(CellTypes playerTypeToUse, const Point& cellToUse) const
 {
     boardData->cells[cellToUse.GetX()][cellToUse.GetY()].setCellContent(
         playerTypeToUse);
@@ -47,10 +47,10 @@ void Board::resetBoardData()
 bool Board::isSquareEmpty(const Point& cellToUse) const
 {
     return (boardData->cells[cellToUse.GetX()][cellToUse.GetY()].getCellContent()
-            == ' ');
+            == CellTypes::Empty);
 }
 
-void Board::copyCells(const Board& other)
+void Board::copyCells(const Board& other) const
 {
     *boardData = *other.boardData;
 }

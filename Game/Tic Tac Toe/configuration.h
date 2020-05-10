@@ -1,8 +1,9 @@
-#ifndef _Liron486_CONFIGURATION_HPP_
-#define _Liron486_CONFIGURATION_HPP_
+#pragma once
 
 #include <string>
 #include <array>
+
+#include "cell.h"
 
 namespace Liron486
 {
@@ -19,7 +20,7 @@ public:
     int GetNumRealPlayers() const;
     Difficulty GetDifficulty() const;
     std::string GetPlayerName(int nPlayerToUse) const;
-    char GetPlayerChoice() const;
+    CellTypes GetPlayerChoice() const;
 
 private:
     void SetNumRealPlayers();
@@ -30,9 +31,7 @@ private:
     int nRealPlayers = 1;
     Difficulty difficulty = Difficulty::HARD;
     std::array<std::string, 2> namesOfPlayers;
-    char playerChoice = 'X';
+    CellTypes playerChoice = CellTypes::Ex;
 };
 
 } // namespace Liron486
-
-#endif // _Liron486_CONFIGURATION_HPP_#pragma once

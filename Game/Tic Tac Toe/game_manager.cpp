@@ -13,13 +13,13 @@ namespace Liron486
 const int num_of_cells = 9;
 const int threshhold = 3;
 
-Computer* GameManager::createComputer(int index, char type) const
+Computer* GameManager::createComputer(int index, CellTypes type) const
 {
     PlayerData data(conf.GetPlayerName(index), type, board);
     return new Computer(data, difficulty);
 }
 
-RealPlayer* GameManager::createRealPlayer(int index, char type) const
+RealPlayer* GameManager::createRealPlayer(int index, CellTypes type) const
 {
     PlayerData data(conf.GetPlayerName(index), type, board);
     return new RealPlayer(data);
@@ -31,29 +31,29 @@ void GameManager::CreateNewPlayersPtrs()
 
     if (numOfRealPlayers == 0)
     {
-        players[0].reset(createComputer(1, 'X'));
-        players[1].reset(createComputer(2, 'O'));
+        players[0].reset(createComputer(1, CellTypes::Ex));
+        players[1].reset(createComputer(2, CellTypes::Circle));
     }
 
     else if (numOfRealPlayers == 1)
     {
-        if (conf.GetPlayerChoice() == 'O')
+        if (conf.GetPlayerChoice() == CellTypes::Circle)
         {
-            players[0].reset(createComputer(1, 'X'));
+            players[0].reset(createComputer(1, CellTypes::Ex));
 
-            players[1].reset(createRealPlayer(2, 'O'));
+            players[1].reset(createRealPlayer(2, CellTypes::Circle));
         }
         else
         {
-            players[0].reset(createRealPlayer(1, 'X'));
-            players[1].reset(createComputer(2, 'O'));
+            players[0].reset(createRealPlayer(1, CellTypes::Ex));
+            players[1].reset(createComputer(2, CellTypes::Circle));
         }
     }
 
     else if (numOfRealPlayers == 2)
     {
-        players[0].reset(createRealPlayer(1, 'X'));
-        players[1].reset(createRealPlayer(2, 'O'));
+        players[0].reset(createRealPlayer(1, CellTypes::Ex));
+        players[1].reset(createRealPlayer(2, CellTypes::Circle));
     }
 }
 
@@ -100,10 +100,10 @@ Point GameManager::FillLastSquare() const
 
     for (auto i = 1; i <= num_of_cells; ++i)
     {
-        if (compareChars(board.getCellContent(Point::ConvertNumToPoint(i)), ' '))
+        if (board.getCellContent(Point::ConvertNumToPoint(i)) ==  CellTypes::Empty)
         {
             newMove = Point::ConvertNumToPoint(i);
-            board.setCell('X', newMove);
+            board.setCell(CellTypes::Ex, newMove);
             break;
         }
     }
@@ -171,8 +171,8 @@ void GameManager::Play()
 
 void GameManager::SwitchSides()
 {
-    players[0]->setPlayerType('O');
-    players[1]->setPlayerType('X');
+    players[0]->setPlayerType(CellTypes::Circle);
+    players[1]->setPlayerType(CellTypes::Ex);
 
     std::swap(players[0], players[1]);
 
@@ -214,7 +214,7 @@ bool GameManager::WantToPlayAgain()
             return true;
         }
 
-        if (compareStrings(answer, "easy"))
+        if (compareStrings(answer, "EASY"))
         {
             ChangeDifficulty(Configuration::Difficulty::EASY);
             return true;
@@ -228,17 +228,17 @@ bool GameManager::WantToPlayAgain()
     }
 }
 
-static int CalcCumputerIndex(int switchCounterToUse, char playerFirstChoiseToUse)
+static int CalcCumputerIndex(int switchCounterToUse, CellTypes playerFirstChoiseToUse)
 {
     auto num = switchCounterToUse;
-    num = playerFirstChoiseToUse == 'X' ? num + 1 : num;
+    num = playerFirstChoiseToUse == CellTypes::Ex ? num + 1 : num;
 
     return (num % 2);
 }
 
 void GameManager::ChangeDifficulty(Configuration::Difficulty difficultyToUse)
 {
-    if (difficultyToUse != difficulty)
+    if (difficultyToUse == difficulty)
         return;
 
     if (conf.GetNumRealPlayers() == 2)
@@ -251,8 +251,8 @@ void GameManager::ChangeDifficulty(Configuration::Difficulty difficultyToUse)
         auto name1 = players[0]->getData().name;
         auto name2 = players[1]->getData().name;
 
-        players[0].reset(new Computer({name1, 'X', board}, difficultyToUse));
-        players[1].reset(new Computer({name2, 'O', board}, difficultyToUse));
+        players[0].reset(new Computer({name1, CellTypes::Ex, board}, difficultyToUse));
+        players[1].reset(new Computer({name2, CellTypes::Circle, board}, difficultyToUse));
     }
 
     if (conf.GetNumRealPlayers() == 1)
@@ -260,12 +260,12 @@ void GameManager::ChangeDifficulty(Configuration::Difficulty difficultyToUse)
         auto computer_index =
             CalcCumputerIndex(switchSidesCounter, conf.GetPlayerChoice());
 
-        auto type = computer_index == 0 ? 'X' : 'O';
+        auto cellType = computer_index == 0 ? CellTypes::Ex : CellTypes::Circle;
 
         auto name = players[computer_index]->getData().name;
 
         players[computer_index].reset(
-            new Computer({name, type, board}, difficultyToUse));
+            new Computer({name, cellType, board}, difficultyToUse));
     }
 }
 

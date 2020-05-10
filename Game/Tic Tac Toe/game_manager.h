@@ -1,5 +1,4 @@
-#ifndef _Liron486_GAME_MANAGER_HPP_
-#define _Liron486_GAME_MANAGER_HPP_
+#pragma once
 
 #include <memory>
 
@@ -10,11 +9,13 @@
 #include "score.h"
 #include "judge.h"
 #include "computer.h"
+#include "cell.h"
 
 namespace Liron486
 {
 class GameManager
 {
+
 public:
     explicit GameManager();
     void Play();
@@ -26,8 +27,8 @@ private:
     void DisplayOnScreen() const;
     void ChangeDifficulty(Configuration::Difficulty difficultyToUse);
     void ResetGame();
-    Computer* createComputer(int index, char type) const;
-    RealPlayer* createRealPlayer(int index, char type) const;
+    Computer* createComputer(int index, CellTypes type) const;
+    RealPlayer* createRealPlayer(int index, CellTypes type) const;
 
 	
     Point FillLastSquare() const;
@@ -44,5 +45,3 @@ private:
 };
 
 } // namespace Liron486
-
-#endif // _Liron486_GAME_MANAGER_HPP_#pragma once

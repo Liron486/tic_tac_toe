@@ -1,3 +1,4 @@
+#include <string>
 
 #include "cell.h"
 
@@ -8,12 +9,12 @@ Cell::Cell(int rowLocationToUse, int colLocationToUse)
 {
 }
 
-char Cell::getCellContent() const
+CellTypes Cell::getCellContent() const
 {
     return content;
 }
 
-void Cell::setCellContent(char newContentToUse)
+void Cell::setCellContent(CellTypes newContentToUse)
 {
     content = newContentToUse;
 }
@@ -21,6 +22,29 @@ void Cell::setCellContent(char newContentToUse)
 int Cell::getRelativeLocation() const
 {
     return relativeLoc;
+}
+
+char Cell::cellTypeToChar(CellTypes cellTypeToUse)
+{
+    switch (cellTypeToUse)
+    {
+        case CellTypes::Ex:
+            return 'X';
+        case CellTypes::Circle:
+            return 'O';
+        default:
+            return ' ';
+    }
+}
+	
+CellTypes Cell::charToCellType(char charToUse)
+{
+    charToUse = std::toupper(charToUse);
+	
+	if (charToUse == 'X')
+        return CellTypes::Ex;
+
+    return CellTypes::Circle;
 }
 
 } // namespace Liron486

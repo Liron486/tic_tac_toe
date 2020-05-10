@@ -4,11 +4,12 @@
 #include "computer.h"
 #include "brain_easy.h"
 #include "brain_hard.h"
+#include "cell.h"
 
 namespace Liron486
 {
 static std::unique_ptr<Brain> CreateBrain(const Board& boardToUse,
-                                          char typeToUse,
+                                          CellTypes typeToUse,
                                           Configuration::Difficulty difficultyToUse)
 {
     std::unique_ptr<Brain> brain;

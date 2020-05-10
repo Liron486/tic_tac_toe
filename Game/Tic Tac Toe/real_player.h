@@ -1,6 +1,4 @@
-#ifndef _Liron486_REAL_PLAYER_HPP_
-#define _Liron486_REAL_PLAYER_HPP_
-
+#pragma once
 
 #include "player.h"
 #include "controller.h"
@@ -21,4 +19,3 @@ private:
 
 } // namespace Liron486
 
-#endif // _Liron486_REAL_PLAYER_HPP_#pragma once

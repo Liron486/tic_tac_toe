@@ -30,7 +30,7 @@ Configuration::Configuration()
     {
         SetPlayerChoice();
 
-        if (GetPlayerChoice() == 'O')
+        if (GetPlayerChoice() == CellTypes::Circle)
         {
             namesOfPlayers[1] = namesOfPlayers[0];
             namesOfPlayers[0] = "Player1";
@@ -54,7 +54,7 @@ std::string Configuration::GetPlayerName(int nPlayerToUse) const
     return namesOfPlayers[playerNum];
 }
 
-char Configuration::GetPlayerChoice() const
+CellTypes Configuration::GetPlayerChoice() const
 {
     return playerChoice;
 }
@@ -127,24 +127,26 @@ void Configuration::SetPlayerChoice()
 {
     std::cout << "Please Choose type (X or O)" << std::endl;
 
-    auto type = 'X';
-    std::cin >> type;
+    auto typeChar = 'X';
+    std::cin >> typeChar;
 
-    while (!compareChars(type, 'x') && !compareChars(type, 'o')
-           && !compareChars(type, '0'))
+    while (!compareChars(typeChar, 'x') && !compareChars(typeChar, 'o')
+           && !compareChars(typeChar, '0'))
     {
         std::cout << "Wrong input, try again\nChoose type (X or O)" << std::endl;
 
-        std::cin >> type;
+        std::cin >> typeChar;
     }
 
-    if (compareChars(type, 'x'))
+	auto type = Cell::charToCellType(typeChar);
+
+    if (type == CellTypes::Ex)
     {
-        playerChoice = 'X';
+        playerChoice = CellTypes::Ex;
     }
     else
     {
-        playerChoice = 'O';
+        playerChoice = CellTypes::Circle;
     }
 }
 

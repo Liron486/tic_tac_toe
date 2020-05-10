@@ -12,29 +12,29 @@ namespace Liron486
 {
 const int num_of_cells = 9;
 
-BrainHard::BrainHard(const Board& boardToUse, char typeToUse)
+BrainHard::BrainHard(const Board& boardToUse, CellTypes typeToUse)
     : board(boardToUse)
     , myType(typeToUse)
 {
 }
 
-inline char GetCurrentType(char myTypeToUse, int depthToUse)
+CellTypes GetCurrentType(CellTypes myTypeToUse, int depthToUse)
 {
-    auto current_type = ' ';
+    auto current_type = CellTypes::Empty;
 
-    if (1 == depthToUse % 2)
+    if (depthToUse % 2 == 1)
     {
         current_type = myTypeToUse;
     }
     else
     {
-        if ('X' == myTypeToUse)
+        if (myTypeToUse == CellTypes::Ex)
         {
-            current_type = 'O';
+            current_type = CellTypes::Circle;
         }
         else
         {
-            current_type = 'X';
+            current_type = CellTypes::Ex;
         }
     }
 
@@ -42,7 +42,7 @@ inline char GetCurrentType(char myTypeToUse, int depthToUse)
 }
 
 static int RecCheckBestMove(Board& boardCopyToUse,
-                            char typeToUse,
+                            CellTypes typeToUse,
                             const Judge& judgeToUse,
                             const Point& lastMLastMoveToUse,
                             int depthToUse)
@@ -74,7 +74,7 @@ static int RecCheckBestMove(Board& boardCopyToUse,
         {
             current_value = RecCheckBestMove(
                 boardCopyToUse, typeToUse, judgeToUse, nextMove, depthToUse + 1);
-            boardCopyToUse.setCell(' ', nextMove);
+            boardCopyToUse.setCell(CellTypes::Empty, nextMove);
 
             vector_of_values.push_back(current_value);
             isfull = false;
@@ -124,7 +124,7 @@ static bool AmIBegin(const Board& boardToUse)
 static bool CheckIfWinNextMove(Board& boardToUse,
                                std::vector<Point>& bestMovesToUse,
                                Judge& judgeToUse,
-                               char typeToUse,
+                               CellTypes typeToUse,
                                int rangeToUse,
                                int& indexResultToUse)
 {
@@ -135,11 +135,11 @@ static bool CheckIfWinNextMove(Board& boardToUse,
         if (judgeToUse.CheckForWinner(bestMovesToUse[i]))
         {
             indexResultToUse = i;
-            boardToUse.setCell(' ', bestMovesToUse[i]);
+            boardToUse.setCell(CellTypes::Empty, bestMovesToUse[i]);
             return true;
         }
 
-        boardToUse.setCell(' ', bestMovesToUse[i]);
+        boardToUse.setCell(CellTypes::Empty, bestMovesToUse[i]);
     }
 
     return false;
@@ -210,12 +210,12 @@ Point BrainHard::getNextMove() const
     return nextMove;
 }
 
-void BrainHard::setType(char typeToUse)
+void BrainHard::setType(CellTypes typeToUse)
 {
     myType = typeToUse;
 }
 
-char BrainHard::getType() const
+CellTypes BrainHard::getType() const
 {
     return myType;
 }

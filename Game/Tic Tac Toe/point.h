@@ -1,5 +1,4 @@
-#ifndef _Liron486_POINT_HPP_
-#define _Liron486_POINT_HPP_
+#pragma once
 
 namespace Liron486
 {
@@ -22,5 +21,3 @@ private:
 
 } // namespace Liron486
 
-
-#endif // _Liron486_POINT_HPP_#pragma once

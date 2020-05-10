@@ -12,19 +12,35 @@ void Gui::PrintBoard(const Board& boardToUse)
 {
     std::cout << "               +---+---+---+   \n"
               << "               | "
-              << boardToUse.getCellContent(Point::ConvertNumToPoint(1)) << " | "
-              << boardToUse.getCellContent(Point::ConvertNumToPoint(2)) << " | "
-              << boardToUse.getCellContent(Point::ConvertNumToPoint(3)) << " |\n"
+              << Cell::cellTypeToChar(boardToUse.getCellContent(Point::ConvertNumToPoint(1))) << " | "
+              << Cell::cellTypeToChar(
+                     boardToUse.getCellContent(Point::ConvertNumToPoint(2)))
+              << " | "
+              << Cell::cellTypeToChar(
+                     boardToUse.getCellContent(Point::ConvertNumToPoint(3)))
+              << " |\n"
               << "               +---+---+---+   \n"
               << "               | "
-              << boardToUse.getCellContent(Point::ConvertNumToPoint(4)) << " | "
-              << boardToUse.getCellContent(Point::ConvertNumToPoint(5)) << " | "
-              << boardToUse.getCellContent(Point::ConvertNumToPoint(6)) << " |\n"
+              << Cell::cellTypeToChar(
+                     boardToUse.getCellContent(Point::ConvertNumToPoint(4)))
+              << " | "
+              << Cell::cellTypeToChar(
+                     boardToUse.getCellContent(Point::ConvertNumToPoint(5)))
+              << " | "
+              << Cell::cellTypeToChar(
+                     boardToUse.getCellContent(Point::ConvertNumToPoint(6)))
+              << " |\n"
               << "               +---+---+---+   \n"
               << "               | "
-              << boardToUse.getCellContent(Point::ConvertNumToPoint(7)) << " | "
-              << boardToUse.getCellContent(Point::ConvertNumToPoint(8)) << " | "
-              << boardToUse.getCellContent(Point::ConvertNumToPoint(9)) << " |\n"
+              << Cell::cellTypeToChar(
+                     boardToUse.getCellContent(Point::ConvertNumToPoint(7)))
+              << " | "
+              << Cell::cellTypeToChar(
+                     boardToUse.getCellContent(Point::ConvertNumToPoint(8)))
+              << " | "
+              << Cell::cellTypeToChar(
+                     boardToUse.getCellContent(Point::ConvertNumToPoint(9)))
+              << " |\n"
               << "               +---+---+---+   \n"
               << std::endl;
 }

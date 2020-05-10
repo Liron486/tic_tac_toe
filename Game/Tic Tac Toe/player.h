@@ -1,20 +1,20 @@
-#ifndef _Liron486_PLAYER_HPP_
-#define _Liron486_PLAYER_HPP_
+#pragma once
 
 #include <string>
 
 #include "point.h"
 #include "board.h"
+#include "cell.h"
 
 namespace Liron486
 {
 struct PlayerData
 {
-    PlayerData(const std::string& nameToUse, char typeToUse, const Board& boardToUse)
+    PlayerData(const std::string& nameToUse, CellTypes typeToUse, const Board& boardToUse)
         : name(nameToUse), type(typeToUse), board(boardToUse){}
 	
     std::string name;
-    char type;
+    CellTypes type;
     const Board& board;
 };
 
@@ -28,7 +28,7 @@ public:
     virtual Point makeMove() const = 0;
 
 	const PlayerData& getData() const { return data; }
-    virtual void setPlayerType(char newTypeToUse) { data.type = newTypeToUse; }
+    virtual void setPlayerType(CellTypes newTypeToUse) { data.type = newTypeToUse; }
 
 
 protected:
@@ -37,4 +37,3 @@ protected:
 
 } // namespace Liron486
 
-#endif // _Liron486_PLAYER_HPP_#pragma once

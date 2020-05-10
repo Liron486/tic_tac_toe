@@ -6,7 +6,7 @@
 
 namespace Liron486
 {
-BrainEasy::BrainEasy(const Board& boardToUse, char typeToUse)
+BrainEasy::BrainEasy(const Board& boardToUse, CellTypes typeToUse)
     : board(boardToUse)
     , myType(typeToUse)
 {
@@ -20,7 +20,7 @@ Point BrainEasy::getNextMove() const
     Point availableMoves[9];
     auto countAvailableMoves = 0;
 
-    for (auto i = 0; i < num_of_cells; ++i)
+    for (auto i = 1; i <= num_of_cells; ++i)
     {
         checkMove = Point::ConvertNumToPoint(i);
 
@@ -39,12 +39,12 @@ Point BrainEasy::getNextMove() const
     return nextMove;
 }
 
-void BrainEasy::setType(char typeToUse)
+void BrainEasy::setType(CellTypes typeToUse)
 {
     myType = typeToUse;
 }
 
-char BrainEasy::getType() const
+CellTypes BrainEasy::getType() const
 {
     return myType;
 }

@@ -1,57 +1,29 @@
 
 #include "board.h"
 
+#include <memory>
+
 namespace Liron486
 {
 constexpr int numOfRows = 3;
 constexpr int numOfCols = 3;
 
-inline void initializeBoard(BoardData& boardDataToUse)
-{
-    for (auto r = 0; r < numOfRows; ++r)
-    {
-        std::vector<Cell> newRow;
-        boardDataToUse.cells.push_back(newRow);
 
-        for (auto c = 0; c < numOfCols; ++c)
-        {
-            boardDataToUse.cells[r].emplace_back(r, c);
-        }
-    }
-}
 
 Board::Board()
-    : boardData(new BoardData)
 {
-    initializeBoard(*boardData);
-}
-
-inline void copyCells(std::unique_ptr<BoardData>& boardDataToUse,
-                      const Board& boardToUse)
-{
-    for (auto r = 0; r < numOfRows; ++r)
-    {
-        std::vector<Cell> newRow;
-        boardDataToUse->cells.push_back(newRow);
-
-        for (auto c = 0; c < numOfCols; ++c)
-        {
-            boardDataToUse->cells[r].emplace_back(r, c);
-            boardDataToUse->cells[r][c].setCellContent(
-                boardToUse.getBoardData()->cells[r][c].getCellContent());
-        }
-    }
+    resetBoardData();
 }
 
 Board::Board(const Board& boardToUse)
-    : boardData(new BoardData)
 {
-    copyCells(boardData, boardToUse);
+    resetBoardData();
+    copyCells(boardToUse);
 }
 
 Board& Board::operator=(const Board& boardToUse)
 {
-    copyCells(boardData, boardToUse);
+    copyCells(boardToUse);
 
     return *this;
 }
@@ -69,8 +41,7 @@ void Board::setCell(char playerTypeToUse, const Point& cellToUse) const
 
 void Board::resetBoardData()
 {
-    boardData.reset(new BoardData);
-    initializeBoard(*boardData);
+    boardData = std::make_unique<BoardData>();
 }
 
 bool Board::isSquareEmpty(const Point& cellToUse) const
@@ -79,9 +50,20 @@ bool Board::isSquareEmpty(const Point& cellToUse) const
             == ' ');
 }
 
-const std::unique_ptr<BoardData>& Board::getBoardData() const
+void Board::copyCells(const Board& other)
 {
-    return boardData;
+    *boardData = *other.boardData;
 }
 
-} // namespace Liron486
+BoardData::BoardData()
+{
+    for (auto r = 0; r < numOfRows; ++r)
+    {
+        std::vector<Cell> newRow;
+        cells.push_back(newRow);
+
+        for (auto c = 0; c < numOfCols; ++c)
+            cells[r].emplace_back(r, c);
+    }
+}
+}// namespace Liron486

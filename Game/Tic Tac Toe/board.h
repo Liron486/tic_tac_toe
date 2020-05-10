@@ -11,6 +11,8 @@ namespace Liron486
 {
 struct BoardData
 {
+    BoardData();
+
     std::vector<std::vector<Cell>> cells;
 };
 
@@ -24,9 +26,9 @@ public:
     void setCell(char playerTypeToUse, const Point& cellToUse) const;
     void resetBoardData();
     bool isSquareEmpty(const Point& cellToUse) const;
-    const std::unique_ptr<BoardData>& getBoardData() const;
 
 private:
+    void copyCells(const Board& other);
     std::unique_ptr<BoardData> boardData;
 };
 

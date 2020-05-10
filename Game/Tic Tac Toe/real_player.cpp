@@ -9,16 +9,15 @@ namespace Liron486
 RealPlayer::RealPlayer(const std::string& nameToUse,
                        char typeToUse,
                        const Board& boardToUse)
-    : name(nameToUse)
-    , type(typeToUse)
+    : playerData {nameToUse, typeToUse, boardToUse}
     , controller(nameToUse)
-    , board(boardToUse)
+
 {
 }
 
-inline bool IsValidDigit(const std::string& str)
+inline bool isValidDigit(const std::string& str)
 {
-	auto it = str.begin();
+    auto it = str.begin();
     if (std::isdigit(*it))
     {
         ++it;
@@ -29,39 +28,32 @@ inline bool IsValidDigit(const std::string& str)
 
 Point RealPlayer::makeMove() const
 {
-	auto nextMove_str = controller.GetNextMove();
-
+    std::string nextMove_str;
     Point unique(3, 3);
-
-    if (compareStrings(nextMove_str, "r"))
-        return unique;
-
-    std::stringstream sstream(nextMove_str);
-    auto IsValid = IsValidDigit(nextMove_str);
-    Point newMove;
+    auto isValid = false;
     auto nextMove = 0;
+    Point newMove;
 
-    if (IsValid)
+    while (isValid == false)
     {
-        sstream >> nextMove;
-        newMove = Point::ConvertNumToPoint(nextMove - 1);
-    }
-
-    while ((IsValid == false) || (board.getCellContent(newMove) != ' '))
-    {
-        std::cout << "Wrong Move, try again\n";
         nextMove_str = controller.GetNextMove();
         if (compareStrings(nextMove_str, "r"))
             return unique;
 
-        IsValid = IsValidDigit(nextMove_str);
+        isValid = isValidDigit(nextMove_str);
 
-        if (IsValid)
+        if (isValid)
         {
             std::stringstream sstream(nextMove_str);
             sstream >> nextMove;
             newMove = Point::ConvertNumToPoint(nextMove - 1);
+
+            if (compareChars(playerData.board.getCellContent(newMove), ' '))
+                break;
         }
+
+        std::cout << "Wrong Move, try again\n";
+        isValid = false;
     }
 
     return newMove;
@@ -69,17 +61,17 @@ Point RealPlayer::makeMove() const
 
 std::string RealPlayer::getName() const
 {
-    return name;
+    return playerData.name;
 }
 
 char RealPlayer::getPlayerType() const
 {
-    return type;
+    return playerData.type;
 }
 
 void RealPlayer::setPlayerType(char newTypeToUse)
 {
-    type = newTypeToUse;
+    playerData.type = newTypeToUse;
 }
 
 } // namespace Liron486

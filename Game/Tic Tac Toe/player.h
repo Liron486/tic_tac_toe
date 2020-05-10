@@ -1,14 +1,24 @@
 #ifndef _Liron486_PLAYER_HPP_
 #define _Liron486_PLAYER_HPP_
 
+#include <string>
+
 #include "point.h"
+#include "board.h"
 
 namespace Liron486
 {
 class Player
 {
 public:
-    virtual ~Player(){}
+    struct playerData
+    {
+        std::string name;
+        char type;
+        const Board& board;
+    };
+
+    virtual ~Player() = default;
     virtual Point makeMove() const = 0;
     virtual std::string getName() const = 0;
     virtual char getPlayerType() const = 0;

@@ -2,10 +2,8 @@
 #define _Liron486_COMPUTER_HPP_
 
 #include <memory>
-#include <string>
 
 #include "player.h"
-#include "board.h"
 #include "brain.h"
 #include "configuration.h"
 
@@ -24,9 +22,7 @@ public:
     void setPlayerType(char newTypeToUse) override;
 
 private:
-    std::string name;
-    char type;
-    const Board& board;
+    playerData playerData;
     Configuration::Difficulty difficulty;
     std::unique_ptr<Brain> brain;
 };

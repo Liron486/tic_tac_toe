@@ -1,11 +1,9 @@
 #ifndef _Liron486_REAL_PLAYER_HPP_
 #define _Liron486_REAL_PLAYER_HPP_
 
-#include <string>
 
 #include "player.h"
 #include "controller.h"
-#include "board.h"
 
 namespace Liron486
 {
@@ -21,10 +19,9 @@ public:
     void setPlayerType(char newTypeToUse) override;
 
 private:
-    const std::string name;
-    char type;
+    playerData playerData;
     Controller controller;
-    const Board& board;
+
 };
 
 } // namespace Liron486

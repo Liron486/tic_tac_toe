@@ -8,21 +8,31 @@
 
 namespace Liron486
 {
+struct PlayerData
+{
+    PlayerData(const std::string& nameToUse, char typeToUse, const Board& boardToUse)
+        : name(nameToUse), type(typeToUse), board(boardToUse){}
+	
+    std::string name;
+    char type;
+    const Board& board;
+};
+
 class Player
 {
 public:
-    struct playerData
-    {
-        std::string name;
-        char type;
-        const Board& board;
-    };
-
+    explicit Player(const PlayerData& dataToUse)
+        : data(dataToUse){}
+	
     virtual ~Player() = default;
     virtual Point makeMove() const = 0;
-    virtual std::string getName() const = 0;
-    virtual char getPlayerType() const = 0;
-    virtual void setPlayerType(char newTypeToUse) = 0;
+
+	const PlayerData& getData() const { return data; }
+    virtual void setPlayerType(char newTypeToUse) { data.type = newTypeToUse; }
+
+
+protected:
+    PlayerData data;
 };
 
 } // namespace Liron486

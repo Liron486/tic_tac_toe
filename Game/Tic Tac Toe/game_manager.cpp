@@ -13,39 +13,47 @@ namespace Liron486
 const int num_of_cells = 9;
 const int threshhold = 3;
 
+Computer* GameManager::createComputer(int index, char type) const
+{
+    PlayerData data(conf.GetPlayerName(index), type, board);
+    return new Computer(data, difficulty);
+}
+
+RealPlayer* GameManager::createRealPlayer(int index, char type) const
+{
+    PlayerData data(conf.GetPlayerName(index), type, board);
+    return new RealPlayer(data);
+}
+
 void GameManager::CreateNewPlayersPtrs()
 {
     auto numOfRealPlayers = conf.GetNumRealPlayers();
 
     if (numOfRealPlayers == 0)
     {
-        players[0].reset(
-            new Computer(conf.GetPlayerName(1), 'X', board, difficulty));
-        players[1].reset(
-            new Computer(conf.GetPlayerName(2), 'O', board, difficulty));
+        players[0].reset(createComputer(1, 'X'));
+        players[1].reset(createComputer(2, 'O'));
     }
 
     else if (numOfRealPlayers == 1)
     {
         if (conf.GetPlayerChoice() == 'O')
         {
-            players[0].reset(
-                new Computer(conf.GetPlayerName(1), 'X', board, difficulty));
+            players[0].reset(createComputer(1, 'X'));
 
-            players[1].reset(new RealPlayer(conf.GetPlayerName(2), 'O', board));
+            players[1].reset(createRealPlayer(2, 'O'));
         }
         else
         {
-            players[0].reset(new RealPlayer(conf.GetPlayerName(1), 'X', board));
-            players[1].reset(
-                new Computer(conf.GetPlayerName(2), 'O', board, difficulty));
+            players[0].reset(createRealPlayer(1, 'X'));
+            players[1].reset(createComputer(2, 'O'));
         }
     }
 
     else if (numOfRealPlayers == 2)
     {
-        players[0].reset(new RealPlayer(conf.GetPlayerName(1), 'X', board));
-        players[1].reset(new RealPlayer(conf.GetPlayerName(2), 'O', board));
+        players[0].reset(createRealPlayer(1, 'X'));
+        players[1].reset(createRealPlayer(2, 'O'));
     }
 }
 
@@ -55,11 +63,8 @@ GameManager::GameManager()
     , judge(board)
 {
     CreateNewPlayersPtrs();
-    Gui::Tutorial(board,
-                  score,
-                  difficulty,
-                  conf.GetPlayerName(1),
-                  conf.GetPlayerName(2));
+    Gui::Tutorial(
+        board, score, difficulty, conf.GetPlayerName(1), conf.GetPlayerName(2));
 }
 
 void GameManager::DisplayOnScreen() const
@@ -125,7 +130,7 @@ void GameManager::Play()
             {
                 ResetGame();
             }
-            board.setCell(players[playerNum]->getPlayerType(), newMove);
+            board.setCell(players[playerNum]->getData().type, newMove);
         }
         else
         {
@@ -149,7 +154,7 @@ void GameManager::Play()
     if (weHaveAWinner)
     {
         DisplayOnScreen();
-        Gui::WeHaveAWinner(players[playerNum]);
+        Gui::WeHaveAWinner(players[playerNum]->getData());
         score.UpdateScore(playerNum);
     }
     else
@@ -243,11 +248,11 @@ void GameManager::ChangeDifficulty(Configuration::Difficulty difficultyToUse)
 
     if (conf.GetNumRealPlayers() == 0)
     {
-        auto name1 = players[0]->getName();
-        auto name2 = players[1]->getName();
+        auto name1 = players[0]->getData().name;
+        auto name2 = players[1]->getData().name;
 
-        players[0].reset(new Computer(name1, 'X', board, difficultyToUse));
-        players[1].reset(new Computer(name2, 'O', board, difficultyToUse));
+        players[0].reset(new Computer({name1, 'X', board}, difficultyToUse));
+        players[1].reset(new Computer({name2, 'O', board}, difficultyToUse));
     }
 
     if (conf.GetNumRealPlayers() == 1)
@@ -257,10 +262,10 @@ void GameManager::ChangeDifficulty(Configuration::Difficulty difficultyToUse)
 
         auto type = computer_index == 0 ? 'X' : 'O';
 
-        auto name = players[computer_index]->getName();
+        auto name = players[computer_index]->getData().name;
 
         players[computer_index].reset(
-            new Computer(name, type, board, difficultyToUse));
+            new Computer({name, type, board}, difficultyToUse));
     }
 }
 

@@ -25,39 +25,23 @@ static std::unique_ptr<Brain> CreateBrain(const Board& boardToUse,
     return brain;
 }
 
-Computer::Computer(const std::string& nameToUse,
-                   char typeToUse,
-                   const Board& boardToUse,
+Computer::Computer(const PlayerData& dataToUse,
                    Configuration::Difficulty difficultyToUse)
-    : playerData {nameToUse, typeToUse, boardToUse}
+    : Player(dataToUse)
     , difficulty(difficultyToUse)
-    , brain(CreateBrain(playerData.board, playerData.type, difficulty))
+    , brain(CreateBrain(data.board, data.type, difficulty))
 {
 }
 
 Point Computer::makeMove() const
 {
-    if (playerData.type != brain->getType())
+    if (data.type != brain->getType())
     {
-        brain->setType(playerData.type);
+        brain->setType(data.type);
     }
 
     return brain->getNextMove();
 }
 
-std::string Computer::getName() const
-{
-    return playerData.name;
-}
-
-char Computer::getPlayerType() const
-{
-    return playerData.type;
-}
-
-void Computer::setPlayerType(char newTypeToUse)
-{
-    playerData.type = newTypeToUse;
-}
 
 } // namespace Liron486

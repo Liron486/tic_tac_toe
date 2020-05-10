@@ -10,16 +10,11 @@ namespace Liron486
 class RealPlayer : public Player
 {
 public:
-    explicit RealPlayer(const std::string& nameToUse,
-                        char typeToUse,
-                        const Board& boardToUse);
+    explicit RealPlayer(const PlayerData& dataToUse);
     Point makeMove() const override;
-    std::string getName() const override;
-    char getPlayerType() const override;
-    void setPlayerType(char newTypeToUse) override;
 
 private:
-    playerData playerData;
+
     Controller controller;
 
 };

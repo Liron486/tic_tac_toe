@@ -12,17 +12,12 @@ namespace Liron486
 class Computer : public Player
 {
 public:
-    explicit Computer(const std::string& nameToUse,
-                      char typeToUse,
-                      const Board& boardToUse,
+    explicit Computer(const PlayerData& dataToUse,
                       Configuration::Difficulty difficultyToUse);
     Point makeMove() const override;
-    std::string getName() const override;
-    char getPlayerType() const override;
-    void setPlayerType(char newTypeToUse) override;
 
 private:
-    playerData playerData;
+
     Configuration::Difficulty difficulty;
     std::unique_ptr<Brain> brain;
 };

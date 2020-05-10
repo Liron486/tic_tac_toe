@@ -6,11 +6,9 @@
 
 namespace Liron486
 {
-RealPlayer::RealPlayer(const std::string& nameToUse,
-                       char typeToUse,
-                       const Board& boardToUse)
-    : playerData {nameToUse, typeToUse, boardToUse}
-    , controller(nameToUse)
+RealPlayer::RealPlayer(const PlayerData& dataToUse)
+    : Player(dataToUse),
+    controller(data.name)
 
 {
 }
@@ -48,7 +46,7 @@ Point RealPlayer::makeMove() const
             sstream >> nextMove;
             newMove = Point::ConvertNumToPoint(nextMove);
 
-            if (compareChars(playerData.board.getCellContent(newMove), ' '))
+            if (compareChars(data.board.getCellContent(newMove), ' '))
                 break;
         }
 
@@ -59,19 +57,5 @@ Point RealPlayer::makeMove() const
     return newMove;
 }
 
-std::string RealPlayer::getName() const
-{
-    return playerData.name;
-}
-
-char RealPlayer::getPlayerType() const
-{
-    return playerData.type;
-}
-
-void RealPlayer::setPlayerType(char newTypeToUse)
-{
-    playerData.type = newTypeToUse;
-}
 
 } // namespace Liron486

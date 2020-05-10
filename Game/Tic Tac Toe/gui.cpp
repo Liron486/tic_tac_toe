@@ -58,10 +58,10 @@ void Gui::PrintHeaderWithoutDiff(const Score& scoreToUse, int gameNumberToUse)
               << std::endl;
 }
 
-void Gui::WeHaveAWinner(std::unique_ptr<Player>& playerToUse)
+void Gui::WeHaveAWinner(const PlayerData& playerDataToUse)
 {
     std::cout << "We have a Winner!!!!!\n"
-              << playerToUse->getName() << " Wins!\n"
+              << playerDataToUse.name << " Wins!\n"
               << std::endl;
 }
 

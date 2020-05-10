@@ -19,7 +19,7 @@ public:
 	                        int gameNumberToUse,
 	                        Configuration::Difficulty difficultyToUse);
 	static void PrintHeaderWithoutDiff(const Score& scoreToUse, int gameNumberToUse);
-	static void WeHaveAWinner(std::unique_ptr<Player>& playerToUse);
+	static void WeHaveAWinner(const PlayerData& playerToUse);
 	static void Tie();
     static void Tutorial(const Board& boardToUse,
 	                     const Score& scoreToUse,

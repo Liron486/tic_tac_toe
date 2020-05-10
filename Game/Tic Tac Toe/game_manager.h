@@ -5,9 +5,11 @@
 
 #include "configuration.h"
 #include "player.h"
+#include "real_player.h"
 #include "board.h"
 #include "score.h"
 #include "judge.h"
+#include "computer.h"
 
 namespace Liron486
 {
@@ -24,6 +26,10 @@ private:
     void DisplayOnScreen() const;
     void ChangeDifficulty(Configuration::Difficulty difficultyToUse);
     void ResetGame();
+    Computer* createComputer(int index, char type) const;
+    RealPlayer* createRealPlayer(int index, char type) const;
+
+	
     Point FillLastSquare() const;
 
     int moveNumber = 0;

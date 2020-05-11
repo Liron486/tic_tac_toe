@@ -9,7 +9,7 @@ Controller::Controller(const std::string& playerNameToUse)
 {
 }
 
-std::string Controller::GetNextMove() const
+std::string Controller::getNextMove() const
 {
     std::string nextMove_str;
 

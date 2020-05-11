@@ -10,7 +10,7 @@ class Controller
 {
 public:
     explicit Controller(const std::string& playerNameToUse);
-    std::string GetNextMove() const;
+    std::string getNextMove() const;
 
 private:
     std::string playerName;

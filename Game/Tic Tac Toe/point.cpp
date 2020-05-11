@@ -1,4 +1,3 @@
-#include <iostream>
 
 #include "board.h"
 
@@ -10,37 +9,37 @@ Point::Point(int xToUse, int yToUse)
 {
 }
 
-int Point::GetX() const
+int Point::getX() const
 {
     return x;
 }
 
-int Point::GetY() const
+int Point::getY() const
 {
     return y;
 }
 
-void Point::SetX(int xToUse)
+void Point::setX(int xToUse)
 {
     x = xToUse;
 }
 
-void Point::SetY(int yToUse)
+void Point::setY(int yToUse)
 {
     y = yToUse;
 }
 
-Point Point::ConvertNumToPoint(int numToUse)
+Point Point::convertNumToPoint(int numToUse)
 {
     Point new_point;
 
-    new_point.SetX((numToUse - 1) / 3);
-    new_point.SetY((numToUse - 1) % 3);
+    new_point.setX((numToUse - 1) / 3);
+    new_point.setY((numToUse - 1) % 3);
 
     return new_point;
 }
 
-bool Point::IsPointUnique() const
+bool Point::isPointUnique() const
 {
     return (x == 3) && (y == 3);
 }

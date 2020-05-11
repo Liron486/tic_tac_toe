@@ -16,18 +16,16 @@ public:
         HARD
     };
 
-    explicit Configuration();
-    int GetNumRealPlayers() const;
-    Difficulty GetDifficulty() const;
-    std::string GetPlayerName(int nPlayerToUse) const;
-    CellTypes GetPlayerChoice() const;
+    int getNumRealPlayers() const;
+    Difficulty getDifficulty() const;
+    std::string getPlayerName(int nPlayerToUse) const;
+    CellTypes getPlayerChoice() const;
+    void setDifficulty(Difficulty difficultyToUse);
+    void setNumRealPlayers(int nRealPlayersToUse);
+    void setPlayerChoice(CellTypes playerChosenTypeToUse);
+    void setPlayerName(const std::string& playerNameToUse, int playerIndexToUse);
 
 private:
-    void SetNumRealPlayers();
-    void SetDifficulty();
-    void SetPlayerChoice();
-    void SetNamesOfPlayers(int playerNumberToUse);
-
     int nRealPlayers = 1;
     Difficulty difficulty = Difficulty::HARD;
     std::array<std::string, 2> namesOfPlayers;

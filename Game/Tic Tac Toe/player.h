@@ -28,7 +28,7 @@ public:
     virtual Point makeMove() const = 0;
 
 	const PlayerData& getData() const { return data; }
-    virtual void setPlayerType(CellTypes newTypeToUse) { data.type = newTypeToUse; }
+    void setPlayerType(CellTypes newTypeToUse) { data.type = newTypeToUse; }
 
 
 protected:

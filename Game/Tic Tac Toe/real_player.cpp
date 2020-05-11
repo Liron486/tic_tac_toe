@@ -34,7 +34,7 @@ Point RealPlayer::makeMove() const
 
     while (isValid == false)
     {
-        nextMove_str = controller.GetNextMove();
+        nextMove_str = controller.getNextMove();
         if (compareStrings(nextMove_str, "r"))
             return unique;
 
@@ -44,7 +44,7 @@ Point RealPlayer::makeMove() const
         {
             std::stringstream sstream(nextMove_str);
             sstream >> nextMove;
-            newMove = Point::ConvertNumToPoint(nextMove);
+            newMove = Point::convertNumToPoint(nextMove);
 
             if (data.board.getCellContent(newMove) == CellTypes::Empty)
                 break;

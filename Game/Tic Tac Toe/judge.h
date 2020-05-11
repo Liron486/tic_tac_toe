@@ -8,8 +8,8 @@ class Judge
 {
 public:
     explicit Judge(const Board& boardToUse);
-    bool CheckForWinner(const Point& lastMoveToUse) const;
-    const Board& GetBoard() const;
+    bool checkForWinner(const Point& lastMoveToUse) const;
+    const Board& getBoard() const;
 
 private:
     const Board& board;

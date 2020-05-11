@@ -7,12 +7,12 @@ class Point
 public:
     Point() = default;
     explicit Point(int xToUse, int yToUse);
-    int GetX() const;
-    int GetY() const;
-    void SetX(int xToUse);
-    void SetY(int yToUse);
-    bool IsPointUnique() const;
-    static Point ConvertNumToPoint(int numToUse);
+    int getX() const;
+    int getY() const;
+    void setX(int xToUse);
+    void setY(int yToUse);
+    bool isPointUnique() const;
+    static Point convertNumToPoint(int numToUse);
 
 private:
     int x = 0;

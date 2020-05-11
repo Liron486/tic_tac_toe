@@ -5,7 +5,7 @@
 
 #include "brain_hard.h"
 #include "judge.h"
-#include "gui.h"
+#include "gui_console.h"
 #include "utils.h"
 
 namespace Liron486
@@ -51,7 +51,7 @@ static int RecCheckBestMove(Board& boardCopyToUse,
 
     boardCopyToUse.setCell(current_type, lastMLastMoveToUse);
 
-    if (judgeToUse.CheckForWinner(lastMLastMoveToUse))
+    if (judgeToUse.checkForWinner(lastMLastMoveToUse))
     {
         if (typeToUse != boardCopyToUse.getCellContent(lastMLastMoveToUse))
         {
@@ -68,7 +68,7 @@ static int RecCheckBestMove(Board& boardCopyToUse,
 
     for (auto i = 1; i <= num_of_cells; ++i)
     {
-        nextMove = Point::ConvertNumToPoint(i);
+        nextMove = Point::convertNumToPoint(i);
 
         if (boardCopyToUse.isSquareEmpty(nextMove))
         {
@@ -112,7 +112,7 @@ static bool AmIBegin(const Board& boardToUse)
 {
     for (auto i = 1; i <= num_of_cells; ++i)
     {
-        if (!boardToUse.isSquareEmpty(Point::ConvertNumToPoint(i)))
+        if (!boardToUse.isSquareEmpty(Point::convertNumToPoint(i)))
         {
             return false;
         }
@@ -132,7 +132,7 @@ static bool CheckIfWinNextMove(Board& boardToUse,
     {
         boardToUse.setCell(typeToUse, bestMovesToUse[i]);
 
-        if (judgeToUse.CheckForWinner(bestMovesToUse[i]))
+        if (judgeToUse.checkForWinner(bestMovesToUse[i]))
         {
             indexResultToUse = i;
             boardToUse.setCell(CellTypes::Empty, bestMovesToUse[i]);
@@ -161,13 +161,13 @@ Point BrainHard::getNextMove() const
 
     if (AmIBegin(boardCopy))
     {
-        nextMove = Point::ConvertNumToPoint((rand() % num_of_cells) + 1);
+        nextMove = Point::convertNumToPoint((rand() % num_of_cells) + 1);
     }
     else
     {
         for (auto i = 1; i <= num_of_cells; ++i)
         {
-            checkMove = Point::ConvertNumToPoint(i);
+            checkMove = Point::convertNumToPoint(i);
 
             if (boardCopy.isSquareEmpty(checkMove))
             {

@@ -22,7 +22,7 @@ Point BrainEasy::getNextMove() const
 
     for (auto i = 1; i <= num_of_cells; ++i)
     {
-        checkMove = Point::ConvertNumToPoint(i);
+        checkMove = Point::convertNumToPoint(i);
 
         if (board.isSquareEmpty(checkMove))
         {

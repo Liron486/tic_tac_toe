@@ -19,6 +19,5 @@ private:
 
     Rectangle<float>* draggedRect = nullptr;
 
-    std::vector<Rectangle<float>> rects;
-
+    std::vector<std::pair<Rectangle<float>, Colour>> rects;
 };

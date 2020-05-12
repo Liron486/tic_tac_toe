@@ -6,7 +6,6 @@ juce_add_console_app(${TargetName} PRODUCT_NAME "Tic Tac Toe")
 juce_generate_juce_header(${TargetName})
 
 target_sources(${TargetName} PRIVATE 
-    Source/Main.cpp
     Source/configuration_gui_console.cpp
     Source/gui_console.cpp
     Source/Tic_Tac_Toe.cpp)

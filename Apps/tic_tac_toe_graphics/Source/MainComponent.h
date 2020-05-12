@@ -13,7 +13,11 @@ public:
 
 
     void mouseDown(const MouseEvent& event) override;
+
+    void mouseDrag(const MouseEvent& event) override;
 private:
+    bool isRectExist(const Point<float>& position) const;
+
     std::vector<Rectangle<float>> rects;
 
 };

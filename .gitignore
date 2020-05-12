@@ -6,6 +6,7 @@ build
 .vs
 x64
 x86
+out
 
 cmake-build-debug
 cmake-build-release

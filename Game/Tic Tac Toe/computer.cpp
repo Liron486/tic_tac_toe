@@ -14,7 +14,7 @@ static std::unique_ptr<Brain> CreateBrain(const Board& boardToUse,
 {
     std::unique_ptr<Brain> brain;
 
-    if (Configuration::Difficulty::EASY == difficultyToUse)
+    if (Configuration::Difficulty::Easy == difficultyToUse)
     {
         brain.reset(new BrainEasy(boardToUse, typeToUse));
     }

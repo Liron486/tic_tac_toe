@@ -88,7 +88,7 @@ void GuiConsole::printHeader()
     auto& data = gameData.getGameData();
 
     std::string difficulty =
-        data.conf.getDifficulty() == Configuration::Difficulty::EASY ? "EASY"
+        data.conf.getDifficulty() == Configuration::Difficulty::Easy ? "Easy"
                                                                      : "HARD";
 
     std::cout << "      " << data.score.getPlayersNames()[0] << " - "
@@ -195,7 +195,7 @@ void GuiConsole::tutorial()
     if (numOfRealPlayers != 2)
     {
         std::string str7 =
-            "In order to switch difficulty during the game, write EASY/HARD \nat the end of a match.";
+            "In order to switch difficulty during the game, write Easy/HARD \nat the end of a match.";
         sentences.push_back(str7);
     }
 
@@ -321,7 +321,7 @@ Gui::ActionEnum GuiConsole::wantToPlayAgain() const
             return ActionEnum::Switch;
         }
 
-        if (compareStrings(answer, "EASY"))
+        if (compareStrings(answer, "Easy"))
         {
             return ActionEnum::Easy;
         }

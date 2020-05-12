@@ -12,8 +12,8 @@ class Configuration
 public:
     enum class Difficulty
     {
-        EASY,
-        HARD
+        Easy,
+        Hard
     };
 
     int getNumRealPlayers() const;
@@ -27,7 +27,7 @@ public:
 
 private:
     int nRealPlayers = 1;
-    Difficulty difficulty = Difficulty::HARD;
+    Difficulty difficulty = Difficulty::Hard;
     std::array<std::string, 2> namesOfPlayers;
     CellTypes playerChoice = CellTypes::Ex;
 };

@@ -8,8 +8,6 @@ namespace Liron486
 constexpr int numOfRows = 3;
 constexpr int numOfCols = 3;
 
-
-
 Board::Board()
 {
     resetBoardData();

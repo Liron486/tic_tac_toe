@@ -203,10 +203,10 @@ bool GameManager::wantToPlayAgain()
             switchSides();
             return true;
         case Gui::ActionEnum::Easy:
-            changeDifficulty(Configuration::Difficulty::EASY);
+            changeDifficulty(Configuration::Difficulty::Easy);
             return true;
         case Gui::ActionEnum::Hard:
-            changeDifficulty(Configuration::Difficulty::HARD);
+            changeDifficulty(Configuration::Difficulty::Hard);
             return true;
         default:
             return false;

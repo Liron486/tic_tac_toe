@@ -12,7 +12,7 @@ ConfigurationGuiConsole::ConfigurationGuiConsole(Configuration& confToUse)
 {
 }
 
-inline bool IsValidInput(const std::string& strToUse)
+bool IsValidInput(const std::string& strToUse)
 {
     auto it = strToUse.begin();
     if (std::isdigit(*it))
@@ -43,7 +43,7 @@ void ConfigurationGuiConsole::setNumRealPlayers() const
 
 void ConfigurationGuiConsole::setDifficulty() const
 {
-    std::cout << "Please input required difficulty (EASY or HARD)" << std::endl;
+    std::cout << "Please input required difficulty (Easy or HARD)" << std::endl;
 
     std::string difficultyStr;
     std::cin >> difficultyStr;
@@ -52,14 +52,14 @@ void ConfigurationGuiConsole::setDifficulty() const
            && !compareStrings(difficultyStr, "hard"))
     {
         std::cout
-            << "Wrong input, try again\nInput required difficulty (EASY or HARD)"
+            << "Wrong input, try again\nInput required difficulty (Easy or HARD)"
             << std::endl;
 
         std::cin >> difficultyStr;
     }
 
     if (compareStrings(difficultyStr, "easy"))
-        conf.setDifficulty(Configuration::Difficulty::EASY);
+        conf.setDifficulty(Configuration::Difficulty::Easy);
 }
 
 void ConfigurationGuiConsole::setDifficulty(

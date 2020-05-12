@@ -1,5 +1,4 @@
 
-
 #include "real_player.h"
 
 namespace Liron486
@@ -9,7 +8,6 @@ RealPlayer::RealPlayer(const PlayerData& dataToUse, const Gui* guiToUse)
     , gui(guiToUse)
 {
 }
-
 
 
 Point RealPlayer::makeMove() const

@@ -7,14 +7,18 @@ MainComponent::MainComponent()
 
 void MainComponent::paint(Graphics& g)
 {
-    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));	
+    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
 
-	for (auto& rect: rects)
-	{
-        g.setColour(rect.second);
-		g.fillRect(rect.first);
-	}
+	auto offsetDiag = Point<int>(10, 10);
+    auto offsetAntiDiag = Point<int>(-10, 10);
 
+    Line<int> diag(getLocalBounds().getTopLeft() + offsetDiag,
+                   getLocalBounds().getBottomRight() - offsetDiag);
+    Line<int> antiDiag(getLocalBounds().getTopRight() + offsetAntiDiag,
+                       getLocalBounds().getBottomLeft() - offsetAntiDiag);
+	
+    g.drawLine(diag.toFloat());
+    g.drawLine(antiDiag.toFloat());
 }
 
 void MainComponent::resized()
@@ -45,13 +49,13 @@ void MainComponent::mouseDown(const MouseEvent& event)
         Colour randomColor(red, green, blue);
         Rectangle<float> rect {20.f, 20.f};
         rect.setCentre(event.position);
-    	
-		std::pair<Rectangle<float>, Colour> newRect;
+
+        std::pair<Rectangle<float>, Colour> newRect;
         newRect = std::make_pair(rect, randomColor);
-    	
+
         rects.push_back(newRect);
         draggedRect = getRectUnder(event.position);
-    	
+
         repaint();
     }
 }
@@ -59,7 +63,7 @@ void MainComponent::mouseDown(const MouseEvent& event)
 void MainComponent::mouseDrag(const MouseEvent& event)
 {
     DBG("druging" << event.position.toString());
-	
+
     if (draggedRect != nullptr)
     {
         draggedRect->setCentre(event.position);

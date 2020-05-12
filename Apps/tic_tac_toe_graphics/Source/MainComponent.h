@@ -11,12 +11,13 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
-
     void mouseDown(const MouseEvent& event) override;
-
     void mouseDrag(const MouseEvent& event) override;
+
 private:
-    bool isRectExist(const Point<float>& position) const;
+    Rectangle<float>* getRectUnder(Point<float> position);
+
+    Rectangle<float>* draggedRect = nullptr;
 
     std::vector<Rectangle<float>> rects;
 

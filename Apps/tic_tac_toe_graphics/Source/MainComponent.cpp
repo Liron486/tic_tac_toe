@@ -2,58 +2,58 @@
 
 MainComponent::MainComponent()
 {
-    setSize (600, 400);
+    setSize(600, 400);
 }
 
-void MainComponent::paint (Graphics& g)
+void MainComponent::paint(Graphics& g)
 {
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
 
-	g.setColour(Colours::red);
-	
-	for (auto& rect: rects)
-	{
+    g.setColour(Colours::red);
+
+    for (auto& rect: rects)
+    {
         g.fillRect(rect);
-	}
+    }
 }
 
 void MainComponent::resized()
 {
-
 }
 
-bool MainComponent::isRectExist(const Point<float>& position) const
+Rectangle<float>* MainComponent::getRectUnder(Point<float> position)
 {
-    for (const auto& rect: rects)
+    for (auto& rect: rects)
     {
         if (rect.contains(position))
-            return true;
+            return &rect;
     }
 
-	return false;
+    return nullptr;
 }
 
 void MainComponent::mouseDown(const MouseEvent& event)
 {
-    if (isRectExist(event.position))
-        return;
-	
-    Rectangle<float> rect {20.f, 20.f};
-    rect.setCentre(event.position);
+    DBG ("Down " << event.position.toString());
+    draggedRect = getRectUnder(event.position);
 
-	rects.push_back(rect);
-	repaint();
+    if (draggedRect == nullptr)
+    {
+        Rectangle<float> rect {20.f, 20.f};
+        rect.setCentre(event.position);
+
+        rects.push_back(rect);
+        repaint();
+    }
 }
 
 void MainComponent::mouseDrag(const MouseEvent& event)
 {
+    DBG ("Drag " << event.position.toString());
 
-	for (auto& rect: rects)
-	{
-        if (rect.contains(event.position))
-        {
-            rect.setCentre(event.position);
-            repaint();
-        }
-	}
+    if (draggedRect != nullptr)
+    {
+        draggedRect->setCentre(event.position);
+        repaint();
+    }
 }

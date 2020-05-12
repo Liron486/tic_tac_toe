@@ -1,3 +1,4 @@
 add_subdirectory(ConsoleAppTemplate)
 add_subdirectory(GuiAppTemplate)
 add_subdirectory(Game)
+add_subdirectory(tic_tac_toe_console)

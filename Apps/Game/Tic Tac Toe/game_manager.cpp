@@ -4,7 +4,6 @@
 
 #include "game_manager.h"
 #include "real_player.h"
-#include "gui_console.h"
 #include "utils.h"
 
 namespace Liron486

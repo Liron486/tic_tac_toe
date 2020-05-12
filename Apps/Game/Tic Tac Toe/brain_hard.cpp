@@ -5,7 +5,6 @@
 
 #include "brain_hard.h"
 #include "judge.h"
-#include "gui_console.h"
 #include "utils.h"
 
 namespace Liron486

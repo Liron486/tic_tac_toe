@@ -7,6 +7,15 @@ class GameManager;
 class Gui
 {
 public:
+    enum class ActionEnum
+    {
+        No,
+        Yes,
+        Switch,
+        Easy,
+        Hard
+    };
+
     explicit Gui(GameManager& gameDataToUse)
         : gameData(gameDataToUse)
     {
@@ -19,6 +28,7 @@ public:
     virtual void tie() = 0;
     virtual void tutorial() = 0;
     virtual Point makeMove(int playerIndexToUse) const = 0;
+    virtual ActionEnum wantToPlayAgain() const = 0;
 
 protected:
     GameManager& gameData;

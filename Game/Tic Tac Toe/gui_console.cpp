@@ -296,4 +296,42 @@ std::string GuiConsole::getUserRequiredCell(int playerIndexToUse) const
     return nextMove_str;
 }
 
+Gui::ActionEnum GuiConsole::wantToPlayAgain() const
+{
+    std::string answer;
+
+    std::cout << "Do you want to play again? (y\\n)\n";
+
+    while (true)
+    {
+        std::cin >> answer;
+
+        if (compareStrings(answer, "n"))
+        {
+            return ActionEnum::No;
+        }
+
+        if (compareStrings(answer, "y"))
+        {
+            return ActionEnum::Yes;
+        }
+
+        if (compareStrings(answer, "s"))
+        {
+            return ActionEnum::Switch;
+        }
+
+        if (compareStrings(answer, "EASY"))
+        {
+            return ActionEnum::Easy;
+        }
+
+        if (compareStrings(answer, "HARD"))
+        {
+            return ActionEnum::Hard;
+        }
+    }
+}
+
+
 } // namespace Liron486

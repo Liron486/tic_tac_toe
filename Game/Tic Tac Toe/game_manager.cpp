@@ -108,13 +108,13 @@ void GameManager::play()
     auto playerNum = 0;
     Point newMove;
 
-	if (gameData.gameNumber == 1)
-	{
+    if (gameData.gameNumber == 1)
+    {
         createNewPlayersPtrs();
         gameData.score.setPlayerName(gameData.conf.getPlayerName(0), 0);
         gameData.score.setPlayerName(gameData.conf.getPlayerName(1), 1);
-	}
-		
+    }
+
     while ((moveNumber < num_of_cells))
     {
         playerNum = moveNumber % 2;
@@ -128,9 +128,9 @@ void GameManager::play()
                 resetGame();
                 return;
             }
-        	
-            gameData.board.setCell(gameData.players[playerNum]->getData().type, newMove);
 
+            gameData.board.setCell(gameData.players[playerNum]->getData().type,
+                                   newMove);
         }
         else
         {
@@ -193,42 +193,23 @@ void GameManager::switchSides()
 
 bool GameManager::wantToPlayAgain()
 {
-    std::string answer;
+    auto userAnswer = gui->wantToPlayAgain();
 
-    std::cout << "Do you want to play again? (y\\n)\n";
-
-    while (true)
+    switch (userAnswer)
     {
-        std::cin >> answer;
-
-        if (compareStrings(answer, "n"))
-        {
-            return false;
-        }
-
-        if (compareStrings(answer, "y"))
-        {
-            ClearScreen();
+        case Gui::ActionEnum::Yes:
             return true;
-        }
-
-        if (compareStrings(answer, "s"))
-        {
+        case Gui::ActionEnum::Switch:
             switchSides();
             return true;
-        }
-
-        if (compareStrings(answer, "EASY"))
-        {
+        case Gui::ActionEnum::Easy:
             changeDifficulty(Configuration::Difficulty::EASY);
             return true;
-        }
-
-        if (compareStrings(answer, "HARD"))
-        {
+        case Gui::ActionEnum::Hard:
             changeDifficulty(Configuration::Difficulty::HARD);
             return true;
-        }
+        default:
+            return false;
     }
 }
 

@@ -17,10 +17,11 @@ public:
     void tie() override;
     void tutorial() override;
     Point makeMove(int playerIndexToUse) const override;
+    ActionEnum wantToPlayAgain() const override;
 
 private:
     std::string getUserRequiredCell(int playerIndexToUse) const;
-	
+
     ConfigurationGuiConsole confGuiConsole {gameData.getGameData().conf};
 };
 

@@ -16,7 +16,10 @@ public:
     void weHaveAWinner(int winerIndex) override;
     void tie() override;
     void tutorial() override;
+    Point makeMove(int playerIndexToUse) const override;
+
 private:
+    std::string getUserRequiredCell(int playerIndexToUse) const;
 	
     ConfigurationGuiConsole confGuiConsole {gameData.getGameData().conf};
 };

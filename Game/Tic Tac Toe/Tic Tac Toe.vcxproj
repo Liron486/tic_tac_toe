@@ -159,7 +159,6 @@
     <ClCompile Include="computer.cpp" />
     <ClCompile Include="configuration.cpp" />
     <ClCompile Include="configuration_gui_console.cpp" />
-    <ClCompile Include="controller.cpp" />
     <ClCompile Include="game_manager.cpp" />
     <ClCompile Include="gui_console.cpp" />
     <ClCompile Include="judge.cpp" />
@@ -177,7 +176,6 @@
     <ClInclude Include="computer.h" />
     <ClInclude Include="configuration.h" />
     <ClInclude Include="configurtion_gui_console.h" />
-    <ClInclude Include="controller.h" />
     <ClInclude Include="game_manager.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="gui_console.h" />

@@ -21,7 +21,7 @@ Computer* GameManager::createComputer(int index, CellTypes type) const
 RealPlayer* GameManager::createRealPlayer(int index, CellTypes type) const
 {
     PlayerData data(gameData.conf.getPlayerName(index), type, gameData.board);
-    return new RealPlayer(data);
+    return new RealPlayer(data, gui);
 }
 
 void GameManager::createNewPlayersPtrs()
@@ -79,6 +79,7 @@ void GameManager::resetGame()
         ++gameData.gameNumber;
     }
     moveNumber = 0;
+    weHaveAWinner = false;
 
     play();
 }

@@ -44,40 +44,40 @@ GuiConsole::GuiConsole(GameManager& gameDataToUse)
 
 void GuiConsole::printBoard()
 {
-	auto& data = gameData.getGameData();
-	
+    auto& data = gameData.getGameData();
+
     std::cout << "               +---+---+---+   \n"
               << "               | "
-              << Cell::cellTypeToChar(data.board.getCellContent(
-                     Point::convertNumToPoint(1)))
+              << Cell::cellTypeToChar(
+                     data.board.getCellContent(Point::convertNumToPoint(1)))
               << " | "
-              << Cell::cellTypeToChar(data.board.getCellContent(
-                     Point::convertNumToPoint(2)))
+              << Cell::cellTypeToChar(
+                     data.board.getCellContent(Point::convertNumToPoint(2)))
               << " | "
-              << Cell::cellTypeToChar(data.board.getCellContent(
-                     Point::convertNumToPoint(3)))
+              << Cell::cellTypeToChar(
+                     data.board.getCellContent(Point::convertNumToPoint(3)))
               << " |\n"
               << "               +---+---+---+   \n"
               << "               | "
-              << Cell::cellTypeToChar(data.board.getCellContent(
-                     Point::convertNumToPoint(4)))
+              << Cell::cellTypeToChar(
+                     data.board.getCellContent(Point::convertNumToPoint(4)))
               << " | "
-              << Cell::cellTypeToChar(data.board.getCellContent(
-                     Point::convertNumToPoint(5)))
+              << Cell::cellTypeToChar(
+                     data.board.getCellContent(Point::convertNumToPoint(5)))
               << " | "
-              << Cell::cellTypeToChar(data.board.getCellContent(
-                     Point::convertNumToPoint(6)))
+              << Cell::cellTypeToChar(
+                     data.board.getCellContent(Point::convertNumToPoint(6)))
               << " |\n"
               << "               +---+---+---+   \n"
               << "               | "
-              << Cell::cellTypeToChar(data.board.getCellContent(
-                     Point::convertNumToPoint(7)))
+              << Cell::cellTypeToChar(
+                     data.board.getCellContent(Point::convertNumToPoint(7)))
               << " | "
-              << Cell::cellTypeToChar(data.board.getCellContent(
-                     Point::convertNumToPoint(8)))
+              << Cell::cellTypeToChar(
+                     data.board.getCellContent(Point::convertNumToPoint(8)))
               << " | "
-              << Cell::cellTypeToChar(data.board.getCellContent(
-                     Point::convertNumToPoint(9)))
+              << Cell::cellTypeToChar(
+                     data.board.getCellContent(Point::convertNumToPoint(9)))
               << " |\n"
               << "               +---+---+---+   \n"
               << std::endl;
@@ -85,20 +85,18 @@ void GuiConsole::printBoard()
 
 void GuiConsole::printHeader()
 {
-	auto& data = gameData.getGameData();
-	
-    std::string difficulty = data.conf.getDifficulty()
-	                         == Configuration::Difficulty::EASY
-		                         ? "EASY"
-		                         : "HARD";
+    auto& data = gameData.getGameData();
 
-    std::cout << "      " << data.score.getPlayersNames()[0]
-              << " - " << data.score.getWinsCounter()[0] << "  |  "
+    std::string difficulty =
+        data.conf.getDifficulty() == Configuration::Difficulty::EASY ? "EASY"
+                                                                     : "HARD";
+
+    std::cout << "      " << data.score.getPlayersNames()[0] << " - "
+              << data.score.getWinsCounter()[0] << "  |  "
               << data.score.getPlayersNames()[1] << " - "
               << data.score.getWinsCounter()[1]
               << "  ||||  Difficulty: " << difficulty
-              << "  |  Game Number: " << data.gameNumber
-              << std::endl;
+              << "  |  Game Number: " << data.gameNumber << std::endl;
 
     std::cout
         << "--------------------------------------------------------------------------------"
@@ -107,14 +105,13 @@ void GuiConsole::printHeader()
 
 void GuiConsole::printHeaderWithoutDiff()
 {
-	auto& data = gameData.getGameData();
-	
-    std::cout << "      " << data.score.getPlayersNames()[0]
-              << " - " << data.score.getWinsCounter()[0] << "  |  "
+    auto& data = gameData.getGameData();
+
+    std::cout << "      " << data.score.getPlayersNames()[0] << " - "
+              << data.score.getWinsCounter()[0] << "  |  "
               << data.score.getPlayersNames()[1] << " - "
               << data.score.getWinsCounter()[1]
-              << "  ||||  Game Number: " << data.gameNumber
-              << std::endl;
+              << "  ||||  Game Number: " << data.gameNumber << std::endl;
 
     std::cout << "------------------------------------------------------------"
               << std::endl;
@@ -141,7 +138,7 @@ void GuiConsole::tutorial()
     auto numOfRealPlayers = 0;
 
     auto& data = gameData.getGameData();
-	
+
     if ((data.players[0]->getData().name != "Player1")
         && (data.players[1]->getData().name != "Player2"))
     {
@@ -242,6 +239,61 @@ void GuiConsole::tutorial()
     }
 
     MySleep(700);
+}
+
+bool isValidDigit(const std::string& str)
+{
+    auto it = str.begin();
+    if (std::isdigit(*it))
+    {
+        ++it;
+    }
+
+    return (!str.empty() && it == str.end() && (str != "0"));
+}
+
+Point GuiConsole::makeMove(int playerIndexToUse) const
+{
+    std::string nextMove_str;
+    Point unique(3, 3);
+    auto isValid = false;
+    auto nextMove = 0;
+    Point newMove;
+
+    while (isValid == false)
+    {
+        nextMove_str = getUserRequiredCell(playerIndexToUse);
+        if (compareStrings(nextMove_str, "r"))
+            return unique;
+
+        isValid = isValidDigit(nextMove_str);
+
+        if (isValid)
+        {
+            nextMove = std::stoi(nextMove_str);
+            newMove = Point::convertNumToPoint(nextMove);
+
+            if (gameData.getGameData().board.getCellContent(newMove)
+                == CellTypes::Empty)
+                break;
+        }
+
+        std::cout << "Wrong Move, try again\n";
+        isValid = false;
+    }
+
+    return newMove;
+}
+
+std::string GuiConsole::getUserRequiredCell(int playerIndexToUse) const
+{
+    std::string nextMove_str;
+
+    std::cout << gameData.getGameData().players[playerIndexToUse]->getData().name
+              << " Enter your next move (1-9)" << std::endl;
+    std::cin >> nextMove_str;
+
+    return nextMove_str;
 }
 
 } // namespace Liron486

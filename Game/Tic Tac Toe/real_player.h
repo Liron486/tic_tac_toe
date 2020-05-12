@@ -1,19 +1,19 @@
 #pragma once
 
 #include "player.h"
-#include "controller.h"
+#include "gui.h"
 
 namespace Liron486
 {
 class RealPlayer : public Player
 {
 public:
-    explicit RealPlayer(const PlayerData& dataToUse);
+    explicit RealPlayer(const PlayerData& dataToUse, const Gui* guiToUse);
     Point makeMove() const override;
 
 private:
 
-    Controller controller;
+    const Gui* gui;
 
 };
 

@@ -1,5 +1,7 @@
 #include "MainWindow.h"
 
+#include "Board.h"
+
 constexpr bool isMobile()
 {
 #if JUCE_IOS || JUCE_ANDROID

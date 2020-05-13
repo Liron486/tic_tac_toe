@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MainComponent.h"
+#include <JuceHeader.h>
 
 class MainWindow : public DocumentWindow
 {

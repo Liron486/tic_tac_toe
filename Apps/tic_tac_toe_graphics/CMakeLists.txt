@@ -7,8 +7,9 @@ juce_generate_juce_header(${TargetName})
 
 target_sources(${TargetName} PRIVATE
         Source/Main.cpp
-        Source/MainComponent.cpp
-        Source/MainWindow.cpp)
+        Source/MainWindow.cpp
+        Source/Cell.cpp
+        Source/Board.cpp)
 
 target_include_directories (${TargetName} PRIVATE "${CMAKE_CURRENT_LIST_DIR}/../Game/Tic Tac Toe")
 

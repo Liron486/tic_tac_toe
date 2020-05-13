@@ -2,22 +2,29 @@
 
 #include <JuceHeader.h>
 
-class MainComponent   : public Component
+
+
+class Cell : public Component
 {
 public:
 
-    MainComponent();
-
-    void paint (Graphics&) override;
-    void resized() override;
+    void paint(Graphics&) override;
 
     void mouseDown(const MouseEvent& event) override;
-    void mouseDrag(const MouseEvent& event) override;
 
 private:
-    Rectangle<float>* getRectUnder(Point<float> position);
+    int mouseDownCounter = 0;
+};
 
-    Rectangle<float>* draggedRect = nullptr;
+class Board : public Component
+{
+public:
+    Board();
+	
+	void paintOverChildren(Graphics& g) override;
+    void resized() override;
+    
 
-    std::vector<std::pair<Rectangle<float>, Colour>> rects;
+private:
+    std::vector<std::unique_ptr<Component>> cells;
 };

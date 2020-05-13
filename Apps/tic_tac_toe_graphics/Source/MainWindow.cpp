@@ -13,7 +13,7 @@ MainWindow::MainWindow(const String& name)
     : DocumentWindow(name, getBackgroundColour(), allButtons)
 {
     setUsingNativeTitleBar(true);
-    setContentOwned(new MainComponent(), true);
+    setContentOwned(new Board(), true);
 
     if (isMobile())
         setFullScreen(true);

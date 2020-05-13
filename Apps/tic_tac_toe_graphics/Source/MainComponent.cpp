@@ -1,72 +1,85 @@
 #include "MainComponent.h"
 
-MainComponent::MainComponent()
-{
-    setSize(600, 400);
-}
+const auto numOfRows = 3;
+const auto numOfCols = 3;
 
-void MainComponent::paint(Graphics& g)
+void Cell::paint(Graphics& g)
 {
     g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
 
-	auto offsetDiag = Point<int>(10, 10);
-    auto offsetAntiDiag = Point<int>(-10, 10);
+    if (mouseDownCounter % 3 == 1)
+    {
+        auto offsetDiag = Point<int>(60, 60);
+        auto offsetAntiDiag = Point<int>(-60, 60);
 
-    Line<int> diag(getLocalBounds().getTopLeft() + offsetDiag,
-                   getLocalBounds().getBottomRight() - offsetDiag);
-    Line<int> antiDiag(getLocalBounds().getTopRight() + offsetAntiDiag,
-                       getLocalBounds().getBottomLeft() - offsetAntiDiag);
+        Line<int> diag(getLocalBounds().getTopLeft() + offsetDiag,
+                       getLocalBounds().getBottomRight() - offsetDiag);
+        Line<int> antiDiag(getLocalBounds().getTopRight() + offsetAntiDiag,
+                           getLocalBounds().getBottomLeft() - offsetAntiDiag);
+
+        g.drawLine(diag.toFloat(), 8);
+        g.drawLine(antiDiag.toFloat(), 8);
+    }
+
+    else if (mouseDownCounter % 3 == 2)
+    {
+        auto rect = getLocalBounds().toFloat();
+        auto offset = 80;
+        auto smallerRect = rect.withSizeKeepingCentre(rect.getWidth() - offset,
+                                                      rect.getHeight() - offset);
+        g.drawEllipse(smallerRect, 10);
+    }
+}
+
+
+
+void Cell::mouseDown(const MouseEvent& event)
+{
+    ++mouseDownCounter;
+    repaint();
+}
+
+Board::Board()
+{
+    for (auto i = 0; i < numOfRows * numOfCols; ++i)
+    {
+        cells.emplace_back(new Cell);
+        addAndMakeVisible(*cells.back());
+    }
+
+	setSize(750, 750);
+}
+
+void Board::resized() 
+{
+    auto x = 0.f;
+    auto y = 0.f;
+    auto width = 1.f / (float) numOfCols;
+    auto hight = 1.f / (float) numOfRows;
+    auto cellIdx = 0;
 	
-    g.drawLine(diag.toFloat());
-    g.drawLine(antiDiag.toFloat());
-}
-
-void MainComponent::resized()
-{
-}
-
-Rectangle<float>* MainComponent::getRectUnder(Point<float> position)
-{
-    for (auto& rect: rects)
+	for (auto i = 1; i <= numOfCols; ++i)
     {
-        if (rect.first.contains(position))
-            return &rect.first;
-    }
+        for (auto j = 1; j <= numOfRows; ++j)
+        {
+            cells[cellIdx]->setBoundsRelative(x, y, width, hight);
+            x += width;
+            ++cellIdx;
+        }
 
-    return nullptr;
-}
-
-void MainComponent::mouseDown(const MouseEvent& event)
-{
-    draggedRect = getRectUnder(event.position);
-
-    if (draggedRect == nullptr)
-    {
-        auto red = Random::getSystemRandom().nextInt() % 256;
-        auto green = Random::getSystemRandom().nextInt() % 256;
-        auto blue = Random::getSystemRandom().nextInt() % 256;
-
-        Colour randomColor(red, green, blue);
-        Rectangle<float> rect {20.f, 20.f};
-        rect.setCentre(event.position);
-
-        std::pair<Rectangle<float>, Colour> newRect;
-        newRect = std::make_pair(rect, randomColor);
-
-        rects.push_back(newRect);
-        draggedRect = getRectUnder(event.position);
-
-        repaint();
+        x = 0.f;
+        y += hight;
     }
 }
 
-void MainComponent::mouseDrag(const MouseEvent& event)
+void Board::paintOverChildren(Graphics& g)
 {
-    DBG("druging" << event.position.toString());
-
-    if (draggedRect != nullptr)
-    {
-        draggedRect->setCentre(event.position);
-        repaint();
-    }
+    g.setColour(Colours::black);
+    auto width = getLocalBounds().getWidth();
+    auto hight = getLocalBounds().getHeight();
+	
+    g.drawLine(0, hight / 3, width, hight / 3, 8);
+    g.drawLine(0, (hight * 2) / 3, width, (hight * 2) / 3, 8);
+    g.drawLine(width / 3, 0, width / 3, hight, 8);
+    g.drawLine((width * 2) / 3, 0, (width * 2) / 3, hight, 8);
 }

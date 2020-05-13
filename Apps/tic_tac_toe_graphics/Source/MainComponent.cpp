@@ -3,14 +3,16 @@
 
 MainComponent::MainComponent()
 {
-    setSize(750, 750);
     addAndMakeVisible(board);
 
+    setSize(750, 750);
 }
-void MainComponent::mouseDown(const MouseEvent& event)
+
+void MainComponent::resized()
 {
-    board.resized();
+    board.setBounds(getLocalBounds());
 }
+
 void GuiGraphics::printBoard()
 {
 

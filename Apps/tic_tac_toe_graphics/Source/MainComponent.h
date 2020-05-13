@@ -9,8 +9,7 @@ class MainComponent : public Component
 {
 public:
     MainComponent();
-    void mouseDown(const MouseEvent& event) override;
-
+    void resized() override;
 private:
     BoardGui board;
 };

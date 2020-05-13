@@ -1,16 +1,16 @@
 #pragma once
 
+#include <memory>
 #include <JuceHeader.h>
 
 class Cell : public Component
 {
 public:
-
-    void paint(Graphics&) override;
-
     void mouseDown(const MouseEvent& event) override;
+    void resized() override;
 
 private:
     int mouseDownCounter = 0;
+    std::unique_ptr<Component> cellContent = nullptr;
 };
 

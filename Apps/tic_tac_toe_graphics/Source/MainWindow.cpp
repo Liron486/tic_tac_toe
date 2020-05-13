@@ -35,6 +35,5 @@ void MainWindow::closeButtonPressed()
 
 Colour MainWindow::getBackgroundColour()
 {
-    return Desktop::getInstance().getDefaultLookAndFeel().findColour(
-        ResizableWindow::backgroundColourId);
+    return Colours::whitesmoke;
 }

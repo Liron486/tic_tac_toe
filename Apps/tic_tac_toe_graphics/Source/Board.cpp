@@ -44,8 +44,8 @@ void Board::paintOverChildren(Graphics& g)
     auto width = getLocalBounds().getWidth();
     auto hight = getLocalBounds().getHeight();
 
-    g.drawLine(0, hight / 3, width, hight / 3, 8);
-    g.drawLine(0, (hight * 2) / 3, width, (hight * 2) / 3, 8);
-    g.drawLine(width / 3, 0, width / 3, hight, 8);
-    g.drawLine((width * 2) / 3, 0, (width * 2) / 3, hight, 8);
+    g.drawLine(0, (float)hight / 3.f, width, (float)hight / 3.f, 8);
+    g.drawLine(0, ((float)hight * 2) / 3.f, width, ((float)hight * 2) / 3.f, 8);
+    g.drawLine((float)width / 3.f, 0, (float)width / 3.f, hight, 8);
+    g.drawLine(((float)width * 2) / 3.f, 0, ((float)width * 2) / 3.f, hight, 8);
 }

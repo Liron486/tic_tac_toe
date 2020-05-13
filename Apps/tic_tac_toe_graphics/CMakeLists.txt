@@ -9,7 +9,9 @@ target_sources(${TargetName} PRIVATE
         Source/Main.cpp
         Source/MainWindow.cpp
         Source/Cell.cpp
-        Source/Board.cpp)
+        Source/Board.cpp
+        Source/Ex.cpp
+        Source/Circle.cpp)
 
 target_include_directories (${TargetName} PRIVATE "${CMAKE_CURRENT_LIST_DIR}/../Game/Tic Tac Toe")
 

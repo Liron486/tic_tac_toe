@@ -1,5 +1,5 @@
 
-#include "Cell.h"
+#include "CellGui.h"
 
 #include <memory>
 #include "Ex.h"
@@ -7,7 +7,7 @@
 
 
 
-void Cell::mouseDown(const MouseEvent& event)
+void CellGui::mouseDown(const MouseEvent& event)
 {
     ++mouseDownCounter;
 
@@ -28,7 +28,7 @@ void Cell::mouseDown(const MouseEvent& event)
 
     resized();
 }
-void Cell::resized()
+void CellGui::resized()
 {
     if (cellContent != nullptr)
         cellContent->setBounds(getLocalBounds());

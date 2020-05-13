@@ -1,22 +1,20 @@
 
-#include "Board.h"
-#include "Cell.h"
+#include "BoardGui.h"
+#include "CellGui.h"
 
 const auto numOfRows = 3;
 const auto numOfCols = 3;
 
-Board::Board()
+BoardGui::BoardGui()
 {
     for (auto i = 0; i < numOfRows * numOfCols; ++i)
     {
-        cells.emplace_back(new Cell);
+        cells.emplace_back(new CellGui);
         addAndMakeVisible(*cells.back());
     }
-
-    setSize(750, 750);
 }
 
-void Board::resized()
+void BoardGui::resized()
 {
     auto x = 0.f;
     auto y = 0.f;
@@ -38,7 +36,7 @@ void Board::resized()
     }
 }
 
-void Board::paintOverChildren(Graphics& g)
+void BoardGui::paintOverChildren(Graphics& g)
 {
     g.setColour(Colours::black);
     auto width = getLocalBounds().getWidth();

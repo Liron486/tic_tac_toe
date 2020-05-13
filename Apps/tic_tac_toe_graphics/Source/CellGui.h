@@ -3,7 +3,7 @@
 #include <memory>
 #include <JuceHeader.h>
 
-class Cell : public Component
+class CellGui : public Component
 {
 public:
     void mouseDown(const MouseEvent& event) override;

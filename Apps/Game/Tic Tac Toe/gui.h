@@ -1,5 +1,7 @@
 #pragma once
 
+#include "point.h"
+
 namespace Liron486
 {
 class GameManager;
@@ -27,7 +29,7 @@ public:
     virtual void weHaveAWinner(int winerIndex) = 0;
     virtual void tie() = 0;
     virtual void tutorial() = 0;
-    virtual Point makeMove(int playerIndexToUse) const = 0;
+    virtual Liron486::Point makeMove(int playerIndexToUse) const = 0;
     virtual ActionEnum wantToPlayAgain() const = 0;
 
 protected:

@@ -2,10 +2,10 @@
 
 #include <JuceHeader.h>
 
-class Board : public Component
+class BoardGui : public Component
 {
 public:
-    Board();
+    BoardGui();
 
     void paintOverChildren(Graphics& g) override;
     void resized() override;

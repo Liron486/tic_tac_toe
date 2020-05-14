@@ -8,6 +8,11 @@ namespace Liron486
 {
 struct Move
 {
+    bool shouldRestart()
+    {
+        return nextMove.isPointUnique();
+    }
+
     Point nextMove;
     bool waitingForHuman = false;
     int timeToWaitUntilDisplay = 0;

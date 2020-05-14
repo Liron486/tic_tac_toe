@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <conio.h>
 
 #include "game_manager.h"
 #include "gui_console.h"
@@ -119,10 +118,10 @@ void GuiConsole::printHeaderWithoutDiff() const
               << std::endl;
 }
 
-void GuiConsole::weHaveAWinner(int winerIndex)
+void GuiConsole::weHaveAWinner()
 {
     std::cout << "We have a Winner!!!!!\n"
-              << gameData.getGameData().players[winerIndex]->getData().name
+              << gameData.getGameData().players[getCurrentPlayer()]->getData().name
               << " Wins!\n"
               << std::endl;
 }
@@ -229,12 +228,9 @@ void GuiConsole::tutorial()
             std::cout << sentences[i][j] << std::flush;
             mySleep(70);
 
-            if (_kbhit())
-            {
-                std::cin.get();
-                ClearScreen();
-                return;
-            }
+            std::cin.get();
+            ClearScreen();
+            return;
         }
 
         mySleep(1000);
@@ -254,7 +250,7 @@ bool isValidDigit(const std::string& str)
     return (!str.empty() && it == str.end() && (str != "0"));
 }
 
-Point GuiConsole::makeMove(int playerIndexToUse) const
+Point GuiConsole::makeMove() const
 {
     std::string nextMove_str;
     Point unique(3, 3);
@@ -264,7 +260,7 @@ Point GuiConsole::makeMove(int playerIndexToUse) const
 
     while (isValid == false)
     {
-        nextMove_str = getUserRequiredCell(playerIndexToUse);
+        nextMove_str = getUserRequiredCell(getCurrentPlayer());
         if (compareStrings(nextMove_str, "r"))
             return unique;
 
@@ -333,53 +329,49 @@ Gui::ActionEnum GuiConsole::wantToPlayAgain() const
         }
     }
 }
+
 void GuiConsole::startPlay()
 {
-    auto playerIndex = 0;
-
-    while (gameData.keepPlaying())
-    {
-        playerIndex = gameData.getMoveNumber() % 2;
-
-        displayOnScreen();
-
-        auto nextMove = gameData.askForNextMove();
-        if (nextMove.waitingForHuman)
-        {
-            nextMove.nextMove = makeMove(playerIndex);
-            if (nextMove.nextMove.isPointUnique())
-            {
-                gameData.resetGame();
-                startPlay();
-                return;
-            }
-        }
-        else
-            mySleep(nextMove.timeToWaitUntilDisplay);
-
-        gameData.getGameData().board.setCell(gameData.getGameData().players[playerIndex]->getData().type,
-                               nextMove.nextMove);
-
-        if (gameData.checkForWinner(nextMove.nextMove))
-            break;
-    }
+    gameData.resetGame();
 
     displayOnScreen();
 
+    while (gameData.keepPlaying())
+        playNextTurn();
+
+    checkEndGameStatus();
+    askUserToRestart();
+}
+
+void GuiConsole::askUserToRestart()
+{
+    auto userAnswer = wantToPlayAgain();
+
+    if (gameData.wantToPlayAgain(userAnswer))
+        startPlay();
+}
+
+void GuiConsole::checkEndGameStatus()
+{
     if (gameData.isWeHaveAWinner())
     {
-        weHaveAWinner(playerIndex);
-        gameData.getGameData().score.updateScore(playerIndex);
+        weHaveAWinner();
+        gameData.updateScore();
     }
     else
         tie();
+}
+void GuiConsole::playNextTurn() const
+{
+    auto nextMove = gameData.askForNextMove();
 
-    auto userAnswer = wantToPlayAgain();
-    if (gameData.wantToPlayAgain(userAnswer))
-    {
-        gameData.resetGame();
-        startPlay();
-    }
+    if (nextMove.waitingForHuman)
+        nextMove.nextMove = makeMove();
+    else
+        mySleep(nextMove.timeToWaitUntilDisplay);
+
+    gameData.makeMove(nextMove);
+    displayOnScreen();
 }
 void GuiConsole::displayOnScreen() const
 {

@@ -17,14 +17,17 @@ public:
     GameData& getGameData();
     void createNewPlayersPtrs();
     void initScoreNames();
-    bool keepPlaying() {return moveNumber < gameData.board.getNumOfCells();}
-    int getMoveNumber() const;
+    bool keepPlaying() const { return gameIsInProgress; }
     Move askForNextMove();
-    bool checkForWinner(Point lastMove);
+    void checkForWinner(Point lastMove);
     void resetGame();
     bool isWeHaveAWinner() const;
 
+    void updateScore() { gameData.score.updateScore(gameData.currentPlayer); }
+    void makeMove(Move move);
+
 private:
+
     void switchSides();
     void changeDifficulty(Configuration::Difficulty difficultyToUse);
     Computer* createComputer(int index, CellTypes type) const;
@@ -35,8 +38,8 @@ private:
     GameData gameData;
     Judge judge {gameData.board};
     int switchSidesCounter = 0;
+    bool gameIsInProgress = true;
     bool weHaveAWinner = false;
-
 };
 
 } // namespace Liron486

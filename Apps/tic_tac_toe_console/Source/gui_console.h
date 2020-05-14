@@ -10,21 +10,26 @@ class GuiConsole : public Gui
 {
 public:
     explicit GuiConsole(GameManager& gameDataToUse);
-    void printBoard() const override;
-    void printHeader() const override;
-    void printHeaderWithoutDiff() const override;
-    void weHaveAWinner(int winerIndex) override;
-    void tie() override;
-    void tutorial() override;
-    Point makeMove(int playerIndexToUse) const override;
-    ActionEnum wantToPlayAgain() const override;
-    void startPlay() override;
-    void displayOnScreen() const override;
+    void printBoard() const;
+    void printHeader() const;
+    void printHeaderWithoutDiff() const;
+    void weHaveAWinner();
+    void tie();
+    void tutorial();
+    Point makeMove() const;
+    ActionEnum wantToPlayAgain() const;
+    void startPlay();
+    void displayOnScreen() const;
 
 private:
+    int getCurrentPlayer() const { return gameData.getGameData().currentPlayer; }
     std::string getUserRequiredCell(int playerIndexToUse) const;
+    void playNextTurn() const;
+    void checkEndGameStatus();
+    void askUserToRestart();
 
     ConfigurationGuiConsole confGuiConsole {gameData.getGameData().conf};
+
 };
 
 } // namespace Liron486

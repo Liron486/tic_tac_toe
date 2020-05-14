@@ -57,12 +57,15 @@ void GameManager::createNewPlayersPtrs()
 
 void GameManager::resetGame()
 {
+    gameIsInProgress = true;
     gameData.board.resetBoardData();
+    gameData.currentPlayer = 0;
 
     if (moveNumber > threshhold)
     {
         ++gameData.gameNumber;
     }
+
     moveNumber = 0;
     weHaveAWinner = false;
 }
@@ -176,10 +179,7 @@ void GameManager::initScoreNames()
     gameData.score.setPlayerName(gameData.conf.getPlayerName(0), 0);
     gameData.score.setPlayerName(gameData.conf.getPlayerName(1), 1);
 }
-int GameManager::getMoveNumber() const
-{
-    return moveNumber;
-}
+
 Move GameManager::askForNextMove()
 {
     constexpr auto lastMove = 8;
@@ -194,23 +194,41 @@ Move GameManager::askForNextMove()
         newMove = {fillLastSquare(), false, 700};
 
     ++moveNumber;
+
+
+
     return newMove;
 }
-bool GameManager::checkForWinner(Point lastMove)
+
+void GameManager::checkForWinner(Point lastMove)
 {
-    const auto threshold = 3;
-
-    if (moveNumber > threshold)
+    if (judge.checkForWinner(lastMove))
     {
-        if (judge.checkForWinner(lastMove))
-            weHaveAWinner = true;
+        weHaveAWinner = true;
+        gameIsInProgress = false;
     }
+    else
+        gameIsInProgress = moveNumber < gameData.board.getNumOfCells();
 
-    return weHaveAWinner;
 }
+
 bool GameManager::isWeHaveAWinner() const
 {
     return weHaveAWinner;
+}
+
+void GameManager::makeMove(Move move)
+{
+    if (move.shouldRestart())
+        resetGame();
+    else
+    {
+        gameData.updateCell(move);
+        checkForWinner(move.nextMove);
+    }
+
+    if (!weHaveAWinner)
+        gameData.currentPlayer = moveNumber % 2;
 }
 
 } // namespace Liron486

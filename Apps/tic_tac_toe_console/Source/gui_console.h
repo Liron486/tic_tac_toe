@@ -10,14 +10,16 @@ class GuiConsole : public Gui
 {
 public:
     explicit GuiConsole(GameManager& gameDataToUse);
-    void printBoard() override;
-    void printHeader() override;
-    void printHeaderWithoutDiff() override;
+    void printBoard() const override;
+    void printHeader() const override;
+    void printHeaderWithoutDiff() const override;
     void weHaveAWinner(int winerIndex) override;
     void tie() override;
     void tutorial() override;
     Point makeMove(int playerIndexToUse) const override;
     ActionEnum wantToPlayAgain() const override;
+    void startPlay() override;
+    void displayOnScreen() const override;
 
 private:
     std::string getUserRequiredCell(int playerIndexToUse) const;

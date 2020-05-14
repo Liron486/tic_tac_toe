@@ -52,6 +52,10 @@ void Board::copyCells(const Board& other) const
 {
     *boardData = *other.boardData;
 }
+const int Board::getNumOfCells() const
+{
+    return numOfCells;
+}
 
 BoardData::BoardData()
 {

@@ -25,10 +25,12 @@ public:
     void setCell(CellTypes playerTypeToUse, const Point& cellToUse) const;
     void resetBoardData();
     bool isSquareEmpty(const Point& cellToUse) const;
+    const int getNumOfCells() const ;
 
 private:
     void copyCells(const Board& other) const;
     std::unique_ptr<BoardData> boardData;
+    const int numOfCells = 9;
 };
 
 } // namespace Liron486

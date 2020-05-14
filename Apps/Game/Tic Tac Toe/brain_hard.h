@@ -9,7 +9,7 @@ class BrainHard : public Brain
 {
 public:
     explicit BrainHard(const Board& boardToUse, CellTypes typeToUse);
-    Point getNextMove() const override;
+    Move getNextMove() const override;
     CellTypes getType() const override;
     void setType(CellTypes typeToUse) override;
 

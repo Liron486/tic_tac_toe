@@ -144,7 +144,7 @@ static bool CheckIfWinNextMove(Board& boardToUse,
     return false;
 }
 
-Point BrainHard::getNextMove() const
+Move BrainHard::getNextMove() const
 {
     auto max = -10;
     auto current_res = -10;
@@ -205,8 +205,7 @@ Point BrainHard::getNextMove() const
         }
     }
 
-    MySleep(1000);
-    return nextMove;
+    return {nextMove, false, 1000};
 }
 
 void BrainHard::setType(CellTypes typeToUse)

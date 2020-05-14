@@ -2,12 +2,17 @@
 
 #include <string>
 
-#include "point.h"
 #include "board.h"
-#include "cell.h"
 
 namespace Liron486
 {
+struct Move
+{
+    Point nextMove;
+    bool waitingForHuman = false;
+    int timeToWaitUntilDisplay = 0;
+};
+
 struct PlayerData
 {
     PlayerData(const std::string& nameToUse, CellTypes typeToUse, const Board& boardToUse)
@@ -25,7 +30,7 @@ public:
         : data(dataToUse){}
 	
     virtual ~Player() = default;
-    virtual Point makeMove() const = 0;
+    virtual Move makeMove() const = 0;
 
 	const PlayerData& getData() const { return data; }
     void setPlayerType(CellTypes newTypeToUse) { data.type = newTypeToUse; }

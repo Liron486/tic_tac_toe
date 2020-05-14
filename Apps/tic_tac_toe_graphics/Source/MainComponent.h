@@ -8,11 +8,13 @@
 class GuiController : public Liron486::Gui
 {
 public:
-    GuiController(Liron486::GameManager& managerToUse)
-        : Gui(managerToUse)
+    GuiController(Liron486::GameManager& managerToUse, BoardGui& boardToUse)
+        : Gui(managerToUse), board(boardToUse)
     {
     }
-    void printBoard() override {}
+
+private:
+    void printBoard() override { board.updateFrom(gameData.getGameData().board);}
     void printHeader() override {}
     void printHeaderWithoutDiff() override {}
     void weHaveAWinner(int winerIndex) override {}
@@ -23,6 +25,8 @@ public:
         return Liron486::Point();
     }
     ActionEnum wantToPlayAgain() const override { return ActionEnum::No; }
+
+    BoardGui& board;
 };
 
 class MainComponent : public Component
@@ -33,6 +37,7 @@ public:
 
 private:
     Liron486::GameManager gameManager;
-    GuiController controller {gameManager};
     BoardGui board;
+    GuiController controller {gameManager,board};
+
 };

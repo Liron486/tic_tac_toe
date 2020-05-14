@@ -9,8 +9,6 @@
 
 void CellGui::mouseDown(const MouseEvent& event)
 {
-    ++mouseDownCounter;
-
     if (mouseDownCounter % 3 == 1)
         cellContent = std::make_unique<Ex>();
 

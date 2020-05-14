@@ -31,7 +31,7 @@ inline bool compareStrings(const std::string& first, const std::string& second)
     return std::equal(first.begin(), first.end(), second.begin(), compareChars);
 }
 
-inline void MySleep(int sleepMs)
+inline void mySleep(int sleepMs)
 {
     auto time = std::chrono::milliseconds(sleepMs);
     std::this_thread::sleep_for(time);

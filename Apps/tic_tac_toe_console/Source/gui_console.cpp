@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <thread>
 #include <conio.h>
 
 #include "game_manager.h"
@@ -40,9 +39,12 @@ GuiConsole::GuiConsole(GameManager& gameDataToUse)
             confGuiConsole.setPlayerName("Player1", 0);
         }
     }
+
+    gameData.createNewPlayersPtrs();
+    gameData.initScoreNames();
 }
 
-void GuiConsole::printBoard()
+void GuiConsole::printBoard() const
 {
     auto& data = gameData.getGameData();
 
@@ -83,7 +85,7 @@ void GuiConsole::printBoard()
               << std::endl;
 }
 
-void GuiConsole::printHeader()
+void GuiConsole::printHeader() const
 {
     auto& data = gameData.getGameData();
 
@@ -91,7 +93,7 @@ void GuiConsole::printHeader()
         data.conf.getDifficulty() == Configuration::Difficulty::Easy ? "Easy"
                                                                      : "HARD";
 
-    std::cout << "      " << data.score.getPlayersNames()[0] << " - "
+    std::cout << "       " << data.score.getPlayersNames()[0] << " - "
               << data.score.getWinsCounter()[0] << "  |  "
               << data.score.getPlayersNames()[1] << " - "
               << data.score.getWinsCounter()[1]
@@ -103,7 +105,7 @@ void GuiConsole::printHeader()
         << std::endl;
 }
 
-void GuiConsole::printHeaderWithoutDiff()
+void GuiConsole::printHeaderWithoutDiff() const
 {
     auto& data = gameData.getGameData();
 
@@ -225,7 +227,7 @@ void GuiConsole::tutorial()
         for (auto j = 0; j < length_of_sentence; ++j)
         {
             std::cout << sentences[i][j] << std::flush;
-            MySleep(70);
+            mySleep(70);
 
             if (_kbhit())
             {
@@ -235,10 +237,10 @@ void GuiConsole::tutorial()
             }
         }
 
-        MySleep(1000);
+        mySleep(1000);
     }
 
-    MySleep(700);
+    mySleep(700);
 }
 
 bool isValidDigit(const std::string& str)
@@ -332,6 +334,64 @@ Gui::ActionEnum GuiConsole::wantToPlayAgain() const
         }
     }
 }
+void GuiConsole::startPlay()
+{
+    auto playerIndex = 0;
 
+    while (gameData.keepPlaying())
+    {
+        playerIndex = gameData.getMoveNumber() % 2;
+
+        displayOnScreen();
+
+        auto nextMove = gameData.askForNextMove();
+        if (nextMove.waitingForHuman)
+        {
+            nextMove.nextMove = makeMove(playerIndex);
+            if (nextMove.nextMove.isPointUnique())
+            {
+                gameData.resetGame();
+                startPlay();
+                return;
+            }
+        }
+        else
+            mySleep(nextMove.timeToWaitUntilDisplay);
+
+        gameData.getGameData().board.setCell(gameData.getGameData().players[playerIndex]->getData().type,
+                               nextMove.nextMove);
+
+        if (gameData.checkForWinner(nextMove.nextMove))
+            break;
+    }
+
+    displayOnScreen();
+
+    if (gameData.isWeHaveAWinner())
+    {
+        weHaveAWinner(playerIndex);
+        gameData.getGameData().score.updateScore(playerIndex);
+    }
+    else
+        tie();
+
+    auto userAnswer = wantToPlayAgain();
+    if (gameData.wantToPlayAgain(userAnswer))
+    {
+        gameData.resetGame();
+        startPlay();
+    }
+}
+void GuiConsole::displayOnScreen() const
+{
+    ClearScreen();
+    if (gameData.getGameData().conf.getNumRealPlayers() == 2)
+        printHeaderWithoutDiff();
+
+    else
+        printHeader();
+
+    printBoard();
+}
 
 } // namespace Liron486

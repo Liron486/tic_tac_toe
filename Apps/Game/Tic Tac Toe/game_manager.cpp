@@ -20,7 +20,7 @@ Computer* GameManager::createComputer(int index, CellTypes type) const
 RealPlayer* GameManager::createRealPlayer(int index, CellTypes type) const
 {
     PlayerData data(gameData.conf.getPlayerName(index), type, gameData.board);
-    return new RealPlayer(data, gui);
+    return new RealPlayer(data);
 }
 
 void GameManager::createNewPlayersPtrs()
@@ -55,20 +55,6 @@ void GameManager::createNewPlayersPtrs()
     }
 }
 
-void GameManager::displayOnScreen() const
-{
-    ClearScreen();
-    if (gameData.conf.getNumRealPlayers() == 2)
-    {
-        gui->printHeaderWithoutDiff();
-    }
-    else
-    {
-        gui->printHeader();
-    }
-    gui->printBoard();
-}
-
 void GameManager::resetGame()
 {
     gameData.board.resetBoardData();
@@ -79,8 +65,6 @@ void GameManager::resetGame()
     }
     moveNumber = 0;
     weHaveAWinner = false;
-
-    play();
 }
 
 Point GameManager::fillLastSquare() const
@@ -99,72 +83,6 @@ Point GameManager::fillLastSquare() const
     }
 
     return newMove;
-}
-
-void GameManager::play()
-{
-    constexpr auto lastMove = 8;
-    auto playerNum = 0;
-    Point newMove;
-
-    if (gameData.gameNumber == 1)
-    {
-        createNewPlayersPtrs();
-        gameData.score.setPlayerName(gameData.conf.getPlayerName(0), 0);
-        gameData.score.setPlayerName(gameData.conf.getPlayerName(1), 1);
-    }
-
-    while ((moveNumber < num_of_cells))
-    {
-        playerNum = moveNumber % 2;
-        displayOnScreen();
-
-        if (moveNumber != lastMove)
-        {
-            newMove = gameData.players[playerNum]->makeMove();
-            if (newMove.isPointUnique())
-            {
-                resetGame();
-                return;
-            }
-
-            gameData.board.setCell(gameData.players[playerNum]->getData().type,
-                                   newMove);
-        }
-        else
-        {
-            newMove = fillLastSquare();
-            MySleep(700);
-        }
-
-        if (moveNumber > threshhold)
-        {
-            if (judge.checkForWinner(newMove))
-            {
-                weHaveAWinner = true;
-                break;
-            }
-        }
-
-        ++moveNumber;
-    }
-
-    if (weHaveAWinner)
-    {
-        displayOnScreen();
-        gui->weHaveAWinner(playerNum);
-        gameData.score.updateScore(playerNum);
-    }
-    else
-    {
-        displayOnScreen();
-        gui->tie();
-    }
-
-    if (wantToPlayAgain())
-    {
-        resetGame();
-    }
 }
 
 GameData& GameManager::getGameData()
@@ -190,10 +108,8 @@ void GameManager::switchSides()
     ++switchSidesCounter;
 }
 
-bool GameManager::wantToPlayAgain()
+bool GameManager::wantToPlayAgain(Gui::ActionEnum userAnswer)
 {
-    auto userAnswer = gui->wantToPlayAgain();
-
     switch (userAnswer)
     {
         case Gui::ActionEnum::Yes:
@@ -254,6 +170,47 @@ void GameManager::changeDifficulty(Configuration::Difficulty difficultyToUse)
         gameData.players[computer_index].reset(
             new Computer({name, cellType, gameData.board}, difficultyToUse));
     }
+}
+void GameManager::initScoreNames()
+{
+    gameData.score.setPlayerName(gameData.conf.getPlayerName(0), 0);
+    gameData.score.setPlayerName(gameData.conf.getPlayerName(1), 1);
+}
+int GameManager::getMoveNumber() const
+{
+    return moveNumber;
+}
+Move GameManager::askForNextMove()
+{
+    constexpr auto lastMove = 8;
+    Move newMove;
+
+    if (moveNumber != lastMove)
+    {
+        auto playerNum = moveNumber % 2;
+        newMove = gameData.players[playerNum]->makeMove();
+    }
+    else
+        newMove = {fillLastSquare(), false, 700};
+
+    ++moveNumber;
+    return newMove;
+}
+bool GameManager::checkForWinner(Point lastMove)
+{
+    const auto threshold = 3;
+
+    if (moveNumber > threshold)
+    {
+        if (judge.checkForWinner(lastMove))
+            weHaveAWinner = true;
+    }
+
+    return weHaveAWinner;
+}
+bool GameManager::isWeHaveAWinner() const
+{
+    return weHaveAWinner;
 }
 
 } // namespace Liron486

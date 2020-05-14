@@ -13,7 +13,7 @@ class Computer : public Player
 public:
     explicit Computer(const PlayerData& dataToUse,
                       Configuration::Difficulty difficultyToUse);
-    Point makeMove() const override;
+    Move makeMove() const override;
 
 private:
 

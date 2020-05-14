@@ -12,7 +12,7 @@ BrainEasy::BrainEasy(const Board& boardToUse, CellTypes typeToUse)
 {
 }
 
-Point BrainEasy::getNextMove() const
+Move BrainEasy::getNextMove() const
 {   
     constexpr auto num_of_cells = 9;
 
@@ -35,8 +35,7 @@ Point BrainEasy::getNextMove() const
 
     auto nextMove = availableMoves[rand() % countAvailableMoves];
 
-    MySleep(1000);
-    return nextMove;
+    return {nextMove, false, 1000};
 }
 
 void BrainEasy::setType(CellTypes typeToUse)

@@ -10,7 +10,6 @@ public:
     void resized() override;
 
 private:
-    int mouseDownCounter = 0;
     std::unique_ptr<Component> cellContent = nullptr;
 };
 

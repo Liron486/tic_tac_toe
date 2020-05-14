@@ -34,12 +34,10 @@ Computer::Computer(const PlayerData& dataToUse,
 {
 }
 
-Point Computer::makeMove() const
+Move Computer::makeMove() const
 {
     if (data.type != brain->getType())
-    {
         brain->setType(data.type);
-    }
 
     return brain->getNextMove();
 }

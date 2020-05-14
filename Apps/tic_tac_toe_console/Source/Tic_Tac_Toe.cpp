@@ -8,10 +8,8 @@ int main()
     GameManager gameManager;
 	
     GuiConsole gui(gameManager);
-    gameManager.setGui(&gui);
-	
-	
-    gameManager.play();
+
+    gui.startPlay();
 
     return 0;
 }

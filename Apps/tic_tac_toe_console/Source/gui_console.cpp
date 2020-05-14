@@ -250,7 +250,7 @@ bool isValidDigit(const std::string& str)
     return (!str.empty() && it == str.end() && (str != "0"));
 }
 
-Point GuiConsole::makeMove() const
+Point GuiConsole::askPlayerForMove() const
 {
     std::string nextMove_str;
     Point unique(3, 3);
@@ -366,7 +366,7 @@ void GuiConsole::playNextTurn() const
     auto nextMove = gameData.askForNextMove();
 
     if (nextMove.waitingForHuman)
-        nextMove.nextMove = makeMove();
+        nextMove.nextMove = askPlayerForMove();
     else
         mySleep(nextMove.timeToWaitUntilDisplay);
 

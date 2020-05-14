@@ -16,7 +16,7 @@ public:
     void weHaveAWinner();
     void tie();
     void tutorial();
-    Point makeMove() const;
+    Point askPlayerForMove() const;
     ActionEnum wantToPlayAgain() const;
     void startPlay();
     void displayOnScreen() const;

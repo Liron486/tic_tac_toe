@@ -281,7 +281,6 @@ Point GuiConsole::makeMove(int playerIndexToUse) const
         }
 
         std::cout << "Wrong Move, try again\n";
-        isValid = false;
     }
 
     return newMove;

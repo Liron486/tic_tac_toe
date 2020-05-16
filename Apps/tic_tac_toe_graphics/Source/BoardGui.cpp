@@ -39,11 +39,12 @@ void BoardGui::resized()
 void BoardGui::paintOverChildren(Graphics& g)
 {
     g.setColour(Colours::black);
-    auto width = getLocalBounds().getWidth();
-    auto hight = getLocalBounds().getHeight();
+    auto width = (float) getLocalBounds().getWidth();
+    auto hight = (float) getLocalBounds().getHeight();
 
-    g.drawLine(0, (float)hight / 3.f, width, (float)hight / 3.f, 8);
-    g.drawLine(0, ((float)hight * 2) / 3.f, width, ((float)hight * 2) / 3.f, 8);
-    g.drawLine((float)width / 3.f, 0, (float)width / 3.f, hight, 8);
-    g.drawLine(((float)width * 2) / 3.f, 0, ((float)width * 2) / 3.f, hight, 8);
+    g.drawLine(0, hight / 3.f, width, hight / 3.f, 8);
+    g.drawLine(0, (hight * 2) / 3.f, width, (hight * 2) / 3.f, 8);
+    g.drawLine(width / 3.f, 0, width / 3.f, hight, 8);
+    g.drawLine((width * 2) / 3.f, 0, (width * 2) / 3.f, hight, 8);
 }
+

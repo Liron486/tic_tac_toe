@@ -1,14 +1,17 @@
 
 #include "MainComponent.h"
+#include "configuration.h"
 
 MainComponent::MainComponent()
+:controller(gameManager, board)
 {
-    gameManager.setGui(&controller);
+    gameManager.getGameData().conf.setDifficulty(Liron486::Configuration::Difficulty::Easy);
+    gameManager.getGameData().conf.setNumRealPlayers(0);
+    gameManager.createNewPlayersPtrs();
     addAndMakeVisible(board);
 
-//    gameManager.play();
-
     setSize(750, 750);
+    controller.startPlay();
 }
 
 void MainComponent::resized()

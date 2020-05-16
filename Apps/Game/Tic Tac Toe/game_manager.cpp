@@ -195,8 +195,6 @@ Move GameManager::askForNextMove()
 
     ++moveNumber;
 
-
-
     return newMove;
 }
 

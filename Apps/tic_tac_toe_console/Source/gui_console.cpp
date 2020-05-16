@@ -373,6 +373,7 @@ void GuiConsole::playNextTurn() const
     gameData.makeMove(nextMove);
     displayOnScreen();
 }
+
 void GuiConsole::displayOnScreen() const
 {
     ClearScreen();

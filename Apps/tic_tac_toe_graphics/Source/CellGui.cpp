@@ -1,28 +1,15 @@
 
-#include "CellGui.h"
-
 #include <memory>
+
 #include "Ex.h"
 #include "Circle.h"
+#include "CellGui.h"
 
 
 
 void CellGui::mouseDown(const MouseEvent& event)
 {
-    if (mouseDownCounter % 3 == 1)
-        cellContent = std::make_unique<Ex>();
-
-    else if(mouseDownCounter % 3 == 2)
-        cellContent = std::make_unique<Circle>();
-
-    else
-        cellContent = nullptr;
-
-    if (cellContent != nullptr)
-    {
-        addAndMakeVisible(*cellContent);
-//        cellContent->setInterceptsMouseClicks(false,false);
-    }
+    //cellContent = std::make_unique<Ex>();
 
     resized();
 }
@@ -31,3 +18,20 @@ void CellGui::resized()
     if (cellContent != nullptr)
         cellContent->setBounds(getLocalBounds());
 }
+void CellGui::updateCellContent(Liron486::CellTypes cellType)
+{
+    if (cellType == Liron486::CellTypes::Empty)
+        return;
+
+    if (cellContent == nullptr)
+    {
+        if (cellType == Liron486::CellTypes::Ex)
+            cellContent = std::make_unique<Ex>();
+        else
+            cellContent = std::make_unique<Circle>();
+
+        addAndMakeVisible(*cellContent);
+        resized();
+    }
+}
+

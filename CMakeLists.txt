@@ -13,3 +13,4 @@ update_from_git(juce "https://github.com/juce-framework/juce" juce6)
 add_subdirectory(${juce_SOURCE_DIR})
 
 add_subdirectory(Apps)
+add_subdirectory(Plugins)

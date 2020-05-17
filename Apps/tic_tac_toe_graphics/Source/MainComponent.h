@@ -4,7 +4,7 @@
 
 #include "game_manager.h"
 #include "BoardGui.h"
-#include "GuiController.h"
+#include "GameFlowController.h"
 
 class MainComponent : public Component
 {
@@ -14,7 +14,6 @@ public:
 
 private:
     Liron486::GameManager gameManager;
-    BoardGui board;
-    GuiController controller;
-
+    BoardGui board {gameManager};
+    GameFlowController controller {gameManager};
 };

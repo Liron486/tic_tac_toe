@@ -16,17 +16,32 @@ void CellGui::resized()
         cellContent->setBounds(getLocalBounds());
 }
 
+Component* CellGui::createCell()
+{
+    using namespace Liron486;
+
+    switch (type)
+    {
+        case CellTypes::Empty:
+            return nullptr;
+
+        case CellTypes::Ex:
+            return new Ex();
+
+        case CellTypes::Circle:
+            return new Circle();
+    }
+
+    jassertfalse; //invalid type
+    return nullptr;
+}
+
 void CellGui::updateCellContent(Liron486::CellTypes cellType)
 {
-    if (cellType == Liron486::CellTypes::Empty)
-        return;
-
-    if (cellContent == nullptr)
+    if (type != cellType)
     {
-        if (cellType == Liron486::CellTypes::Ex)
-            cellContent = std::make_unique<Ex>();
-        else
-            cellContent = std::make_unique<Circle>();
+        type = cellType;
+        cellContent.reset(createCell());
 
         addAndMakeVisible(*cellContent);
         resized();

@@ -13,6 +13,9 @@ public:
     void updateCellContent(Liron486::CellTypes cellType);
 
 private:
+    Component* createCell();
+
+    Liron486::CellTypes type = Liron486::CellTypes::Empty;
     std::unique_ptr<Component> cellContent = nullptr;
 };
 

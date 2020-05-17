@@ -3,7 +3,6 @@
 #include "configuration.h"
 
 MainComponent::MainComponent()
-    : controller(gameManager, board)
 {
     gameManager.getGameData().conf.setDifficulty(
         Liron486::Configuration::Difficulty::Easy);

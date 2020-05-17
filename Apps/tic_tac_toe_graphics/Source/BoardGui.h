@@ -1,21 +1,24 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "board.h"
+#include "game_manager.h"
 #include "CellGui.h"
 
-class BoardGui : public Component
+class BoardGui
+    : public Component
+    , public Timer
 {
 public:
-    explicit BoardGui();
+    explicit BoardGui(Liron486::GameManager& managerToUse);
 
     void paintOverChildren(Graphics& g) override;
     void resized() override;
-    void updateCell(int index, Liron486::CellTypes type)
-    {
-        cells[index]->updateCellContent(type);
-    }
+
+    void timerCallback() override { updateCells(); }
+
+    void updateCells();
 
 private:
     std::vector<std::unique_ptr<CellGui>> cells;
+    Liron486::GameManager& gameData;
 };

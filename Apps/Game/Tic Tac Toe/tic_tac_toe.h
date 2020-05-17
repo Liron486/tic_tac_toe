@@ -14,7 +14,7 @@ struct GameData
     void updateCell(Move move)
     {
         auto type = players[currentPlayer]->getData().type;
-        board.setCell(type, move.nextMove);
+        board.setCell(type, move.position);
     }
 
     Configuration conf;

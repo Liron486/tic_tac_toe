@@ -366,7 +366,7 @@ void GuiConsole::playNextTurn() const
     auto nextMove = gameData.askForNextMove();
 
     if (nextMove.waitingForHuman)
-        nextMove.nextMove = askPlayerForMove();
+        nextMove.position = askPlayerForMove();
     else
         mySleep(nextMove.timeToWaitUntilDisplay);
 

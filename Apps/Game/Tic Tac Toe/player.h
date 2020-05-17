@@ -10,10 +10,10 @@ struct Move
 {
     bool shouldRestart()
     {
-        return nextMove.isPointUnique();
+        return position.isPointUnique();
     }
 
-    Point nextMove;
+    Point position;
     bool waitingForHuman = false;
     int timeToWaitUntilDisplay = 0;
 };

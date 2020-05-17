@@ -12,6 +12,7 @@ public:
     }
 
     void startPlay();
+    void setNextPlayerMove(Liron486::Point pos);
 
 private:
     void playNextMove();

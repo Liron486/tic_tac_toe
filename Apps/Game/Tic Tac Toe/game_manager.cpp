@@ -222,7 +222,7 @@ void GameManager::makeMove(Move move)
     else
     {
         gameData.updateCell(move);
-        checkForWinner(move.nextMove);
+        checkForWinner(move.position);
     }
 
     if (!weHaveAWinner)

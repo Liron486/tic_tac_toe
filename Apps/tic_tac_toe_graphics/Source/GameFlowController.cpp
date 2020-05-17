@@ -27,3 +27,9 @@ void GameFlowController::playNextMove()
     if (gameData.keepPlaying())
         playNextTurn();
 }
+
+void GameFlowController::setNextPlayerMove(Liron486::Point pos)
+{
+    nextMove.position = pos;
+    playNextMove();
+}

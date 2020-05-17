@@ -23,6 +23,7 @@ struct GameData
     std::unique_ptr<Player> players[2];
     int gameNumber = 1;
     int currentPlayer = 0;
-    bool waitingForInputFromUser = false;
+
+    std::function<void(int)> makeMoveFunc = [](int){};
 };
 } // namespace Liron486

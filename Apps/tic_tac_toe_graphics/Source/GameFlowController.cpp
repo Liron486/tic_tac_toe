@@ -1,6 +1,14 @@
 
 #include "GameFlowController.h"
 
+GameFlowController::GameFlowController(Liron486::GameManager& managerToUse)
+    : Gui(managerToUse)
+{
+    gameData.getGameData().makeMoveFunc = [&](int cellNum) {
+        setNextMovePosition(cellNum);
+    };
+}
+
 void GameFlowController::startPlay()
 {
     gameData.resetGame();
@@ -15,11 +23,6 @@ void GameFlowController::playNextTurn()
     if (!nextMove.waitingForHuman)
         Timer::callAfterDelay(nextMove.timeToWaitUntilDisplay,
                               [&] { playNextMove(); });
-    else
-    {
-        gameData.getGameData().waitingForInputFromUser = true;
-        startTimerHz(200);
-    }
 }
 
 void GameFlowController::playNextMove()
@@ -28,12 +31,16 @@ void GameFlowController::playNextMove()
 
     if (gameData.keepPlaying())
         playNextTurn();
+    else
+        nextMove.waitingForHuman = false;
 }
-void GameFlowController::timerCallback()
+
+void GameFlowController::setNextMovePosition(int cellNum)
 {
-    if (gameData.keepPlaying() && !gameData.getGameData().waitingForInputFromUser)
+    if (nextMove.waitingForHuman)
     {
-        stopTimer();
-        playNextTurn();
+        auto position = LPoint ::convertNumToPoint(cellNum);
+        nextMove.position = position;
+        playNextMove();
     }
 }

@@ -4,21 +4,10 @@
 #include "Ex.h"
 #include "Circle.h"
 #include "CellGui.h"
-#include "point.h"
 
 void CellGui::mouseDown(const MouseEvent& event)
 {
-    if (gameData.getGameData().waitingForInputFromUser)
-    {
-        gameData.getGameData().waitingForInputFromUser = false;
-
-        Liron486::Point newMove = Liron486::Point::convertNumToPoint(cellNumber);
-        gameData.makeMove({newMove, false, 0});
-
-        auto playerIndex = gameData.getGameData().currentPlayer;
-        auto userType = gameData.getGameData().players[playerIndex]->getData().type;
-        updateCellContent(userType);
-    }
+    gameData.getGameData().makeMoveFunc(cellNumber);
 }
 
 void CellGui::resized()

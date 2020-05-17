@@ -3,20 +3,19 @@
 #include "gui.h"
 #include "BoardGui.h"
 
-class GameFlowController : public Liron486::Gui, public Timer
+class GameFlowController : public Liron486::Gui
 {
+    using LPoint = Liron486::Point;
+
 public:
-    explicit GameFlowController(Liron486::GameManager& managerToUse)
-        : Gui(managerToUse)
-    {
-    }
+    explicit GameFlowController(Liron486::GameManager& managerToUse);
 
     void startPlay();
-    void timerCallback() override;
 
 private:
+    void setNextMovePosition(int cellNum);
     void playNextMove();
-
     void playNextTurn();
+
     Liron486::Move nextMove;
 };

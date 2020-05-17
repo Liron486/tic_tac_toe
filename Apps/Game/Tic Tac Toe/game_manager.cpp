@@ -186,10 +186,8 @@ Move GameManager::askForNextMove()
     Move newMove;
 
     if (moveNumber != lastMove)
-    {
-        auto playerNum = moveNumber % 2;
-        newMove = gameData.players[playerNum]->makeMove();
-    }
+        newMove = gameData.players[gameData.currentPlayer]->makeMove();
+
     else
         newMove = {fillLastSquare(), false, 700};
 

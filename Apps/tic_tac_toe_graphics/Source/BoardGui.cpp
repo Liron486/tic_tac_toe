@@ -8,11 +8,11 @@ const auto numOfCols = 3;
 BoardGui::BoardGui(Liron486::GameManager& managerToUse)
     : gameData(managerToUse)
 {
-    startTimerHz(30);
+    startTimerHz(700);
 
     for (auto i = 0; i < numOfRows * numOfCols; ++i)
     {
-        cells.emplace_back(new CellGui);
+        cells.emplace_back(new CellGui(gameData, i + 1));
         addAndMakeVisible(*cells.back());
     }
 }

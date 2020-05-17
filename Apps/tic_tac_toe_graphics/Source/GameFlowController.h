@@ -3,7 +3,7 @@
 #include "gui.h"
 #include "BoardGui.h"
 
-class GameFlowController : public Liron486::Gui
+class GameFlowController : public Liron486::Gui, public Timer
 {
 public:
     explicit GameFlowController(Liron486::GameManager& managerToUse)
@@ -12,7 +12,7 @@ public:
     }
 
     void startPlay();
-    void setNextPlayerMove(Liron486::Point pos);
+    void timerCallback() override;
 
 private:
     void playNextMove();

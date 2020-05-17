@@ -23,5 +23,6 @@ struct GameData
     std::unique_ptr<Player> players[2];
     int gameNumber = 1;
     int currentPlayer = 0;
+    bool waitingForInputFromUser = false;
 };
 } // namespace Liron486

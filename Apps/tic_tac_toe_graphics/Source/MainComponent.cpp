@@ -5,8 +5,9 @@
 MainComponent::MainComponent()
 {
     gameManager.getGameData().conf.setDifficulty(
-        Liron486::Configuration::Difficulty::Easy);
-    gameManager.getGameData().conf.setNumRealPlayers(0);
+        Liron486::Configuration::Difficulty::Hard);
+    gameManager.getGameData().conf.setNumRealPlayers(1);
+    gameManager.getGameData().conf.setPlayerChoice(Liron486::CellTypes::Circle);
     gameManager.createNewPlayersPtrs();
     addAndMakeVisible(board);
 

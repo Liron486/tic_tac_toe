@@ -1,8 +1,5 @@
 
-#include "game_manager.h"
 #include "GameFlowController.h"
-#include "CellGui.h"
-#include "point.h"
 
 void GameFlowController::startPlay()
 {
@@ -16,9 +13,14 @@ void GameFlowController::playNextTurn()
     nextMove = gameData.askForNextMove();
 
     if (!nextMove.waitingForHuman)
-        Timer::callAfterDelay(1000, [&] { playNextMove(); });
+        Timer::callAfterDelay(nextMove.timeToWaitUntilDisplay,
+                              [&] { playNextMove(); });
+    else
+    {
+        gameData.getGameData().waitingForInputFromUser = true;
+        startTimerHz(200);
+    }
 }
-
 
 void GameFlowController::playNextMove()
 {
@@ -27,9 +29,11 @@ void GameFlowController::playNextMove()
     if (gameData.keepPlaying())
         playNextTurn();
 }
-
-void GameFlowController::setNextPlayerMove(Liron486::Point pos)
+void GameFlowController::timerCallback()
 {
-    nextMove.position = pos;
-    playNextMove();
+    if (gameData.keepPlaying() && !gameData.getGameData().waitingForInputFromUser)
+    {
+        stopTimer();
+        playNextTurn();
+    }
 }

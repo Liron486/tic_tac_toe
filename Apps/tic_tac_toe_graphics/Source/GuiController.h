@@ -3,7 +3,6 @@
 #include "gui.h"
 #include "BoardGui.h"
 
-
 class ComputerTimer : public Timer
 {
 public:
@@ -21,17 +20,16 @@ class GuiController : public Liron486::Gui
 {
 public:
     GuiController(Liron486::GameManager& managerToUse, BoardGui& boardToUse)
-        :Gui(managerToUse), board(boardToUse), timer(managerToUse)
+        : Gui(managerToUse)
+        , board(boardToUse)
+        , timer(managerToUse)
     {
     }
 
     void updateCells();
     void startPlay();
-    void displayOnScreen() const;
-
 
 private:
-
     void playNextTuren();
     BoardGui& board;
     ComputerTimer timer;

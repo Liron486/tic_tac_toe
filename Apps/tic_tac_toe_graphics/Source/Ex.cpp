@@ -3,17 +3,22 @@
 //
 #include "Ex.h"
 
-void Ex::paint(Graphics& g)
+void Ex::resized()
 {
     auto offsetDiag = Point<int>(60, 60);
     auto offsetAntiDiag = Point<int>(-60, 60);
 
-    Line<int> diag(getLocalBounds().getTopLeft() + offsetDiag,
-                   getLocalBounds().getBottomRight() - offsetDiag);
-    Line<int> antiDiag(getLocalBounds().getTopRight() + offsetAntiDiag,
-                       getLocalBounds().getBottomLeft() - offsetAntiDiag);
+    diag = {getLocalBounds().getTopLeft() + offsetDiag,
+            getLocalBounds().getBottomRight() - offsetDiag};
 
-    Colour red(178,34,34);
+    antiDiag = {getLocalBounds().getTopRight() + offsetAntiDiag,
+                getLocalBounds().getBottomLeft() - offsetAntiDiag};
+}
+
+void Ex::paint(Graphics& g)
+{
+    Colour red(178, 34, 34);
+
     g.setColour(red);
     g.drawLine(diag.toFloat(), 8);
     g.drawLine(antiDiag.toFloat(), 8);

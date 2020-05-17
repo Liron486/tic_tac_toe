@@ -8,15 +8,10 @@ void GuiController::startPlay()
 {
     gameData.resetGame();
 
-    displayOnScreen();
+//    displayOnScreen();
 
     while (gameData.keepPlaying())
         playNextTuren();
-}
-
-void GuiController::displayOnScreen() const
-{
-    board.repaint();
 }
 
 void GuiController::playNextTuren()
@@ -30,16 +25,15 @@ void GuiController::playNextTuren()
 
     gameData.makeMove(newMove);
     updateCells();
-    displayOnScreen();
-
 }
 
 void GuiController::updateCells()
 {
     for (auto i = 0; i < gameData.getGameData().board.getNumOfCells(); ++i)
     {
-        auto cellContent = gameData.getGameData().board.getCellContent(Liron486::Point::convertNumToPoint(i + 1));
-        board.getCells()[i]->updateCellContent(cellContent);
+        auto point = Liron486::Point::convertNumToPoint(i + 1);
+        auto cellContent = gameData.getGameData().board.getCellContent(point);
+        board.updateCell(i, cellContent);
     }
 }
 

@@ -11,7 +11,10 @@ public:
 
     void paintOverChildren(Graphics& g) override;
     void resized() override;
-    const std::vector<std::unique_ptr<CellGui>>& getCells() const { return cells; };
+    void updateCell(int index, Liron486::CellTypes type)
+    {
+        cells[index]->updateCellContent(type);
+    }
 
 private:
     std::vector<std::unique_ptr<CellGui>> cells;

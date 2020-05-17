@@ -3,9 +3,10 @@
 #include "configuration.h"
 
 MainComponent::MainComponent()
-:controller(gameManager, board)
+    : controller(gameManager, board)
 {
-    gameManager.getGameData().conf.setDifficulty(Liron486::Configuration::Difficulty::Easy);
+    gameManager.getGameData().conf.setDifficulty(
+        Liron486::Configuration::Difficulty::Easy);
     gameManager.getGameData().conf.setNumRealPlayers(0);
     gameManager.createNewPlayersPtrs();
     addAndMakeVisible(board);

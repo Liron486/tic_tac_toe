@@ -8,23 +8,15 @@ void GuiController::startPlay()
 {
     gameData.resetGame();
 
-//    displayOnScreen();
-
-    while (gameData.keepPlaying())
-        playNextTuren();
+    playNextTurn();
 }
 
-void GuiController::playNextTuren()
+void GuiController::playNextTurn()
 {
-    auto newMove = gameData.askForNextMove();
+    nextMove = gameData.askForNextMove();
 
-    if (newMove.waitingForHuman)
-    {
-        //timercallback
-    }
-
-    gameData.makeMove(newMove);
-    updateCells();
+    if (!nextMove.waitingForHuman)
+        Timer::callAfterDelay(1000, [&] { playNextMove(); });
 }
 
 void GuiController::updateCells()
@@ -37,6 +29,11 @@ void GuiController::updateCells()
     }
 }
 
-void ComputerTimer::timerCallback()
+void GuiController::playNextMove()
 {
+    gameData.makeMove(nextMove);
+    updateCells();
+
+    if (gameData.keepPlaying())
+        playNextTurn();
 }

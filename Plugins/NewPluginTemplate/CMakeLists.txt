@@ -9,7 +9,7 @@ juce_add_plugin("${BaseTargetName}"
         NEEDS_MIDI_OUTPUT FALSE
         IS_MIDI_EFFECT FALSE
         EDITOR_WANTS_KEYBOARD_FOCUS FALSE
-        COPY_PLUGIN_AFTER_BUILD ${postBuild}
+        COPY_PLUGIN_AFTER_BUILD TRUE
         PLUGIN_MANUFACTURER_CODE GLbn
         PLUGIN_CODE Dem0
         FORMATS AU VST3 Standalone

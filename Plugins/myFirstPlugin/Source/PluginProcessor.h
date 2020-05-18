@@ -1,11 +1,12 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "MidiProcessor.h"
 
-class NewPluginTemplateAudioProcessor : public AudioProcessor
+class myAudioProcessor : public AudioProcessor
 {
 public:
-    NewPluginTemplateAudioProcessor();
+    myAudioProcessor();
 
     void prepareToPlay(double sampleRate, int blockSize) override;
     void releaseResources() override {};
@@ -33,6 +34,9 @@ public:
     void setStateInformation(const void* /*data*/, int /*sizeInBytes*/) override {}
 
     static BusesProperties getBuses();
+    MidiProcessor& getMidiProcessor() { return midiProcessor; }
+
 private:
+    MidiProcessor midiProcessor;
     AudioParameterFloat* volume;
 };

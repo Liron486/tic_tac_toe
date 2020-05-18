@@ -3,14 +3,15 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 
-class NewPluginTemplateAudioProcessorEditor  : public AudioProcessorEditor
+class myAudioProcessorEditor  : public AudioProcessorEditor, public Timer
 {
 public:
-    explicit NewPluginTemplateAudioProcessorEditor (NewPluginTemplateAudioProcessor&);
+    explicit myAudioProcessorEditor (myAudioProcessor&);
 
     void paint (Graphics&) override;
     void resized() override;
+    void timerCallback() override;
 
 private:
-    NewPluginTemplateAudioProcessor& processor;
+    myAudioProcessor& processor;
 };

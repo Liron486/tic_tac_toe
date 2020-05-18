@@ -1,40 +1,30 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-NewPluginTemplateAudioProcessor::NewPluginTemplateAudioProcessor()
+myAudioProcessor::myAudioProcessor()
     : AudioProcessor(getBuses())
 {
-    volume = new AudioParameterFloat("Volume", "Volume", 0.f, 1.f, 1.f);
-    addParameter(volume);
+
 }
 
-void NewPluginTemplateAudioProcessor::prepareToPlay(double /*sampleRate*/,
+void myAudioProcessor::prepareToPlay(double /*sampleRate*/,
                                                     int /*blockSize*/)
 {
 }
 
-void NewPluginTemplateAudioProcessor::processBlock(AudioBuffer<float>& buffer,
+void myAudioProcessor::processBlock(AudioBuffer<float>& buffer,
                                                    MidiBuffer& midiMessages)
 {
-    midiMessages.clear();
-
-    for (int channel = 0; channel < buffer.getNumChannels(); ++channel)
-    {
-        auto channelData = buffer.getWritePointer(channel);
-
-        for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
-        {
-            channelData[sample] *= volume->get();
-        }
-    }
+    buffer.clear();
+    midiProcessor.process(midiMessages);
 }
 
-AudioProcessorEditor* NewPluginTemplateAudioProcessor::createEditor()
+AudioProcessorEditor* myAudioProcessor::createEditor()
 {
-    return new GenericAudioProcessorEditor(*this);
+    return new myAudioProcessorEditor(*this);
 }
 
-AudioProcessor::BusesProperties NewPluginTemplateAudioProcessor::getBuses()
+AudioProcessor::BusesProperties myAudioProcessor::getBuses()
 {
     auto stereo = AudioChannelSet::stereo();
 
@@ -45,5 +35,5 @@ AudioProcessor::BusesProperties NewPluginTemplateAudioProcessor::getBuses()
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new NewPluginTemplateAudioProcessor();
+    return new myAudioProcessor();
 }

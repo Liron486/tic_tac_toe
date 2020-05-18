@@ -19,8 +19,8 @@ void myAudioProcessorEditor::paint (Graphics& g)
 
 void myAudioProcessorEditor::resized()
 {
-
 }
+
 void myAudioProcessorEditor::timerCallback()
 {
     repaint();

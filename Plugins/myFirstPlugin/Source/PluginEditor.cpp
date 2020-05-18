@@ -10,6 +10,7 @@ myAudioProcessorEditor::myAudioProcessorEditor (myAudioProcessor& p)
 
 void myAudioProcessorEditor::paint (Graphics& g)
 {
+
     String text = processor.getMidiProcessor().getLastMessage();
     Rectangle<int> rect(getLocalBounds().getTopLeft(), getLocalBounds().getBottomRight());
     Justification justify(4);

@@ -4,7 +4,8 @@
 myAudioProcessorEditor::myAudioProcessorEditor (myAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
-    startTimerHz(1);
+    allMessages.emplace_back("");
+    startTimerHz(1000);
     setSize (400, 300);
 }
 
@@ -12,10 +13,25 @@ void myAudioProcessorEditor::paint (Graphics& g)
 {
 
     String text = processor.getMidiProcessor().getLastMessage();
-    Rectangle<int> rect(getLocalBounds().getTopLeft(), getLocalBounds().getBottomRight());
+
+    if (text.isNotEmpty())
+    {
+        bigMess += text + "\n";
+        ++backslashCounter;
+
+        if (backslashCounter > 18)
+        {
+            String newString;
+            newString = bigMess.fromFirstOccurrenceOf("\n", false, true);
+            bigMess = newString;
+        }
+    }
+
     Justification justify(4);
 
-    g.drawText(text, rect, justify);
+    g.setColour(Colours::white);
+    g.drawMultiLineText(bigMess, 10, 25, getLocalBounds().getWidth() - 20);
+
 }
 
 void myAudioProcessorEditor::resized()

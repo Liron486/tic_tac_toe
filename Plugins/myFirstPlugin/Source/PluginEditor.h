@@ -1,6 +1,8 @@
 #pragma once
 
+#include <vector>
 #include <JuceHeader.h>
+
 #include "PluginProcessor.h"
 
 class myAudioProcessorEditor  : public AudioProcessorEditor, public Timer
@@ -14,4 +16,7 @@ public:
 
 private:
     myAudioProcessor& processor;
+    std::vector<String> allMessages;
+    String bigMess;
+    int backslashCounter = 0;
 };

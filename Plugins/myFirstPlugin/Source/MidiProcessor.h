@@ -4,38 +4,39 @@
 
 #include "JuceHeader.h"
 
-
 class messagesVector
 {
 public:
     String getNextMessage()
     {
         String newMessage;
+
         if (!messages.empty())
         {
             ScopedLock lock(criticalSection);
             newMessage = messages.back();
             messages.pop_back();
         }
+
         return newMessage;
     }
 
-    void addMessage(String newMessage) {messages.push_back(newMessage);}
-    CriticalSection& getCriticalSection() { return criticalSection; }
+    void addMessage(String newMessage)
+    {
+        ScopedLock lock(criticalSection);
+        messages.push_back(newMessage);
+    }
 
 private:
     std::vector<String> messages;
     CriticalSection criticalSection;
-
 };
-
 
 class MidiProcessor
 {
 public:
     void process(MidiBuffer& midiMessages);
     String getLastMessage() { return messages.getNextMessage(); }
-    CriticalSection& getCriticalSection() { return messages.getCriticalSection(); }
 
 private:
     void processMidiInput(const MidiBuffer& midiMessages);

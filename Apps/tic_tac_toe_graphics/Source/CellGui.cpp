@@ -5,6 +5,15 @@
 #include "Circle.h"
 #include "CellGui.h"
 
+CellGui::CellGui(Liron486::GameManager& managerToUse,
+                 int cellNumber,
+                 const float& alphaToUse)
+    : gameData(managerToUse)
+    , cellNumber(cellNumber)
+    , alpha(alphaToUse)
+{
+}
+
 void CellGui::mouseDown(const MouseEvent& event)
 {
     gameData.getGameData().makeMoveFunc(cellNumber);
@@ -26,10 +35,10 @@ Component* CellGui::createCell()
             return nullptr;
 
         case CellTypes::Ex:
-            return new Ex();
+            return new Ex(alpha);
 
         case CellTypes::Circle:
-            return new Circle();
+            return new Circle(alpha);
     }
 
     jassertfalse; //invalid type
@@ -47,3 +56,4 @@ void CellGui::updateCellContent(Liron486::CellTypes cellType)
         resized();
     }
 }
+

@@ -19,7 +19,7 @@ void Ex::paint(Graphics& g)
 {
     Colour red(178, 34, 34);
 
-    g.setColour(red);
+    g.setColour(red.withAlpha(alpha));
     g.drawLine(diag.toFloat(), 8);
     g.drawLine(antiDiag.toFloat(), 8);
 }

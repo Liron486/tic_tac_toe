@@ -1,8 +1,8 @@
 #pragma once
 
-#include <JuceHeader.h>
 #include "game_manager.h"
 #include "CellGui.h"
+#include "Utils.h"
 
 class BoardGui
     : public Component
@@ -17,8 +17,10 @@ public:
     void timerCallback() override { updateCells(); }
 
     void updateCells();
+    void setBoardAlpha(float alphaToUse) { alpha = alphaToUse; }
 
 private:
     std::vector<std::unique_ptr<CellGui>> cells;
     Liron486::GameManager& gameData;
+    float alpha {1.f};
 };

@@ -9,10 +9,9 @@
 class CellGui : public Component
 {
 public:
-    explicit CellGui(Liron486::GameManager& managerToUse, int cellNumber)
-        : gameData(managerToUse), cellNumber(cellNumber)
-    {
-    }
+    explicit CellGui(Liron486::GameManager& managerToUse,
+                     int cellNumber,
+                     const float& alphaToUse);
     void mouseDown(const MouseEvent& event) override;
     void resized() override;
     void updateCellContent(Liron486::CellTypes cellType);
@@ -20,9 +19,9 @@ public:
 private:
     Component* createCell();
 
-    Liron486::CellTypes type = Liron486::CellTypes::Empty;
-    std::unique_ptr<Component> cellContent = nullptr;
+    Liron486::CellTypes type {Liron486::CellTypes::Empty};
+    std::unique_ptr<Component> cellContent {nullptr};
     Liron486::GameManager& gameData;
     int cellNumber;
+    const float& alpha;
 };
-

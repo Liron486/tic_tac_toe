@@ -8,6 +8,6 @@ void Circle::paint(Graphics& g)
                                                   rect.getHeight() - offset);
 
     Colour blue(108, 180, 238);
-    g.setColour(blue);
+    g.setColour(blue.withAlpha(alpha));
     g.drawEllipse(smallerRect, 8);
 }

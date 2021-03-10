@@ -1,21 +1,22 @@
 
 #include "MainComponent.h"
-#include "configuration.h"
 
 MainComponent::MainComponent()
 {
-    gameManager.getGameData().conf.setDifficulty(
-        Liron486::Configuration::Difficulty::Hard);
-    gameManager.getGameData().conf.setNumRealPlayers(1);
-    gameManager.getGameData().conf.setPlayerChoice(Liron486::CellTypes::Circle);
-    gameManager.createNewPlayersPtrs();
-    addAndMakeVisible(board);
+//    gameManager.getGameData().conf.setDifficulty(
+//        Liron486::Configuration::Difficulty::Hard);
+//    gameManager.getGameData().conf.setNumRealPlayers(1);
+//    gameManager.getGameData().conf.setPlayerChoice(Liron486::CellTypes::Circle);
+//    gameManager.createNewPlayersPtrs();
 
     setSize(750, 750);
-    controller.startPlay();
+    //controller.startPlay();
+
+    addAndMakeVisible(*config);
 }
 
 void MainComponent::resized()
 {
-    board.setBounds(getLocalBounds());
+    config->setBounds(getLocalBounds());
+    //board->setBounds(getLocalBounds());
 }

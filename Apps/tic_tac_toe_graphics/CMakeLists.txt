@@ -13,7 +13,10 @@ target_sources(${TargetName} PRIVATE
         Source/BoardGui.cpp
         Source/Ex.cpp
         Source/GameFlowController.cpp
-        Source/Circle.cpp)
+        Source/Circle.cpp
+        Source/WelcomePage.cpp
+        Source/ButtonLNF.cpp
+        Source/ConfigurationGui.cpp)
 
 target_include_directories (${TargetName} PRIVATE "${CMAKE_CURRENT_LIST_DIR}/../Game/Tic Tac Toe")
 

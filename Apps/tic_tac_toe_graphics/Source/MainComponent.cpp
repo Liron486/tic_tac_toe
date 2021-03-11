@@ -12,11 +12,16 @@ MainComponent::MainComponent()
     setSize(750, 750);
     //controller.startPlay();
 
-    addAndMakeVisible(*config);
+    addAndMakeVisible(*welcomePage);
 }
 
 void MainComponent::resized()
 {
-    config->setBounds(getLocalBounds());
+    if (welcomePage)
+        welcomePage->setBounds(getLocalBounds());
+
+    if (config)
+        config->setBounds(getLocalBounds());
+
     //board->setBounds(getLocalBounds());
 }

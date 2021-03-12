@@ -5,7 +5,7 @@
 #include "game_manager.h"
 #include "BoardGui.h"
 #include "GameFlowController.h"
-#include "ConfigurationGui.h"
+#include "Configuration/ConfigurationGui.h"
 #include "WelcomePage.h"
 
 class MainComponent : public Component

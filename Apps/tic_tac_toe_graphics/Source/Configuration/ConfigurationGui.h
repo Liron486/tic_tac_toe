@@ -7,6 +7,7 @@
 #include "NumOfPlayersSection.h"
 #include "DifficultySection.h"
 #include "PlayersNames.h"
+#include "TypeSection.h"
 
 class ConfigurationGui : public Component
 {
@@ -26,4 +27,5 @@ private:
         lnf, [&](int num) { numOfPlayersButtonPressed(num); }};
     DifficultySection difficulty {lnf};
     std::unique_ptr<PlayersNames> playerNames {new PlayersNames(1)};
+    std::unique_ptr<TypeSection> type {new TypeSection {lnf}};
 };

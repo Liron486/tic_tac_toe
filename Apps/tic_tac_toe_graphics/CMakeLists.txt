@@ -18,7 +18,8 @@ target_sources(${TargetName} PRIVATE
         Source/ButtonLNF.cpp
         Source/Configuration/ConfigurationGui.cpp
         Source/Configuration/NumOfPlayersSection.cpp
-        Source/Configuration/DifficultySection.cpp)
+        Source/Configuration/DifficultySection.cpp
+        Source/Configuration/PlayersNames.cpp)
 
 target_include_directories (${TargetName} PRIVATE "${CMAKE_CURRENT_LIST_DIR}/../Game/Tic Tac Toe")
 

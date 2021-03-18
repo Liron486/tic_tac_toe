@@ -1,6 +1,6 @@
 #include "MainWindow.h"
 
-#include "MainComponent.h"
+#include "GuiManager.h"
 
 constexpr bool isMobile()
 {
@@ -15,7 +15,7 @@ MainWindow::MainWindow(const String& name)
     : DocumentWindow(name, getBackgroundColour(), allButtons)
 {
     setUsingNativeTitleBar(true);
-    setContentOwned(new MainComponent(), true);
+    setContentOwned(new GuiManager(), true);
 
     if (isMobile())
         setFullScreen(true);

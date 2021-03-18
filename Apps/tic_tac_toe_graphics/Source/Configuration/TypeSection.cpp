@@ -23,21 +23,23 @@ void TypeSection::resized()
 
 void TypeSection::initTypeButtons()
 {
+    juce::String buttonsText[] {"X", "O"};
+
     for (auto i = 0; i < 2; ++i)
     {
-        typeButtons.emplace_back(new juce::TextButton(diffArr[i], diffArr[i]));
+        typeButtons.emplace_back(
+            new juce::TextButton(buttonsText[i], buttonsText[i]));
         setButton(*typeButtons[i], lnf);
         setButtonConnectedFlags(*typeButtons[i], i, 1);
         typeButtons[i]->onClick = [&]
         {
-          anyButtonPressed(
-              typeButtons,
-              [&](int index)
-              { return !typePressed.equalsIgnoreCase(diffArr[index]); },
-              [&](int index) { typePressed = diffArr[index]; });
+            anyButtonPressed(
+                typeButtons,
+                [&](int index) { return typePressed != diffArr[index]; },
+                [&](int index) { typePressed = diffArr[index]; });
         };
 
-        if (typePressed.equalsIgnoreCase(typeButtons[i]->getName()))
+        if (typeButtons[i]->getName().equalsIgnoreCase("X"))
             typeButtons[i]->setToggleState(true, juce::dontSendNotification);
 
         addAndMakeVisible(*typeButtons[i]);

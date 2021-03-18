@@ -10,6 +10,7 @@ public:
     NumOfPlayersSection(ButtonLNF& lnfToUse,
                         std::function<void(int)> buttonPressedCallbackToUse);
     void resized() override;
+    int getNumOfRealPlayers() { return numOfPlayersPressed; }
 
 private:
     void initNumOfPlayersButtons();

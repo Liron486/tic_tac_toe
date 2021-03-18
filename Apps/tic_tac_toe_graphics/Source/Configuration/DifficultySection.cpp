@@ -23,21 +23,23 @@ void DifficultySection::resized()
 
 void DifficultySection::initDifficultyButtons()
 {
+    juce::String buttonsText[] {"EASY", "HARD"};
+
     for (auto i = 0; i < 2; ++i)
     {
-        difficultyButtons.emplace_back(new juce::TextButton(diffArr[i], diffArr[i]));
+        difficultyButtons.emplace_back(
+            new juce::TextButton(buttonsText[i], buttonsText[i]));
         setButton(*difficultyButtons[i], lnf);
         setButtonConnectedFlags(*difficultyButtons[i], i, 1);
         difficultyButtons[i]->onClick = [&]
         {
             anyButtonPressed(
                 difficultyButtons,
-                [&](int index)
-                { return !difficultyPressed.equalsIgnoreCase(diffArr[index]); },
+                [&](int index) { return difficultyPressed != diffArr[index]; },
                 [&](int index) { difficultyPressed = diffArr[index]; });
         };
 
-        if (difficultyPressed.equalsIgnoreCase(difficultyButtons[i]->getName()))
+        if (difficultyButtons[i]->getName().equalsIgnoreCase("EASY"))
             difficultyButtons[i]->setToggleState(true, juce::dontSendNotification);
 
         addAndMakeVisible(*difficultyButtons[i]);

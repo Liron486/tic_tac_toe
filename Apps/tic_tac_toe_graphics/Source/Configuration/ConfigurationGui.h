@@ -12,12 +12,18 @@
 class ConfigurationGui : public Component
 {
 public:
-    ConfigurationGui();
-
+    explicit ConfigurationGui(std::function<void()> playButtonCallback);
     void resized() override;
+    Diff getDifficulty() { return difficulty->getDifficultyPressed(); }
+    int getNumOfRealPlayers() { return numOfPlayers.getNumOfRealPlayers(); }
+    CellTypes getPlayercellType() { return type->getPlayerCellType(); }
+    juce::String getPlayer1Name() { return playerNames->getPlayer1Name(); }
+    juce::String getPlaer2Name() { return playerNames->getPlayer2Name(); }
 
 private:
     void setHeader();
+    void setPlayButton();
+
     void numOfPlayersButtonPressed(int newNumOfPlayers);
 
     ButtonLNF lnf;
@@ -25,7 +31,8 @@ private:
     juce::Label header {"Settings", "Settings"};
     NumOfPlayersSection numOfPlayers {
         lnf, [&](int num) { numOfPlayersButtonPressed(num); }};
-    DifficultySection difficulty {lnf};
+    std::unique_ptr<DifficultySection> difficulty {new DifficultySection(lnf)};
     std::unique_ptr<PlayersNames> playerNames {new PlayersNames(1)};
     std::unique_ptr<TypeSection> type {new TypeSection {lnf}};
+    juce::TextButton playButton {"PLAY!"};
 };

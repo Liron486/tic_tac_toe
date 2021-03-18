@@ -8,7 +8,7 @@ juce_generate_juce_header(${TargetName})
 target_sources(${TargetName} PRIVATE
         Source/Main.cpp
         Source/MainWindow.cpp
-        Source/MainComponent.cpp
+        Source/GuiManager.cpp
         Source/CellGui.cpp
         Source/BoardGui.cpp
         Source/Ex.cpp

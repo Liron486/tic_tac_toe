@@ -17,7 +17,7 @@ void WelcomePage::resized()
 {
     background.setBounds(getLocalBounds());
     header.setBoundsRelative(0.f,0.f, 1.f, 1.f/3.f);
-    startButton.setBoundsRelative(5.f/13.f, 11.f/17.f, 3.f/13.f, 1.f/17.f);
+    startButton.setBoundsRelative(0.375f, 0.65f, 0.25f, 0.06f);
 }
 
 void WelcomePage::setHeader()

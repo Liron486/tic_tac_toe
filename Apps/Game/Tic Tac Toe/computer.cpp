@@ -1,5 +1,6 @@
 #include <cstdlib> /* srand, rand */
 #include <ctime> /* time */
+#include <memory>
 
 #include "computer.h"
 #include "brain_easy.h"
@@ -16,11 +17,11 @@ static std::unique_ptr<Brain> CreateBrain(const Board& boardToUse,
 
     if (Configuration::Difficulty::Easy == difficultyToUse)
     {
-        brain.reset(new BrainEasy(boardToUse, typeToUse));
+        brain = std::make_unique<BrainEasy>(boardToUse, typeToUse);
     }
     else
     {
-        brain.reset(new BrainHard(boardToUse, typeToUse));
+        brain = std::make_unique<BrainHard>(boardToUse, typeToUse);
     }
 
     return brain;

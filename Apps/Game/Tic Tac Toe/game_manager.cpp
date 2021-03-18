@@ -80,7 +80,6 @@ Point GameManager::fillLastSquare() const
             == CellTypes::Empty)
         {
             newMove = Point::convertNumToPoint(i);
-            gameData.board.setCell(CellTypes::Ex, newMove);
             break;
         }
     }

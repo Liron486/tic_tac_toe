@@ -20,7 +20,7 @@ private:
 
     Liron486::GameManager gameManager;
     std::unique_ptr<WelcomePage> welcomePage {
-        new WelcomePage([&] { startButtonPressed(); })};
+        std::make_unique<WelcomePage>([&] { startButtonPressed(); })};
     std::unique_ptr<ConfigurationGui> config;
     std::unique_ptr<BoardGui> board;
     GameFlowController controller {gameManager};

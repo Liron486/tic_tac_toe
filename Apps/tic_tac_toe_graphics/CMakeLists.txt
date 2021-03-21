@@ -16,6 +16,7 @@ target_sources(${TargetName} PRIVATE
         Source/Circle.cpp
         Source/WelcomePage.cpp
         Source/ButtonLNF.cpp
+        Source/Background.cpp
         Source/Configuration/ConfigurationGui.cpp
         Source/Configuration/NumOfPlayersSection.cpp
         Source/Configuration/DifficultySection.cpp

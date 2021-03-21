@@ -31,8 +31,9 @@ private:
     juce::Label header {"Settings", "Settings"};
     NumOfPlayersSection numOfPlayers {
         lnf, [&](int num) { numOfPlayersButtonPressed(num); }};
-    std::unique_ptr<DifficultySection> difficulty {new DifficultySection(lnf)};
-    std::unique_ptr<PlayersNames> playerNames {new PlayersNames(1)};
-    std::unique_ptr<TypeSection> type {new TypeSection {lnf}};
+    std::unique_ptr<DifficultySection> difficulty {
+        std::make_unique<DifficultySection>(lnf)};
+    std::unique_ptr<PlayersNames> playerNames {std::make_unique<PlayersNames>(1)};
+    std::unique_ptr<TypeSection> type {std::make_unique<TypeSection>(lnf)};
     juce::TextButton playButton {"PLAY!"};
 };

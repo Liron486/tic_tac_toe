@@ -7,10 +7,10 @@
 class NumOfPlayersSection : public Component
 {
 public:
-    NumOfPlayersSection(ButtonLNF& lnfToUse,
-                        std::function<void(int)> buttonPressedCallbackToUse);
+    explicit NumOfPlayersSection(
+        ButtonLNF& lnfToUse, std::function<void(int)> buttonPressedCallbackToUse);
     void resized() override;
-    int getNumOfRealPlayers() { return numOfPlayersPressed; }
+    int getNumOfRealPlayers() const { return numOfPlayersPressed; }
 
 private:
     void initNumOfPlayersButtons();

@@ -42,10 +42,9 @@ static void drawGrid(Graphics& g, float width, float height, float alpha)
     g.drawLine((width * 2) / 3.f, 0, (width * 2) / 3.f, height, 8);
 }
 
-static int
-anyButtonPressed(std::vector<std::unique_ptr<juce::TextButton>>& vector,
-                 const std::function<bool(int)>& conditionFunc,
-                 const std::function<void(int)>& assignmentFunc)
+static int anyButtonPressed(std::vector<std::unique_ptr<juce::TextButton>>& vector,
+                            const std::function<bool(int)>& conditionFunc,
+                            const std::function<void(int)>& assignmentFunc)
 {
     auto onIndex = 0;
 
@@ -60,14 +59,14 @@ anyButtonPressed(std::vector<std::unique_ptr<juce::TextButton>>& vector,
 
     for (auto i = 0; i < vector.size(); ++i)
     {
-        if (!conditionFunc(i))
+        if (conditionFunc(i))
+            vector[i]->setToggleState(false, juce::dontSendNotification);
+
+        else
         {
             vector[i]->setToggleState(true, juce::dontSendNotification);
             onIndex = i;
         }
-
-        else
-            vector[i]->setToggleState(false, juce::dontSendNotification);
     }
 
     return onIndex;
@@ -83,6 +82,20 @@ static void setQuestions(Label& label)
     label.setFont(font);
 }
 
+static void setScoreLabels(
+    Label& label,
+    juce::Justification justtification = juce::Justification::centredLeft,
+    float fontHeight = 20.f)
+{
+    label.setColour(label.textColourId, juce::Colours::black);
+    label.setJustificationType(justtification);
+
+    auto font = label.getFont();
+
+    font.setHeight(fontHeight);
+    label.setFont(font);
+}
+
 static void setButton(juce::TextButton& button, ButtonLNF& lnf)
 {
     button.setColour(button.textColourOffId, juce::Colours::black);
@@ -92,9 +105,8 @@ static void setButton(juce::TextButton& button, ButtonLNF& lnf)
     button.setClickingTogglesState(true);
 }
 
-static void setButtonConnectedFlags(juce::TextButton& button,
-                                               int buttonIndex,
-                                               int endIndex)
+static void
+    setButtonConnectedFlags(juce::TextButton& button, int buttonIndex, int endIndex)
 {
     auto connectedFalgs = 0;
 

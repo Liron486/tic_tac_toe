@@ -16,8 +16,8 @@ void GuiManager::resized()
     if (config)
         config->setBounds(getLocalBounds());
 
-    if (board)
-        board->setBounds(getLocalBounds());
+    if (gamePlay)
+        gamePlay->setBounds(getLocalBounds());
 }
 
 void GuiManager::startButtonPressed()
@@ -41,14 +41,14 @@ void GuiManager::playButtonPressed()
     gameManager.getGameData().conf.setPlayerName(
         config->getPlayer1Name().toStdString(), 0);
     gameManager.getGameData().conf.setPlayerName(
-        config->getPlaer2Name().toStdString(), 0);
+        config->getPlaer2Name().toStdString(), 1);
 
     gameManager.createNewPlayersPtrs();
 
     config.reset(nullptr);
-    board = std::make_unique<BoardGui>(gameManager);
+    gamePlay = std::make_unique<GamePlayGUI>(gameManager);
 
-    addAndMakeVisible(*board);
+    addAndMakeVisible(*gamePlay);
     resized();
 
     controller.startPlay();

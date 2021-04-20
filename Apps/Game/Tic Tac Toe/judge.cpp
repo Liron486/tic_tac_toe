@@ -63,9 +63,4 @@ bool Judge::checkForWinner(const Point& lastMoveToUse) const
     return winner;
 }
 
-const Board& Judge::getBoard() const
-{
-    return board;
-}
-
 } // namespace Liron486

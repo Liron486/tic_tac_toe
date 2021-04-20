@@ -5,8 +5,10 @@
 
 void Ex::resized()
 {
-    auto offsetDiag = Point<int>(60, 60);
-    auto offsetAntiDiag = Point<int>(-60, 60);
+    auto offset = static_cast<int>(0.25f * getLocalBounds().toFloat().getWidth());
+
+    auto offsetDiag = Point<int>(offset, offset);
+    auto offsetAntiDiag = Point<int>(-offset, offset);
 
     diag = {getLocalBounds().getTopLeft() + offsetDiag,
             getLocalBounds().getBottomRight() - offsetDiag};

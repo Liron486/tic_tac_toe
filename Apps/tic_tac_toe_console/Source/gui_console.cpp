@@ -258,7 +258,7 @@ Point GuiConsole::askPlayerForMove() const
     auto nextMove = 0;
     Point newMove;
 
-    while (isValid == false)
+    while (!isValid)
     {
         nextMove_str = getUserRequiredCell(getCurrentPlayer());
         if (compareStrings(nextMove_str, "r"))

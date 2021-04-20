@@ -27,7 +27,6 @@ public:
     void makeMove(Move move);
 
 private:
-
     void switchSides();
     void changeDifficulty(Configuration::Difficulty difficultyToUse);
     Computer* createComputer(int index, CellTypes type) const;

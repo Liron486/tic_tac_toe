@@ -13,13 +13,12 @@ public:
 
     void paintOverChildren(Graphics& g) override;
     void resized() override;
-
     void timerCallback() override { updateCells(); }
-
-    void updateCells();
     void setBoardAlpha(float alphaToUse) { alpha = alphaToUse; }
 
 private:
+    void updateCells();
+
     std::vector<std::unique_ptr<CellGui>> cells;
     Liron486::GameManager& gameData;
     float alpha {1.f};

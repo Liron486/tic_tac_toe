@@ -39,7 +39,7 @@ void GameFlowController::setNextMovePosition(int cellNum)
 {
     if (nextMove.waitingForHuman)
     {
-        auto position = LPoint ::convertNumToPoint(cellNum);
+        auto position = LPoint::convertNumToPoint(cellNum);
         nextMove.position = position;
         playNextMove();
     }

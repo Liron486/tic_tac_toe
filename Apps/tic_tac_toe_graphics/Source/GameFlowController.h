@@ -1,7 +1,9 @@
 #pragma once
 
 #include "gui.h"
-#include "BoardGui.h"
+#include "game_manager.h"
+
+#include <JuceHeader.h>
 
 class GameFlowController : public Liron486::Gui
 {
@@ -9,7 +11,6 @@ class GameFlowController : public Liron486::Gui
 
 public:
     explicit GameFlowController(Liron486::GameManager& managerToUse);
-
     void startPlay();
 
 private:

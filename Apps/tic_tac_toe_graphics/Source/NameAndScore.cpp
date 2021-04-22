@@ -4,8 +4,8 @@ NameAndScore::NameAndScore(const String& playerNameToUse)
 {
     playerName.setText(playerNameToUse, dontSendNotification);
 
-    setScoreLabels(playerName);
-    setScoreLabels(wins);
+    setLabels(playerName);
+    setLabels(wins);
 
     addAndMakeVisible(playerName);
     addAndMakeVisible(wins);

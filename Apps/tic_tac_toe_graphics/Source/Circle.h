@@ -7,7 +7,7 @@
 class Circle : public Component
 {
 public:
-    explicit Circle(const float& alphaToUse)
+    explicit Circle(float alphaToUse = 1.f)
         : alpha(alphaToUse)
     {
     }
@@ -17,6 +17,5 @@ public:
 
 private:
     Liron486::CellTypes myType = Liron486::CellTypes::Circle;
-
-    const float& alpha;
+    float alpha {1.f};
 };

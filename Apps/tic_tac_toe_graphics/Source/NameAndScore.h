@@ -2,8 +2,6 @@
 
 #include "Utils.h"
 
-#include <JuceHeader.h>
-
 class NameAndScore : public Component
 {
 public:

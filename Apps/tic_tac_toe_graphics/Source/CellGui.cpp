@@ -52,7 +52,9 @@ void CellGui::updateCellContent(Liron486::CellTypes cellType)
         type = cellType;
         cellContent.reset(createCell());
 
-        addAndMakeVisible(*cellContent);
+        if (cellContent)
+            addAndMakeVisible(*cellContent);
+
         resized();
     }
 }

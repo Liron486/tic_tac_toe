@@ -16,8 +16,8 @@ void GuiManager::resized()
     if (config)
         config->setBounds(getLocalBounds());
 
-    if (gamePlay)
-        gamePlay->setBounds(getLocalBounds());
+    if (controller)
+        controller->setBounds(getLocalBounds());
 }
 
 void GuiManager::startButtonPressed()
@@ -46,10 +46,10 @@ void GuiManager::playButtonPressed()
     gameManager.createNewPlayersPtrs();
 
     config.reset(nullptr);
-    gamePlay = std::make_unique<GamePlayGUI>(gameManager);
+    controller = std::make_unique<GameFlowController>(gameManager);
 
-    addAndMakeVisible(*gamePlay);
+    addAndMakeVisible(*controller);
     resized();
 
-    controller.startPlay();
+    controller->startPlay();
 }

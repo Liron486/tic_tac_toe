@@ -4,7 +4,7 @@
 TypeSection::TypeSection(ButtonLNF& lnfToUse)
     : lnf(lnfToUse)
 {
-    setQuestions(type);
+    setLabels(type);
     addAndMakeVisible(type);
     initTypeButtons();
 }

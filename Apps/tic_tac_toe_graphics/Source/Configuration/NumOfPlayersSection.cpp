@@ -6,7 +6,7 @@ NumOfPlayersSection::NumOfPlayersSection(
     : lnf(lnfToUse)
     , buttonPressedCallback(buttonPressedCallbackToUse)
 {
-    setQuestions(numOfPlayers);
+    setLabels(numOfPlayers);
     addAndMakeVisible(numOfPlayers);
 
     initNumOfPlayersButtons();

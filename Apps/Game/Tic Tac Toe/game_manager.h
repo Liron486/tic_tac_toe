@@ -25,10 +25,10 @@ public:
 
     void updateScore() { gameData.score.updateScore(gameData.currentPlayer); }
     void makeMove(Move move);
-
-private:
     void switchSides();
     void changeDifficulty(Configuration::Difficulty difficultyToUse);
+
+private:
     Computer* createComputer(int index, CellTypes type) const;
     RealPlayer* createRealPlayer(int index, CellTypes type) const;
     Point fillLastSquare() const;

@@ -16,7 +16,6 @@ public:
     Move makeMove() const override;
 
 private:
-
     Configuration::Difficulty difficulty;
     std::unique_ptr<Brain> brain;
 };

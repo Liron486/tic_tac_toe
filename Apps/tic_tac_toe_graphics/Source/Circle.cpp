@@ -3,7 +3,7 @@
 void Circle::paint(Graphics& g)
 {
     auto rect = getLocalBounds().toFloat();
-    auto offset = 0.4f * getLocalBounds().toFloat().getWidth();
+    auto offset = 0.45f * getLocalBounds().toFloat().getWidth();
     auto smallerRect = rect.withSizeKeepingCentre(rect.getWidth() - offset,
                                                   rect.getHeight() - offset);
 

@@ -4,7 +4,7 @@
 DifficultySection::DifficultySection(ButtonLNF& lnfToUse)
     : lnf(lnfToUse)
 {
-    setQuestions(difficulty);
+    setLabels(difficulty);
     addAndMakeVisible(difficulty);
     initDifficultyButtons();
 }
@@ -39,8 +39,8 @@ void DifficultySection::initDifficultyButtons()
                 [&](int index) { difficultyPressed = diffArr[index]; });
         };
 
-        if (difficultyButtons[i]->getName().equalsIgnoreCase("EASY"))
-            difficultyButtons[i]->setToggleState(true, juce::dontSendNotification);
+        if (difficultyButtons[i]->getName().equalsIgnoreCase("HARD"))
+            difficultyButtons[i]->setToggleState(true, dontSendNotification);
 
         addAndMakeVisible(*difficultyButtons[i]);
     }

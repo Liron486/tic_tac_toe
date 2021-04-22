@@ -5,8 +5,8 @@ PlayersNames::PlayersNames(int numOfPlayersToUse)
     : numOfPlayers(numOfPlayersToUse)
 {
     initTextEditors();
-    setQuestions(player1);
-    setQuestions(player2);
+    setLabels(player1);
+    setLabels(player2);
 
     if (numOfPlayers != 0)
     {

@@ -20,6 +20,6 @@ private:
     ButtonLNF& lnf;
     juce::Label difficulty {"Difficulty", "Choose Difficulty: "};
     std::vector<std::unique_ptr<juce::TextButton>> difficultyButtons;
-    Diff difficultyPressed {Diff::Easy};
+    Diff difficultyPressed {Diff::Hard};
     Diff diffArr[2] = {Diff::Easy, Diff::Hard};
 };

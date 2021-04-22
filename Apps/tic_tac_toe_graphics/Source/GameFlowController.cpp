@@ -2,23 +2,26 @@
 #include "GameFlowController.h"
 
 GameFlowController::GameFlowController(Liron486::GameManager& managerToUse)
-    : Gui(managerToUse)
+    : manager(managerToUse)
 {
-    gameData.getGameData().makeMoveFunc = [&](int cellNum) {
-        setNextMovePosition(cellNum);
-    };
+    manager.getGameData().makeMoveFunc = [&](int cellNum)
+    { setNextMovePosition(cellNum); };
+
+    gamePlay.setYesNoButtonsCallbacks([&] { playAnotherGame(); }, [&] {});
+
+    addAndMakeVisible(gamePlay);
 }
 
 void GameFlowController::startPlay()
 {
-    gameData.resetGame();
+    manager.resetGame();
 
     playNextTurn();
 }
 
 void GameFlowController::playNextTurn()
 {
-    nextMove = gameData.askForNextMove();
+    nextMove = manager.askForNextMove();
 
     if (!nextMove.waitingForHuman)
         Timer::callAfterDelay(nextMove.timeToWaitUntilDisplay,
@@ -27,12 +30,12 @@ void GameFlowController::playNextTurn()
 
 void GameFlowController::playNextMove()
 {
-    gameData.makeMove(nextMove);
+    manager.makeMove(nextMove);
 
-    if (gameData.keepPlaying())
+    if (manager.keepPlaying())
         playNextTurn();
     else
-        nextMove.waitingForHuman = false;
+        endOfTheGameArrangements();
 }
 
 void GameFlowController::setNextMovePosition(int cellNum)
@@ -43,4 +46,38 @@ void GameFlowController::setNextMovePosition(int cellNum)
         nextMove.position = position;
         playNextMove();
     }
+}
+
+void GameFlowController::resized()
+{
+    gamePlay.setBounds(getLocalBounds());
+}
+
+void GameFlowController::endOfTheGameArrangements()
+{
+    if (manager.isWeHaveAWinner())
+        gamePlay.setWinMessageVisibility(true);
+    else
+        gamePlay.setTieMessageVisibility(true);
+
+    gamePlay.updateScore();
+    Timer::callAfterDelay(1500, [&] { askThePlayerToPlayAgain(); });
+
+    nextMove.waitingForHuman = false;
+}
+
+void GameFlowController::askThePlayerToPlayAgain()
+{
+    gamePlay.setWinMessageVisibility(false);
+    gamePlay.setTieMessageVisibility(false);
+    gamePlay.setPlayAgainMessageVisibile(true);
+    gamePlay.setButtonsVisibility(true);
+}
+
+void GameFlowController::playAnotherGame()
+{
+    gamePlay.setButtonsVisibility(false);
+    gamePlay.setPlayAgainMessageVisibile(false);
+    manager.changeDifficulty(gamePlay.getDifficultyChosen());
+    startPlay();
 }

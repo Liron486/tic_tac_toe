@@ -7,7 +7,7 @@
 class Ex : public Component
 {
 public:
-    explicit Ex(const float& alphaToUse)
+    explicit Ex(float alphaToUse = 1.f)
         : alpha(alphaToUse)
     {
     }
@@ -22,5 +22,5 @@ private:
     Liron486::CellTypes myType = Liron486::CellTypes::Ex;
 
     Line<int> diag, antiDiag;
-    const float& alpha;
+    float alpha {1.f};
 };

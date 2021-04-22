@@ -7,7 +7,6 @@
 #include "GameFlowController.h"
 #include "Configuration/ConfigurationGui.h"
 #include "WelcomePage.h"
-#include "GamePlayGUI.h"
 
 class GuiManager : public Component
 {
@@ -23,6 +22,5 @@ private:
     std::unique_ptr<WelcomePage> welcomePage {
         std::make_unique<WelcomePage>([&] { startButtonPressed(); })};
     std::unique_ptr<ConfigurationGui> config;
-    std::unique_ptr<GamePlayGUI> gamePlay;
-    GameFlowController controller {gameManager};
+    std::unique_ptr<GameFlowController> controller;
 };

@@ -72,22 +72,13 @@ static int anyButtonPressed(std::vector<std::unique_ptr<juce::TextButton>>& vect
     return onIndex;
 }
 
-static void setQuestions(Label& label)
-{
-    label.setColour(label.textColourId, juce::Colours::black);
-    label.setJustificationType(juce::Justification::centredLeft);
-    auto font = label.getFont();
-
-    font.setHeight(20.f);
-    label.setFont(font);
-}
-
-static void setScoreLabels(
+static void setLabels(
     Label& label,
-    juce::Justification justtification = juce::Justification::centredLeft,
+    Colour color = Colours::black,
+    Justification justtification = Justification::centredLeft,
     float fontHeight = 20.f)
 {
-    label.setColour(label.textColourId, juce::Colours::black);
+    label.setColour(label.textColourId, color);
     label.setJustificationType(justtification);
 
     auto font = label.getFont();

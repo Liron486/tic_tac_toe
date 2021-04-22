@@ -31,6 +31,9 @@ void Point::setY(int yToUse)
 
 Point Point::convertNumToPoint(int numToUse)
 {
+    if (numToUse == 0)
+        return getUniquePoint();
+
     Point new_point;
 
     new_point.setX((numToUse - 1) / 3);

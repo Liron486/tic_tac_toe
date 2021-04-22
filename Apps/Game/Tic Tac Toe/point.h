@@ -12,6 +12,7 @@ public:
     void setX(int xToUse);
     void setY(int yToUse);
     bool isPointUnique() const;
+    static Point getUniquePoint() { return Point(3, 3); }
     static Point convertNumToPoint(int numToUse);
 
 private:
@@ -20,4 +21,3 @@ private:
 };
 
 } // namespace Liron486
-

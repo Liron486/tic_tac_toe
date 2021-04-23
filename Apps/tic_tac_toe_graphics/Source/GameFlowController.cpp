@@ -56,12 +56,14 @@ void GameFlowController::resized()
 void GameFlowController::endOfTheGameArrangements()
 {
     if (manager.isWeHaveAWinner())
+    {
         gamePlay.setWinMessageVisibility(true);
+        gamePlay.updateScore();
+    }
     else
         gamePlay.setTieMessageVisibility(true);
 
-    gamePlay.updateScore();
-    Timer::callAfterDelay(1500, [&] { askThePlayerToPlayAgain(); });
+    Timer::callAfterDelay(2000, [&] { askThePlayerToPlayAgain(); });
 
     nextMove.waitingForHuman = false;
 }
@@ -78,6 +80,7 @@ void GameFlowController::playAnotherGame()
 {
     gamePlay.setButtonsVisibility(false);
     gamePlay.setPlayAgainMessageVisibile(false);
+    gamePlay.increseGameCounter();
     manager.changeDifficulty(gamePlay.getDifficultyChosen());
     startPlay();
 }

@@ -20,10 +20,12 @@ public:
     void setYesNoButtonsCallbacks(std::function<void()> yesCallback,
                                   std::function<void()> noCallback);
     Liron486::Configuration::Difficulty getDifficultyChosen();
+    void increseGameCounter();
 
 private:
     void setDifficultyComboBox();
     void setButtons();
+    void switchTypeCallback();
 
     ScoreGui score {gameData};
     BoardGui borad {gameData};

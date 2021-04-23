@@ -55,7 +55,7 @@ void GamePlayGUI::setButtons()
     switchType.setColour(TextButton::buttonColourId, Colours::darkkhaki);
     resetButton.setColour(TextButton::buttonColourId, Colours::darkgoldenrod);
 
-    switchType.onClick = [&] { gameData.switchSides(); };
+    switchType.onClick = [&] { switchTypeCallback(); };
     resetButton.onClick = [&] { gameData.getGameData().makeMoveFunc(0); };
 
     setButtonConnectedFlags(yesButton, 0, 1);
@@ -112,8 +112,6 @@ void GamePlayGUI::setYesNoButtonsCallbacks(std::function<void()> yesCallback,
 void GamePlayGUI::updateScore()
 {
     gameData.updateScore();
-    score.setGameCounter(gameData.getGameData().gameNumber);
-
     auto winsArray = gameData.getGameData().score.getWinsCounter();
     score.setPlayer1Score(winsArray[0]);
     score.setPlayer2Score(winsArray[1]);
@@ -127,4 +125,15 @@ Liron486::Configuration::Difficulty GamePlayGUI::getDifficultyChosen()
         return Liron486::Configuration::Difficulty::Hard;
     else
         return Liron486::Configuration::Difficulty::Easy;
+}
+
+void GamePlayGUI::switchTypeCallback()
+{
+    gameData.switchSides();
+    score.switchPlayers();
+}
+
+void GamePlayGUI::increseGameCounter()
+{
+    score.setGameCounter(gameData.getGameData().gameNumber);
 }

@@ -16,12 +16,14 @@ public:
     void setGameCounter(int gameCounterToUse);
     void setPlayer1Score(int newScore);
     void setPlayer2Score(int newScore);
+    void switchPlayers();
 
 private:
     Liron486::GameManager& gameManager;
     Ex ex;
     Circle circle;
     NameAndScore player1 {gameManager.getGameData().conf.getPlayerName(0)};
-    juce::Label gameCounter {"GameCounter", "0"};
+    juce::Label gameCounter {"GameCounter", "Game Number:"};
+    juce::Label counter {"Counter", "1"};
     NameAndScore player2 {gameManager.getGameData().conf.getPlayerName(1)};
 };

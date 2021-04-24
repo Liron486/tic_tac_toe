@@ -20,7 +20,7 @@ void NumOfPlayersSection::resized()
     {
         if (numOfPlayersButtons[i])
             numOfPlayersButtons[i]->setBoundsRelative(
-                (4.f + (float) i) / 9.f, 1.f / 3.f, 1.f / 9.f, 1.f / 3.f);
+                (3.65f + (float) i) / 9.f, 1.f / 3.f, 1.f / 9.f, 1.f / 3.f);
     }
 }
 

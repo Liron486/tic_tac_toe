@@ -5,5 +5,9 @@
 
 Font ButtonLNF::getTextButtonFont(TextButton& button, int buttonHeight)
 {
-    return Font (jmin (fontSize, (float) buttonHeight * 0.6f));
+    auto buttonFont = Font(jmin (fontSize, (float) buttonHeight * 0.6f));
+    buttonFont.setTypefaceName("Century Gothic");
+    buttonFont.setBold(true);
+
+    return buttonFont;
 }

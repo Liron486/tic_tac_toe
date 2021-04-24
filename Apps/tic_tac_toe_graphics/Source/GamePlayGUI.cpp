@@ -7,7 +7,6 @@ GamePlayGUI::GamePlayGUI(Liron486::GameManager& managerToUse)
     setButtons();
     setLabels(tieMessage, Colours::black, Justification::centred, 42.f);
     setLabels(winMessage, Colours::black, Justification::centred, 42.f);
-    setLabels(playAgainMessage, Colours::black, Justification::centred, 40.f);
 
     addAndMakeVisible(score);
     addChildComponent(difficulty);
@@ -16,7 +15,6 @@ GamePlayGUI::GamePlayGUI(Liron486::GameManager& managerToUse)
     addAndMakeVisible(resetButton);
     addChildComponent(tieMessage);
     addChildComponent(winMessage);
-    addChildComponent(playAgainMessage);
     addChildComponent(yesButton);
     addChildComponent(noButton);
 }
@@ -30,9 +28,8 @@ void GamePlayGUI::resized()
     borad.setBoundsRelative(0.21f, 0.25f, 0.58f, 0.58f);
     tieMessage.setBoundsRelative(0.25f, 0.865f, 0.5f, 0.1f);
     winMessage.setBoundsRelative(0.25f, 0.865f, 0.5f, 0.1f);
-    playAgainMessage.setBoundsRelative(0.05f, 0.865f, 0.5f, 0.1f);
-    yesButton.setBoundsRelative(0.6f, 0.89f, 0.1f, 0.05f);
-    noButton.setBoundsRelative(0.7f, 0.89f, 0.1f, 0.05f);
+    yesButton.setBoundsRelative(0.3f, 0.89f, 0.15f, 0.06f);
+    noButton.setBoundsRelative(0.55f, 0.89f, 0.15f, 0.06f);
 }
 
 void GamePlayGUI::setDifficultyComboBox()
@@ -52,14 +49,23 @@ void GamePlayGUI::setDifficultyComboBox()
 
 void GamePlayGUI::setButtons()
 {
-    switchType.setColour(TextButton::buttonColourId, Colours::darkkhaki);
-    resetButton.setColour(TextButton::buttonColourId, Colours::darkgoldenrod);
+    buttonLnf.setFontSize(22.f);
+
+    switchType.setColour(TextButton::buttonColourId, Colours::navy);
+    switchType.setLookAndFeel(&buttonLnf);
+    resetButton.setColour(TextButton::buttonColourId, Colours::navy);
+    resetButton.setLookAndFeel(&buttonLnf);
 
     switchType.onClick = [&] { switchTypeCallback(); };
-    resetButton.onClick = [&] { gameData.getGameData().makeMoveFunc(0); };
+    resetButton.onClick = [&] { resetGameCallback(); };
 
-    setButtonConnectedFlags(yesButton, 0, 1);
-    setButtonConnectedFlags(noButton, 1, 1);
+    yesButton.setColour(TextButton::buttonColourId, Colours::navy);
+    noButton.setColour(TextButton::buttonColourId, Colour(178, 34, 34));
+
+    yesButton.setLookAndFeel(&buttonLnf);
+    noButton.setLookAndFeel(&buttonLnf);
+
+    difficulty.setLookAndFeel(&comboLnf);
 }
 
 void GamePlayGUI::setButtonsVisibility(bool isVisible)
@@ -95,7 +101,6 @@ void GamePlayGUI::setWinMessageVisibility(bool isVisible)
 
 void GamePlayGUI::setPlayAgainMessageVisibile(bool isVisible)
 {
-    playAgainMessage.setVisible(isVisible);
     yesButton.setVisible(isVisible);
     noButton.setVisible(isVisible);
 
@@ -136,4 +141,10 @@ void GamePlayGUI::switchTypeCallback()
 void GamePlayGUI::increseGameCounter()
 {
     score.setGameCounter(gameData.getGameData().gameNumber);
+}
+
+void GamePlayGUI::resetGameCallback()
+{
+    gameData.getGameData().makeMoveFunc(0);
+    increseGameCounter();
 }

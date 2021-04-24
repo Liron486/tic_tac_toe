@@ -4,8 +4,11 @@ NameAndScore::NameAndScore(const String& playerNameToUse)
 {
     playerName.setText(playerNameToUse, dontSendNotification);
 
-    setLabels(playerName);
-    setLabels(wins);
+    setLabels(playerName, Colours::black, Justification::centredLeft, 25.f);
+    setLabels(wins, Colours::black, Justification::centredLeft, 25.f);
+    auto font = playerName.getFont();
+    font.setBold(true);
+    playerName.setFont(font);
 
     addAndMakeVisible(playerName);
     addAndMakeVisible(wins);

@@ -17,7 +17,7 @@ void DifficultySection::resized()
     {
         if (difficultyButtons[i])
             difficultyButtons[i]->setBoundsRelative(
-                ((5.f / 17.f) + ((float) i / 9.f)), 1.f / 3.f, 1.f / 9.f, 1.f / 3.f);
+                (0.25f + ((float) i / 9.f)), 1.f / 3.f, 1.f / 9.f, 1.f / 3.f);
     }
 }
 

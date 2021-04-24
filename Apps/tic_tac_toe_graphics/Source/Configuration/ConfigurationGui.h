@@ -26,14 +26,15 @@ private:
 
     void numOfPlayersButtonPressed(int newNumOfPlayers);
 
-    ButtonLNF lnf;
+    ButtonLNF lnfButtons;
+    ButtonLNF playButtonLnf;
     Background background;
     juce::Label header {"Settings", "Settings"};
     NumOfPlayersSection numOfPlayers {
-        lnf, [&](int num) { numOfPlayersButtonPressed(num); }};
+        lnfButtons, [&](int num) { numOfPlayersButtonPressed(num); }};
     std::unique_ptr<DifficultySection> difficulty {
-        std::make_unique<DifficultySection>(lnf)};
-    std::unique_ptr<PlayersNames> playerNames {std::make_unique<PlayersNames>(1)};
-    std::unique_ptr<TypeSection> type {std::make_unique<TypeSection>(lnf)};
+        std::make_unique<DifficultySection>(lnfButtons)};
+    std::unique_ptr<PlayersNames> playerNames {std::make_unique<PlayersNames>()};
+    std::unique_ptr<TypeSection> type {std::make_unique<TypeSection>(lnfButtons)};
     juce::TextButton playButton {"PLAY!"};
 };

@@ -3,7 +3,7 @@
 
 GuiManager::GuiManager()
 {
-    setSize(750, 750);
+    setSize(windowSize, windowSize);
 
     addAndMakeVisible(*welcomePage);
 }
@@ -11,13 +11,13 @@ GuiManager::GuiManager()
 void GuiManager::resized()
 {
     if (welcomePage)
-        welcomePage->setBounds(getLocalBounds());
+        welcomePage->setBounds(0, 0, windowSize, windowSize);
 
     if (config)
-        config->setBounds(getLocalBounds());
+        config->setBounds(0, 0, windowSize, windowSize);
 
     if (controller)
-        controller->setBounds(getLocalBounds());
+        controller->setBounds(0, 0, windowSize, windowSize);
 }
 
 void GuiManager::startButtonPressed()

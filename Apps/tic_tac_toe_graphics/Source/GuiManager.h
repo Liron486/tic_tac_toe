@@ -18,6 +18,7 @@ private:
     void startButtonPressed();
     void playButtonPressed();
 
+    int windowSize {750};
     Liron486::GameManager gameManager;
     std::unique_ptr<WelcomePage> welcomePage {
         std::make_unique<WelcomePage>([&] { startButtonPressed(); })};

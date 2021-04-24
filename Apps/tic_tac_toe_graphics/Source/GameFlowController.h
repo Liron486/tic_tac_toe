@@ -6,7 +6,8 @@
 
 #include <JuceHeader.h>
 
-class GameFlowController : public Component
+class GameFlowController
+    : public Component
 {
     using LPoint = Liron486::Point;
 

@@ -23,7 +23,7 @@ private:
     Ex ex;
     Circle circle;
     NameAndScore player1 {gameManager.getGameData().conf.getPlayerName(0)};
-    juce::Label gameCounter {"GameCounter", "Game Number:"};
+    juce::Label gameCounter {"GameCounter", "Game Number"};
     juce::Label counter {"Counter", "1"};
     NameAndScore player2 {gameManager.getGameData().conf.getPlayerName(1)};
 };

@@ -84,6 +84,7 @@ static void setLabels(
     auto font = label.getFont();
 
     font.setHeight(fontHeight);
+    font.setTypefaceName("Century Ghotic");
     label.setFont(font);
 }
 
@@ -91,7 +92,7 @@ static void setButton(juce::TextButton& button, ButtonLNF& lnf)
 {
     button.setColour(button.textColourOffId, juce::Colours::black);
     button.setColour(button.buttonColourId, juce::Colours::seashell);
-    button.setColour(button.buttonOnColourId, juce::Colours::chocolate);
+    button.setColour(button.buttonOnColourId, juce::Colours::navy);
     button.setLookAndFeel(&lnf);
     button.setClickingTogglesState(true);
 }

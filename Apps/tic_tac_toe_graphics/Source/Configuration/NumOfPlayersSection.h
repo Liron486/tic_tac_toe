@@ -17,7 +17,7 @@ private:
 
     ButtonLNF& lnf;
     std::function<void(int)> buttonPressedCallback;
-    juce::Label numOfPlayers {"NumOfRealPlayers", "Choose number of real players: "};
+    juce::Label numOfPlayers {"NumOfRealPlayers", "Choose Number of Real Players: "};
     std::vector<std::unique_ptr<juce::TextButton>> numOfPlayersButtons;
     int numOfPlayersPressed = 1;
 };

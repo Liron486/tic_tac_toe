@@ -22,9 +22,11 @@ target_sources(${TargetName} PRIVATE
         Source/Configuration/DifficultySection.cpp
         Source/Configuration/PlayersNames.cpp
         Source/Configuration/TypeSection.cpp
+        Source/Configuration/TextEditorLNF.cpp
         Source/GamePlayGUI.cpp
         Source/NameAndScore.cpp
-        Source/ScoreGUI.cpp)
+        Source/ScoreGUI.cpp
+        Source/ComboLNF.cpp)
 
 target_include_directories (${TargetName} PRIVATE "${CMAKE_CURRENT_LIST_DIR}/../Game/Tic Tac Toe")
 

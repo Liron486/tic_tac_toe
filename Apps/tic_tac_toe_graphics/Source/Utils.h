@@ -110,3 +110,10 @@ static void
 
     button.setConnectedEdges(connectedFalgs);
 }
+
+static void setTextToBold(juce::Label& label, bool isBold)
+{
+    auto font = label.getFont();
+    font.setBold(isBold);
+    label.setFont(font);
+}

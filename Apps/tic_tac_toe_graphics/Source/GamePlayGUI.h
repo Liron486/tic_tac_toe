@@ -2,7 +2,7 @@
 
 #include "BoardGui.h"
 #include "ScoreGUI.h"
-#include "ComboLnf.h"
+#include "ComboLNF.h"
 #include "Utils.h"
 
 class GamePlayGUI
@@ -30,7 +30,7 @@ private:
     void resetGameCallback();
 
     ButtonLNF buttonLnf;
-    ComboLnf comboLnf;
+    ComboLNF comboLnf;
     ScoreGui score {gameData};
     BoardGui borad {gameData};
     juce::ComboBox difficulty;

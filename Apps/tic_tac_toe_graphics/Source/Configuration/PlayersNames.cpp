@@ -29,6 +29,7 @@ void PlayersNames::initTextEditors()
     textEditorFont.setTypefaceName("Century Ghotic");
     textEditorFont.setBold(true);
 
+
     player1Name.setFont(textEditorFont);
     player2Name.setFont(textEditorFont);
     player1Name.setColour(TextEditor::ColourIds::backgroundColourId,
@@ -42,4 +43,7 @@ void PlayersNames::initTextEditors()
     player2Name.setText("Player2");
     player1Name.setTextToShowWhenEmpty("Player1", juce::Colours::white);
     player2Name.setTextToShowWhenEmpty("Player2", juce::Colours::white);
+
+    player1Name.setLookAndFeel(&editorLnf);
+    player2Name.setLookAndFeel(&editorLnf);
 }

@@ -7,8 +7,7 @@ GameFlowController::GameFlowController(Liron486::GameManager& managerToUse)
     manager.getGameData().makeMoveFunc = [&](int cellNum)
     { setNextMovePosition(cellNum); };
 
-    gamePlay.setYesNoButtonsCallbacks([&] { playAnotherGame(); },
-                                      [&] {  });
+    gamePlay.setYesNoButtonsCallbacks([&] { playAnotherGame(); });
 
     addAndMakeVisible(gamePlay);
 }

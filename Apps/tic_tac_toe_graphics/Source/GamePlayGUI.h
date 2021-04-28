@@ -12,14 +12,12 @@ class GamePlayGUI
 public:
     explicit GamePlayGUI(Liron486::GameManager& managerToUse);
     void resized() override;
-
     void setButtonsVisibility(bool isVisible);
     void setTieMessageVisibility(bool isVisible);
     void setWinMessageVisibility(bool isVisible);
     void setPlayAgainMessageVisibile(bool isVisible);
     void updateScore();
-    void setYesNoButtonsCallbacks(std::function<void()> yesCallback,
-                                  std::function<void()> noCallback);
+    void setYesNoButtonsCallbacks(std::function<void()> yesCallback);
     Liron486::Configuration::Difficulty getDifficultyChosen();
     void increseGameCounter();
 
@@ -28,6 +26,7 @@ private:
     void setButtons();
     void switchTypeCallback();
     void resetGameCallback();
+
 
     ButtonLNF buttonLnf;
     ComboLNF comboLnf;
@@ -39,5 +38,4 @@ private:
     juce::Label tieMessage {"Tie", "It's A Tie!"};
     juce::Label winMessage {"WinMessage", "XXX Wins!"};
     juce::TextButton yesButton {"Play Again"};
-    juce::TextButton noButton {"Exit"};
 };

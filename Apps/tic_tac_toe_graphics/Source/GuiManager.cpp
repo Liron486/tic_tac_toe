@@ -10,14 +10,18 @@ GuiManager::GuiManager()
 
 void GuiManager::resized()
 {
+    windowSize = jmin(getWidth(), getHeight(), 750);
+    auto x = (getWidth() - windowSize) / 2;
+    auto y = (getHeight() - windowSize) / 2;
+
     if (welcomePage)
-        welcomePage->setBounds(0, 0, windowSize, windowSize);
+        welcomePage->setBounds(x, y, windowSize, windowSize);
 
     if (config)
-        config->setBounds(0, 0, windowSize, windowSize);
+        config->setBounds(x, y, windowSize, windowSize);
 
     if (controller)
-        controller->setBounds(0, 0, windowSize, windowSize);
+        controller->setBounds(x, y, windowSize, windowSize);
 }
 
 void GuiManager::startButtonPressed()

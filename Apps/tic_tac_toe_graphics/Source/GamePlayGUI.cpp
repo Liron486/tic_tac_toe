@@ -16,7 +16,6 @@ GamePlayGUI::GamePlayGUI(Liron486::GameManager& managerToUse)
     addChildComponent(tieMessage);
     addChildComponent(winMessage);
     addChildComponent(yesButton);
-    addChildComponent(noButton);
 }
 
 void GamePlayGUI::resized()
@@ -28,8 +27,7 @@ void GamePlayGUI::resized()
     borad.setBoundsRelative(0.21f, 0.25f, 0.58f, 0.58f);
     tieMessage.setBoundsRelative(0.25f, 0.865f, 0.5f, 0.1f);
     winMessage.setBoundsRelative(0.25f, 0.865f, 0.5f, 0.1f);
-    yesButton.setBoundsRelative(0.3f, 0.89f, 0.15f, 0.06f);
-    noButton.setBoundsRelative(0.55f, 0.89f, 0.15f, 0.06f);
+    yesButton.setBoundsRelative(0.425f, 0.89f, 0.15f, 0.06f);
 }
 
 void GamePlayGUI::setDifficultyComboBox()
@@ -60,10 +58,8 @@ void GamePlayGUI::setButtons()
     resetButton.onClick = [&] { resetGameCallback(); };
 
     yesButton.setColour(TextButton::buttonColourId, Colours::navy);
-    noButton.setColour(TextButton::buttonColourId, Colour(178, 34, 34));
 
     yesButton.setLookAndFeel(&buttonLnf);
-    noButton.setLookAndFeel(&buttonLnf);
 
     difficulty.setLookAndFeel(&comboLnf);
 }
@@ -102,16 +98,13 @@ void GamePlayGUI::setWinMessageVisibility(bool isVisible)
 void GamePlayGUI::setPlayAgainMessageVisibile(bool isVisible)
 {
     yesButton.setVisible(isVisible);
-    noButton.setVisible(isVisible);
 
     resized();
 }
 
-void GamePlayGUI::setYesNoButtonsCallbacks(std::function<void()> yesCallback,
-                                           std::function<void()> noCallback)
+void GamePlayGUI::setYesNoButtonsCallbacks(std::function<void()> yesCallback)
 {
     yesButton.onClick = std::move(yesCallback);
-    noButton.onClick = std::move(noCallback);
 }
 
 void GamePlayGUI::updateScore()
